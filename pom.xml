@@ -7,7 +7,6 @@
   </parent>
   <groupId>jaxen</groupId>
   <artifactId>jaxen</artifactId>
-  <packaging>bundle</packaging>
   <name>jaxen</name>
   <version>1.1.6</version>
   <description>Jaxen is a universal Java XPath engine.</description>
@@ -236,26 +235,6 @@
             <Private-Package>!org.w3c.dom</Private-Package>
           </instructions>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>project</descriptorRef>
-            <descriptorRef>src</descriptorRef>
-            <descriptorRef>bin</descriptorRef>
-          </descriptorRefs>
-        </configuration> 
       </plugin>
       <plugin>
         <artifactId>maven-repository-plugin</artifactId>
