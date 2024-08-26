@@ -220,6 +220,10 @@
           <showDeprecation>true</showDeprecation>
           <source>1.3</source>
           <target>1.2</target>
+          <testExcludes>
+            <exclude>**/*</exclude>
+          </testExcludes>
+          <compilerArgument>${grt-testing.plugin}</compilerArgument>
         </configuration>
       </plugin>
       <plugin>
@@ -282,16 +286,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>2.4.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <testExcludes>
-            <exclude>**/*</exclude>
-          </testExcludes>
-          <compilerArgument>${grt-testing.plugin}</compilerArgument>
-        </configuration>
       </plugin>
     </plugins>
   </build>
