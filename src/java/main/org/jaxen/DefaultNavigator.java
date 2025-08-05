@@ -49,6 +49,9 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 
 import org.jaxen.pattern.Pattern;
@@ -90,6 +93,7 @@ public abstract class DefaultNavigator implements Navigator
      * @return never returns
      * @throws UnsupportedAxisException always
      */
+    @Impure
     public Iterator getChildAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         throw new UnsupportedAxisException("child");
@@ -98,6 +102,7 @@ public abstract class DefaultNavigator implements Navigator
     /* (non-Javadoc)
      * @see org.jaxen.Navigator#getDescendantAxisIterator(java.lang.Object)
      */
+    @Impure
     public Iterator getDescendantAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new DescendantAxisIterator( contextNode,
@@ -110,11 +115,13 @@ public abstract class DefaultNavigator implements Navigator
      * @return never returns
      * @throws UnsupportedAxisException
      */
+    @Impure
     public Iterator getParentAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         throw new UnsupportedAxisException("parent");
     }
 
+    @Impure
     public Iterator getAncestorAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new AncestorAxisIterator( contextNode,
@@ -122,6 +129,7 @@ public abstract class DefaultNavigator implements Navigator
     }
 
 
+    @Impure
     public Iterator getFollowingSiblingAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new FollowingSiblingAxisIterator( contextNode,
@@ -129,12 +137,14 @@ public abstract class DefaultNavigator implements Navigator
     }
 
 
+    @Impure
     public Iterator getPrecedingSiblingAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new PrecedingSiblingAxisIterator( contextNode,
                                                  this );
     }
 
+    @Impure
     public Iterator getFollowingAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new FollowingAxisIterator( contextNode,
@@ -144,6 +154,7 @@ public abstract class DefaultNavigator implements Navigator
     }
 
 
+    @Impure
     public Iterator getPrecedingAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new PrecedingAxisIterator( contextNode,
@@ -159,6 +170,7 @@ public abstract class DefaultNavigator implements Navigator
      * @return never returns
      * @throws UnsupportedAxisException
      */
+    @Impure
     public Iterator getAttributeAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         throw new UnsupportedAxisException("attribute");
@@ -171,48 +183,60 @@ public abstract class DefaultNavigator implements Navigator
      * @return never returns
      * @throws UnsupportedAxisException
      */
+    @Impure
     public Iterator getNamespaceAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         throw new UnsupportedAxisException("namespace");
     }
 
+    @SideEffectFree
+    @Impure
     public Iterator getSelfAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new SelfAxisIterator( contextNode );
     }
 
+    @SideEffectFree
+    @Impure
     public Iterator getDescendantOrSelfAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new DescendantOrSelfAxisIterator( contextNode,
                                                  this );
     }
 
+    @SideEffectFree
+    @Impure
     public Iterator getAncestorOrSelfAxisIterator(Object contextNode) throws UnsupportedAxisException
     {
         return new AncestorOrSelfAxisIterator( contextNode,
                                                this );
     }
 
+    @Impure
     public Object getDocumentNode(Object contextNode)
     {
         return null;
     }
     
+    @Impure
     public String translateNamespacePrefixToUri(String prefix, Object element)
     {
         return null;
     }
 
+    @Impure
     public String getProcessingInstructionTarget(Object obj)
     {
         return null;
     }
 
+    @Impure
     public String getProcessingInstructionData(Object obj)
     {
         return null;
     }
 
+    @Impure
     public short getNodeType(Object node)
     {
         if ( isElement(node) ) 
@@ -256,6 +280,7 @@ public abstract class DefaultNavigator implements Navigator
      * @return the parent node
      * @throws UnsupportedAxisException if the parent axis is not supported
      */
+    @Impure
     public Object getParentNode(Object contextNode) throws UnsupportedAxisException
     {
         Iterator iter = getParentAxisIterator( contextNode );
@@ -276,6 +301,7 @@ public abstract class DefaultNavigator implements Navigator
      * @throws FunctionCallException if an error occurs while loading the
      *    URL; e.g. an I/O error or the document is malformed
      */
+    @Impure
     public Object getDocument(String url) throws FunctionCallException
     {
         return null;
@@ -291,6 +317,8 @@ public abstract class DefaultNavigator implements Navigator
      *
      *  @return   null
      */
+    @Pure
+    @Impure
     public Object getElementById(Object contextNode, String elementId)
     {
         return null;

@@ -47,6 +47,9 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 
 /** Indicates an error during parsing of an XPath expression.
  *
@@ -72,6 +75,7 @@ public class XPathSyntaxException extends JaxenException
      * 
      * @param e the exception that caused this exception
      */
+    @Impure
     public XPathSyntaxException(org.jaxen.saxpath.XPathSyntaxException e)
     {
         super( e );
@@ -86,6 +90,8 @@ public class XPathSyntaxException extends JaxenException
      *  @param position the position of the error
      *  @param message the error message
      */
+    @SideEffectFree
+    @Impure
     public XPathSyntaxException(String xpath,
                                 int position,
                                 String message)
@@ -100,6 +106,7 @@ public class XPathSyntaxException extends JaxenException
      *
      *  @return the position of the error
      */
+    @Pure
     public int getPosition()
     {
         return this.position;
@@ -109,6 +116,7 @@ public class XPathSyntaxException extends JaxenException
      *
      *  @return the erroneous expression
      */
+    @Pure
     public String getXPath()
     {
         return this.xpath;
@@ -126,6 +134,7 @@ public class XPathSyntaxException extends JaxenException
      *
      *  @return the error position marker
      */
+    @Impure
     public String getPositionMarker()
     {
         StringBuffer buf = new StringBuffer();
@@ -154,6 +163,7 @@ public class XPathSyntaxException extends JaxenException
      *
      *  @return the multi-line error message
      */
+    @Impure
     public String getMultilineMessage()
     {
         StringBuffer buf = new StringBuffer(getMessage());

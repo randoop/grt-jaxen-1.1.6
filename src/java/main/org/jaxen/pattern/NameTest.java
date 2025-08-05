@@ -47,6 +47,9 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 import org.jaxen.Navigator;
 
@@ -63,6 +66,7 @@ public class NameTest extends NodeTest {
     /** The type of node to match - either attribute or element */
     private short nodeType;
     
+    @Impure
     public NameTest(String name, short nodeType)   
     {
         this.name = name;
@@ -71,6 +75,7 @@ public class NameTest extends NodeTest {
         
     /** @return true if the pattern matches the given node
       */
+    @Impure
     public boolean matches( Object node, Context context ) 
     {
         Navigator navigator = context.getNavigator();
@@ -99,17 +104,20 @@ public class NameTest extends NodeTest {
         return false;
     }
     
+    @Pure
     public double getPriority() 
     {
         return 0.0;
     }
 
 
+    @Pure
     public short getMatchType() 
     {
         return nodeType;
     }
     
+    @Pure
     public String getText() 
     {
         if ( nodeType == Pattern.ATTRIBUTE_NODE ) 
@@ -122,6 +130,7 @@ public class NameTest extends NodeTest {
         }
     }
     
+    @SideEffectFree
     public String toString()
     {
         return super.toString() + "[ name: " + name + " type: " + nodeType + " ]";

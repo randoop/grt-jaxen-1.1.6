@@ -47,6 +47,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -86,6 +88,7 @@ public class IdFunction implements Function
     /**
      * Create a new <code>IdFunction</code> object.
      */
+    @SideEffectFree
     public IdFunction() {}
     
     /** 
@@ -102,6 +105,7 @@ public class IdFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more or less than one item
      */
+    @Impure
     public Object call(Context context, List args) throws FunctionCallException
     {
         if ( args.size() == 1 ) {
@@ -126,6 +130,7 @@ public class IdFunction implements Function
      *     an empty list if there are no such nodes
      * 
      */
+    @Impure
     public static List evaluate(List contextNodes, Object arg, Navigator nav)
     {
         if (contextNodes.size() == 0) return Collections.EMPTY_LIST;

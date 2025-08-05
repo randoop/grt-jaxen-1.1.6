@@ -47,6 +47,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -70,6 +72,7 @@ public class LastFunction implements Function
     /**
      * Create a new <code>LastFunction</code> object.
      */
+    @SideEffectFree
     public LastFunction() {}
     
     /**
@@ -85,6 +88,7 @@ public class LastFunction implements Function
      * 
      * @see Context#getSize()
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -106,6 +110,7 @@ public class LastFunction implements Function
      * 
      * @see Context#getSize()
      */
+    @Impure
     public static Double evaluate(Context context)
     {
         return new Double( context.getSize() );

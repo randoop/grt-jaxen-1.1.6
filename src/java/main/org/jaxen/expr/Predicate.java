@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.io.Serializable;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
@@ -70,6 +72,7 @@ public interface Predicate extends Serializable
      * 
      * @return the expression between the brackets
      */
+    @Pure
     Expr getExpr();
     
     /**
@@ -77,6 +80,7 @@ public interface Predicate extends Serializable
      * 
      * @param expr the new expression
      */
+    @Impure
     void setExpr(Expr expr);
 
     /**
@@ -84,6 +88,7 @@ public interface Predicate extends Serializable
      * 
      * @see Expr#simplify()
      */
+    @Impure
     void simplify();
 
     /**
@@ -92,6 +97,7 @@ public interface Predicate extends Serializable
      * 
      * @return the bracketed form of this predicate
      */
+    @Impure
     String getText();
 
     /**
@@ -108,6 +114,7 @@ public interface Predicate extends Serializable
      * @throws JaxenException
      * @see Expr#evaluate(Context)
      */
+    @Impure
     Object evaluate(Context context) throws JaxenException;
 
 }

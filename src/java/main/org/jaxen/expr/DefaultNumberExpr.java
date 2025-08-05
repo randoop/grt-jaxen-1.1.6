@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 
 
@@ -60,26 +63,34 @@ class DefaultNumberExpr extends DefaultExpr implements NumberExpr
     private static final long serialVersionUID = -6021898973386269611L;
     private Double number;
 
+    @Impure
     DefaultNumberExpr( Double number )
     {
         this.number = number;
     }
 
+    @Pure
     public Number getNumber()
     {
         return this.number;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultNumberExpr): " + getNumber() + "]";
     }
 
+    @SideEffectFree
+    @Impure
     public String getText()
     {
         return getNumber().toString();
     }
 
+    @Pure
+    @Impure
     public Object evaluate( Context context )
     {
         return getNumber();

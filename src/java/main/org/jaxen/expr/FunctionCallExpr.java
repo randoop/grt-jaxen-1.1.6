@@ -48,6 +48,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 /**
@@ -66,6 +68,7 @@ public interface FunctionCallExpr extends Expr
      * 
      * @return the namespace prefix of the function
      */
+    @Pure
     public String getPrefix();
     
     /**
@@ -73,6 +76,7 @@ public interface FunctionCallExpr extends Expr
      * 
      * @return the local name of the function
      */
+    @Pure
     public String getFunctionName();
     
     /**
@@ -80,6 +84,7 @@ public interface FunctionCallExpr extends Expr
      * 
      * @param parameter a function argument 
      */
+    @Impure
     public void addParameter(Expr parameter);
     
     /**
@@ -88,6 +93,7 @@ public interface FunctionCallExpr extends Expr
      * 
      * @return the ordered list of function arguments
      */
+    @Pure
     public List getParameters();
     
 }

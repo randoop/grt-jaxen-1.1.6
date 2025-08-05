@@ -48,9 +48,12 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 abstract class DefaultArithExpr extends DefaultBinaryExpr 
 {
+    @Impure
     DefaultArithExpr(Expr lhs,
                             Expr rhs)
     {
@@ -58,6 +61,8 @@ abstract class DefaultArithExpr extends DefaultBinaryExpr
                rhs );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultArithExpr): " + getLHS() + ", " + getRHS() + "]";

@@ -47,6 +47,10 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -71,6 +75,7 @@ public class NotFunction implements Function
     /**
      * Create a new <code>NotFunction</code> object.
      */
+    @SideEffectFree
     public NotFunction() {}
     
     /**
@@ -88,6 +93,9 @@ public class NotFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have exactly one argument
      */
+    @Pure
+    @Deterministic
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -111,6 +119,8 @@ public class NotFunction implements Function
      * @return <code>Boolean.TRUE</code> if the boolean value of 
      * <code>obj</code> is false, and <code>Boolean.FALSE</code> otherwise
      */
+    @Pure
+    @Impure
     public static Boolean evaluate(Object obj, Navigator nav)
     {
         return ( ( BooleanFunction.evaluate( obj, nav ).booleanValue() )

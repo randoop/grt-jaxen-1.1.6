@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -79,6 +81,7 @@ public class RoundFunction implements Function
     /**
      * Create a new <code>RoundFunction</code> object.
      */
+    @SideEffectFree
     public RoundFunction() {}
     
     
@@ -94,6 +97,7 @@ public class RoundFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more or less than one item
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -116,6 +120,7 @@ public class RoundFunction implements Function
      * 
      * @return the integer nearest to <code>obj</code>
      */
+    @Impure
     public static Double evaluate(Object obj,
                                   Navigator nav)
     {

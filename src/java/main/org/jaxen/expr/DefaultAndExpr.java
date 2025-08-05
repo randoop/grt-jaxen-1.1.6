@@ -47,6 +47,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 import org.jaxen.Navigator;
@@ -59,6 +61,7 @@ class DefaultAndExpr extends DefaultLogicalExpr
      */
     private static final long serialVersionUID = -5237984010263103742L;
 
+    @Impure
     DefaultAndExpr(Expr lhs,
                           Expr rhs)
     {
@@ -66,16 +69,20 @@ class DefaultAndExpr extends DefaultLogicalExpr
                rhs );
     }
 
+    @Pure
     public String getOperator()
     {
         return "and";
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultAndExpr): " + getLHS() + ", " + getRHS() + "]";
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         Navigator nav = context.getNavigator();

@@ -46,6 +46,9 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -58,10 +61,12 @@ class NodeComparator implements Comparator {
     private Navigator navigator;
 
 
+    @SideEffectFree
     NodeComparator(Navigator navigator) {
         this.navigator = navigator;
     }
     
+    @Impure
     public int compare(Object o1, Object o2) {
         
     	if (o1 == o2) return 0;
@@ -139,10 +144,13 @@ class NodeComparator implements Comparator {
     }
     
 
+    @Pure
+    @Impure
     private boolean isNonChild(Object o) {
         return navigator.isAttribute(o) || navigator.isNamespace(o);
     }
 
+    @Impure
     private int compareSiblings(Object sib1, Object sib2) 
       throws UnsupportedAxisException {
 
@@ -162,6 +170,7 @@ class NodeComparator implements Comparator {
         
     }
 
+    @Impure
     private int getDepth(Object o) throws UnsupportedAxisException {
 
         int depth = 0;

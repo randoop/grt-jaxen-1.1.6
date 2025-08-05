@@ -50,6 +50,9 @@
 package org.jaxen.xom;
 
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import nu.xom.Attribute;
 import nu.xom.Comment;
 import nu.xom.Document;
@@ -92,76 +95,93 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
      */
     private static final long serialVersionUID = 3159311338575942877L;
 
+    @Pure
     public boolean isAttribute(Object o) {
         return o instanceof Attribute;
     }
 
+    @Pure
     public boolean isComment(Object o) {
         return o instanceof Comment;
     }
 
+    @Pure
     public boolean isDocument(Object o) {
         return o instanceof Document;
     }
 
+    @Pure
     public boolean isElement(Object o) {
         return o instanceof Element;
     }
 
+    @Pure
     public boolean isNamespace(Object o) {
         return o instanceof XPathNamespace;
     }
 
+    @Pure
     public boolean isProcessingInstruction(Object o) {
         return o instanceof ProcessingInstruction;
     }
 
+    @Pure
     public boolean isText(Object o) {
         return o instanceof Text;
     }
 
     //
     
+    @Impure
     public String getAttributeName(Object o) {
         return (isAttribute(o) ? ((Attribute)o).getLocalName() : null);
     }
 
+    @Impure
     public String getAttributeNamespaceUri(Object o) {
         return (isAttribute(o) ? ((Attribute)o).getNamespaceURI() : null);
     }
 
+    @Impure
     public String getAttributeQName(Object o) {
         return (isAttribute(o) ? ((Attribute)o).getQualifiedName() : null);
     }
 
+    @Impure
     public String getAttributeStringValue(Object o) {
         return (isAttribute(o) ? ((Attribute)o).getValue() : null);
     }
 
     //
     
+    @Impure
     public String getCommentStringValue(Object o) {
         return (isComment(o) ? ((Comment)o).getValue() : null);
     }
 
+    @Impure
     public String getElementName(Object o) {
         return (isElement(o) ? ((Element)o).getLocalName() : null);
     }
 
+    @Impure
     public String getElementNamespaceUri(Object o) {
         return (isElement(o) ? ((Element)o).getNamespaceURI() : null);
     }
 
+    @Impure
     public String getElementQName(Object o) {
         return (isElement(o) ? ((Element)o).getQualifiedName() : null);
     }
 
+    @Impure
     public String getElementStringValue(Object o) {
         return (o instanceof Node ? ((Node)o).getValue() : null);
     }
 
     //
     
+    @Impure
     public String getNamespacePrefix(Object o) {
         if (isElement(o)) {
             return ((Element)o).getNamespacePrefix();
@@ -173,6 +193,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
         return null;
     }
 
+    @Impure
     public String getNamespaceStringValue(Object o) {
         if (isElement(o)) {
             return ((Element)o).getNamespaceURI();
@@ -186,12 +207,14 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
 
     //
     
+    @Impure
     public String getTextStringValue(Object o) {
         return (o instanceof Text ? ((Text)o).getValue() : null);
     }
     
     //
 
+    @Impure
     public Object getDocument(String s) throws FunctionCallException {
         try {
             return new Builder(new NodeFactory()).build(s);
@@ -200,6 +223,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
         }
     }
 
+    @Impure
     public Object getDocumentNode(Object o) {
         ParentNode parent = null;
         if (o instanceof ParentNode) {
@@ -215,20 +239,25 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
     private abstract static class IndexIterator implements Iterator {
         private Object o = null;
         private int pos = 0, end = -1;
+        @SideEffectFree
         public IndexIterator(Object o, int pos, int end) {
             this.o = o;
             this.pos = pos;
             this.end = end;
         }
+        @Pure
         public boolean hasNext() {
             return pos < end;
         }
+        @Impure
         public abstract Object get(Object o, int i); 
         
+        @Impure
         public Object next() {
             return get(o, pos++);
         }
 
+        @SideEffectFree
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -236,9 +265,11 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
     
     //
     
+    @Impure
     public Iterator getAttributeAxisIterator(Object o) {
         if (isElement(o)) {
             return new IndexIterator(o, 0, ((Element)o).getAttributeCount()) {
+                @Impure
                 public Object get(Object o, int i) {
                     return ((Element)o).getAttribute(i);
                 }
@@ -247,9 +278,11 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @Impure
     public Iterator getChildAxisIterator(Object o) {
         if (isElement(o) || (o instanceof Document)) {
             return new IndexIterator(o, 0, ((ParentNode)o).getChildCount()) {
+                @Impure
                 public Object get(Object o, int i) {
                     return ((ParentNode)o).getChild(i);
                 }
@@ -260,6 +293,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
 
     //
 
+    @Impure
     public Iterator getParentAxisIterator(Object o) {
         Object parent = null;
         if (o instanceof Node) {
@@ -270,32 +304,38 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
         return (parent != null ? new SingleObjectIterator(parent) : null);
     }
 
+    @Impure
     public Object getParentNode(Object o)  {
         return (o instanceof Node ? ((Node)o).getParent() : null);
     }
 
     //
 
+    @Impure
     public Iterator getPrecedingAxisIterator(Object o) throws UnsupportedAxisException {
         return super.getPrecedingAxisIterator(o);
     }
 
+    @Impure
     public Iterator getPrecedingSiblingAxisIterator(Object o) throws UnsupportedAxisException {
         return super.getPrecedingSiblingAxisIterator(o);
     }
     
     //
 
+    @Impure
     public String getProcessingInstructionData(Object o) {
         return (o instanceof ProcessingInstruction ? ((ProcessingInstruction)o).getValue() : null);
     }
 
+    @Impure
     public String getProcessingInstructionTarget(Object o) {
         return (o instanceof ProcessingInstruction ? ((ProcessingInstruction)o).getTarget() : null);
     }
 
     //
 
+    @Impure
     public String translateNamespacePrefixToUri(String s, Object o) {
         Element element = null;
         if (o instanceof Element) {
@@ -317,6 +357,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
 
     //
     
+    @Impure
     public XPath parseXPath(String s) throws SAXPathException {
         return new BaseXPath(s, this);
     }
@@ -334,6 +375,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
 
         private String uri, prefix;
 
+        @SideEffectFree
         public XPathNamespace(Element elt, String uri, String prefix)
         {
             element = elt;
@@ -345,21 +387,25 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
          *  retrieved. The result may be null when the namespace node has not yet
          *  been assigned to an element.
          */
+        @Pure
         public Element getElement()
         {
             return element;
         }
 
+        @Pure
         public String getNamespaceURI()
         {
             return uri;
         }
 
+        @Pure
         public String getNamespacePrefix()
         {
             return prefix;
         }
 
+        @Impure
         public String toString()
         {
             return ( "[xmlns:" + prefix + "=\"" +
@@ -370,6 +416,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
 
     //
     
+    @Impure
     private boolean addNamespaceForElement(Element elt, String uri, String prefix, Map map)
     {
         if (uri != null && uri.length() > 0 && (! map.containsKey(prefix))) {
@@ -379,6 +426,7 @@ public class DocumentNavigator extends org.jaxen.DefaultNavigator
         return false;
     }
     
+    @Impure
     public Iterator getNamespaceAxisIterator(Object o)
     {
         if (! isElement(o)) {

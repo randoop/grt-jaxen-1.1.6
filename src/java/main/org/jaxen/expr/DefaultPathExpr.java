@@ -49,6 +49,8 @@
 package org.jaxen.expr;
 
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 
@@ -59,27 +61,33 @@ class DefaultPathExpr extends DefaultExpr implements PathExpr {
     private Expr filterExpr;
     private LocationPath locationPath;
 
+    @Impure
     DefaultPathExpr(Expr filterExpr,
                            LocationPath locationPath) {
         this.filterExpr = filterExpr;
         this.locationPath = locationPath;
     }
 
+    @Pure
     public Expr getFilterExpr() {
         return this.filterExpr;
     }
 
 
+    @Impure
     public void setFilterExpr(Expr filterExpr) {
         this.filterExpr = filterExpr;
     }
 
 
+    @Pure
     public LocationPath getLocationPath() {
         return this.locationPath;
     }
 
 
+    @Pure
+    @Impure
     public String toString() {
         if (getLocationPath() != null) {
             return "[(DefaultPathExpr): " + getFilterExpr() + ", " + getLocationPath() + "]";
@@ -89,6 +97,7 @@ class DefaultPathExpr extends DefaultExpr implements PathExpr {
     }
 
 
+    @Impure
     public String getText() {
         StringBuffer buf = new StringBuffer();
 
@@ -105,6 +114,7 @@ class DefaultPathExpr extends DefaultExpr implements PathExpr {
     }
 
 
+    @Impure
     public Expr simplify() {
         if (getFilterExpr() != null) {
             setFilterExpr(getFilterExpr().simplify());
@@ -130,6 +140,7 @@ class DefaultPathExpr extends DefaultExpr implements PathExpr {
         return this;
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException {
         Object results = null;
         Context pathContext = null;

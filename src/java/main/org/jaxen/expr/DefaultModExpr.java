@@ -47,6 +47,8 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 import org.jaxen.function.NumberFunction;
@@ -58,6 +60,7 @@ class DefaultModExpr extends DefaultMultiplicativeExpr
      */
     private static final long serialVersionUID = -5554964716492040687L;
 
+    @Impure
     DefaultModExpr( Expr lhs,
                            Expr rhs )
     {
@@ -65,11 +68,13 @@ class DefaultModExpr extends DefaultMultiplicativeExpr
                rhs );
     }
 
+    @Pure
     public String getOperator()
     {
         return "mod";
     }
 
+    @Impure
     public Object evaluate( Context context ) throws JaxenException
     {
         Number lhsValue = NumberFunction.evaluate( getLHS().evaluate( context ),

@@ -47,6 +47,7 @@
 
 package org.jaxen.javabean;
 
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 import org.jaxen.BaseXPath;
 import org.jaxen.JaxenException;
@@ -89,11 +90,13 @@ public class JavaBeanXPath extends BaseXPath
      *  @throws JaxenException if there is a syntax error while
      *          parsing the expression
      */
+    @Impure
     public JavaBeanXPath(String xpathExpr) throws JaxenException
     {
         super( xpathExpr, DocumentNavigator.getInstance() );
     }
 
+    @Impure
     protected Context getContext(Object node)
     {
         if ( node instanceof Context )
@@ -122,6 +125,7 @@ public class JavaBeanXPath extends BaseXPath
         return super.getContext( new Element( null, "root", node ) );
     }
 
+    @Impure
     public Object evaluate(Object node)
         throws JaxenException
     {

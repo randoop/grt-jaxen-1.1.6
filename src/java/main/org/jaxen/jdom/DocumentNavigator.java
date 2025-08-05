@@ -48,6 +48,8 @@ package org.jaxen.jdom;
  * $Id: DocumentNavigator.java 1198 2006-09-21 11:48:05Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -100,21 +102,25 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         private static DocumentNavigator instance = new DocumentNavigator();
     }
 
+    @Pure
     public static Navigator getInstance()
     {
         return Singleton.instance;
     }
 
+    @Pure
     public boolean isElement(Object obj)
     {
         return obj instanceof Element;
     }
 
+    @Pure
     public boolean isComment(Object obj)
     {
         return obj instanceof Comment;
     }
 
+    @Pure
     public boolean isText(Object obj)
     {
         return ( obj instanceof Text
@@ -122,26 +128,31 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
                  obj instanceof CDATA );
     }
 
+    @Pure
     public boolean isAttribute(Object obj)
     {
         return obj instanceof Attribute;
     }
 
+    @Pure
     public boolean isProcessingInstruction(Object obj)
     {
         return obj instanceof ProcessingInstruction;
     }
 
+    @Pure
     public boolean isDocument(Object obj)
     {
         return obj instanceof Document;
     }
 
+    @Pure
     public boolean isNamespace(Object obj)
     {
         return obj instanceof Namespace || obj instanceof XPathNamespace;
     }
 
+    @Impure
     public String getElementName(Object obj)
     {
         Element elem = (Element) obj;
@@ -149,6 +160,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return elem.getName();
     }
 
+    @Impure
     public String getElementNamespaceUri(Object obj)
     {
         Element elem = (Element) obj;
@@ -160,6 +172,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
             return uri;
     }
 
+    @Impure
     public String getAttributeName(Object obj)
     {
         Attribute attr = (Attribute) obj;
@@ -167,6 +180,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return attr.getName();
     }
 
+    @Impure
     public String getAttributeNamespaceUri(Object obj)
     {
         Attribute attr = (Attribute) obj;
@@ -178,6 +192,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
             return uri;
     }
 
+    @Impure
     public Iterator getChildAxisIterator(Object contextNode)
     {
         if ( contextNode instanceof Element )
@@ -202,6 +217,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
      * @param namespaceURI     the URI of the namespace of the children to return
      * @return an Iterator     that traverses the named children, or null if none
      */
+    @Impure
     public Iterator getChildAxisIterator(
             Object contextNode, String localName, String namespacePrefix, String namespaceURI) {
 
@@ -235,6 +251,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return JaxenConstants.EMPTY_ITERATOR;
     }
     
+    @Impure
     public Iterator getNamespaceAxisIterator(Object contextNode)
     {
         if ( ! ( contextNode instanceof Element ) )
@@ -292,6 +309,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return nsMap.values().iterator();
     }
 
+    @Impure
     public Iterator getParentAxisIterator(Object contextNode)
     {
         Object parent = null;
@@ -341,6 +359,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @Impure
     public Iterator getAttributeAxisIterator(Object contextNode)
     {
         if ( ! ( contextNode instanceof Element ) )
@@ -363,6 +382,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
      * @param namespaceURI     the URI of the namespace of the attributes to return
      * @return an Iterator     that traverses the named attributes, not null
      */
+    @Impure
     public Iterator getAttributeAxisIterator(
             Object contextNode, String localName, String namespacePrefix, String namespaceURI) {
 
@@ -381,11 +401,13 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
     /** Returns a parsed form of the given XPath string, which will be suitable
      *  for queries on JDOM documents.
      */
+    @Impure
     public XPath parseXPath (String xpath) throws SAXPathException
     {
         return new JDOMXPath(xpath);
     }
 
+    @Impure
     public Object getDocumentNode(Object contextNode)
     {
         if ( contextNode instanceof Document )
@@ -398,6 +420,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return elem.getDocument();
     }
 
+    @Impure
     public String getElementQName(Object obj)
     {
         Element elem = (Element) obj;
@@ -412,6 +435,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return prefix + ":" + elem.getName();
     }
 
+    @Impure
     public String getAttributeQName(Object obj)
     {
         Attribute attr = (Attribute) obj;
@@ -426,6 +450,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return prefix + ":" + attr.getName();
     }
 
+    @Impure
     public String getNamespaceStringValue(Object obj)
     {
         if (obj instanceof Namespace) {
@@ -440,6 +465,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         
     }
 
+    @Impure
     public String getNamespacePrefix(Object obj)
     {
         if (obj instanceof Namespace) {
@@ -453,6 +479,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         }
     }
 
+    @Impure
     public String getTextStringValue(Object obj)
     {
         if ( obj instanceof Text )
@@ -468,6 +495,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return "";
     }
 
+    @Impure
     public String getAttributeStringValue(Object obj)
     {
         Attribute attr = (Attribute) obj;
@@ -475,6 +503,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return attr.getValue();
     }
 
+    @Impure
     public String getElementStringValue(Object obj)
     {
         Element elem = (Element) obj;
@@ -506,6 +535,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return buf.toString();
     }
 
+    @Impure
     public String getProcessingInstructionTarget(Object obj)
     {
         ProcessingInstruction pi = (ProcessingInstruction) obj;
@@ -513,6 +543,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return pi.getTarget();
     }
 
+    @Impure
     public String getProcessingInstructionData(Object obj)
     {
         ProcessingInstruction pi = (ProcessingInstruction) obj;
@@ -520,6 +551,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return pi.getData();
     }
 
+    @Impure
     public String getCommentStringValue(Object obj)
     {
         Comment cmt = (Comment) obj;
@@ -527,6 +559,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return cmt.getText();
     }
 
+    @Impure
     public String translateNamespacePrefixToUri(String prefix, Object context)
     {
         Element element = null;
@@ -567,6 +600,7 @@ public class DocumentNavigator extends DefaultNavigator implements NamedAccessNa
         return null;
     }
 
+    @Impure
     public Object getDocument(String url) throws FunctionCallException
     {
         try

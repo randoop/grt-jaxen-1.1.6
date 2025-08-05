@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Iterator;
 import java.util.List;
 
@@ -72,6 +74,7 @@ public class ConcatFunction implements Function
     /**
      * Create a new <code>ConcatFunction</code> object.
      */
+    @SideEffectFree
     public ConcatFunction() {}
     
     /** 
@@ -88,6 +91,7 @@ public class ConcatFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has less than two items
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -111,6 +115,7 @@ public class ConcatFunction implements Function
      * 
      * @return the concatenation of the arguments
      */
+   @Impure
    public static String evaluate(List list,
                                   Navigator nav)
     {

@@ -47,6 +47,8 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -64,21 +66,25 @@ abstract class DefaultLocationPath extends DefaultExpr implements LocationPath
     /**
      * Create a new empty location path.
      */
+    @Impure
     DefaultLocationPath()
     {
         this.steps = new LinkedList();
     }
 
+    @Impure
     public void addStep(Step step)
     {
         getSteps().add(step);
     }
 
+    @Pure
     public List getSteps()
     {
         return this.steps;
     }
 
+    @Impure
     public Expr simplify()
     {
         Iterator stepIter = getSteps().iterator();
@@ -91,6 +97,7 @@ abstract class DefaultLocationPath extends DefaultExpr implements LocationPath
         return this;
     }
 
+    @Impure
     public String getText()
     {
         StringBuffer buf = new StringBuffer();
@@ -106,6 +113,7 @@ abstract class DefaultLocationPath extends DefaultExpr implements LocationPath
         return buf.toString();
     }
 
+    @Impure
     public String toString()
     {
         StringBuffer buf = new StringBuffer();
@@ -121,11 +129,13 @@ abstract class DefaultLocationPath extends DefaultExpr implements LocationPath
         return buf.toString();
     }
 
+    @Pure
     public boolean isAbsolute()
     {
         return false;
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         List nodeSet = context.getNodeSet();
@@ -151,6 +161,8 @@ abstract class DefaultLocationPath extends DefaultExpr implements LocationPath
         return contextNodeSet;
     }
 
+    @Pure
+    @Impure
     private boolean isReverseAxis(Step step) {
 
         int axis = step.getAxis();

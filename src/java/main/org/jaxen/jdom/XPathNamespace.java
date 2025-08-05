@@ -48,6 +48,9 @@
 
 package org.jaxen.jdom;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
@@ -65,6 +68,7 @@ public class XPathNamespace
     /** Creates a namespace-node wrapper for a namespace node that hasn't been
      *  assigned to an element yet.
      */
+    @SideEffectFree
     public XPathNamespace( Namespace jdomNamespace )
     {
         this.jdomNamespace = jdomNamespace;
@@ -73,6 +77,7 @@ public class XPathNamespace
     /** Creates a namespace-node wrapper for a namespace node that is assigned
      *  to the given JDOM element.
      */
+    @SideEffectFree
     public XPathNamespace( Element jdomElement, Namespace jdomNamespace )
     {
         this.jdomElement = jdomElement;
@@ -83,6 +88,7 @@ public class XPathNamespace
      *  retrieved. The result may be null when the namespace node has not yet
      *  been assigned to an element.
      */
+    @Pure
     public Element getJDOMElement()
     {
         return jdomElement;
@@ -90,6 +96,7 @@ public class XPathNamespace
 
     /** Sets or changes the element to which this namespace node is assigned.
      */
+    @Impure
     public void setJDOMElement( Element jdomElement )
     {
         this.jdomElement = jdomElement;
@@ -98,11 +105,13 @@ public class XPathNamespace
     /** Returns the JDOM namespace object of this namespace node; the JDOM
      *  namespace object contains the prefix and URI of the namespace.
      */
+    @Pure
     public Namespace getJDOMNamespace()
     {
         return jdomNamespace;
     }
 
+    @Impure
     public String toString()
     {
         return ( "[xmlns:" + jdomNamespace.getPrefix() + "=\"" +

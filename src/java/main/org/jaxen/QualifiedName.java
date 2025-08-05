@@ -47,6 +47,8 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 
 /** A local name (that matches the XML NCName production) and a namespace URI
@@ -69,6 +71,7 @@ class QualifiedName implements Serializable
      *  @param localName    local name that is qualified by the namespace uri;
      *                      must not be <code>null</code>
      */
+    @SideEffectFree
     QualifiedName( String namespaceURI, String localName )
     {
         if (namespaceURI == null) namespaceURI = "";
@@ -76,11 +79,13 @@ class QualifiedName implements Serializable
         this.localName = localName;
     }
 
+    @Pure
     public int hashCode()
     {
         return ( localName.hashCode() ^ namespaceURI.hashCode() );
     }
 
+    @Pure
     public boolean equals( Object o )
     {
         // Because this class is package protected and used in only
@@ -95,6 +100,7 @@ class QualifiedName implements Serializable
     /**
      * @return James Clark's namespace form
      */
+    @Pure
     String getClarkForm() {
         if ("".equals(namespaceURI)) return localName;
         else return "{" + namespaceURI + "}" + ":" + localName;

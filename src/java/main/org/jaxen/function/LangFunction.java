@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 
@@ -107,6 +109,7 @@ public class LangFunction implements Function
     /**
      * Create a new <code>LangFunction</code> object.
      */
+    @SideEffectFree
     public LangFunction() {}
     
     
@@ -124,6 +127,7 @@ public class LangFunction implements Function
      * @throws FunctionCallException if <code>args</code> does not have length one
      * 
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -143,6 +147,7 @@ public class LangFunction implements Function
        
     }
 
+    @Impure
     private static Boolean evaluate(List contextNodes, Object lang, Navigator nav)
       throws UnsupportedAxisException
     {
@@ -151,6 +156,7 @@ public class LangFunction implements Function
             ? Boolean.TRUE : Boolean.FALSE;
     }
 
+    @Impure
     private static boolean evaluate(Object node, String lang, Navigator nav)
       throws UnsupportedAxisException
     {
@@ -177,6 +183,7 @@ public class LangFunction implements Function
         return false;
     }
     
+    @SideEffectFree
     private static boolean isSublang(String sublang, String lang)
     {
         if(sublang.equalsIgnoreCase(lang))

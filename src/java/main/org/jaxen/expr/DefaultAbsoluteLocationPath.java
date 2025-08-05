@@ -47,6 +47,9 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,25 +70,30 @@ public class DefaultAbsoluteLocationPath extends DefaultLocationPath
      */
     private static final long serialVersionUID = 2174836928310146874L;
 
+    @Impure
     public DefaultAbsoluteLocationPath()
     {
     }
 
+    @SideEffectFree
     public String toString()
     {
         return "[(DefaultAbsoluteLocationPath): " + super.toString() + "]";
     }
 
+    @Pure
     public boolean isAbsolute() 
     {
         return true;
     }
 
+    @Impure
     public String getText()
     {
         return "/" + super.getText();
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         ContextSupport support = context.getContextSupport();

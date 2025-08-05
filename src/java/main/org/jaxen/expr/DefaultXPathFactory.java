@@ -47,6 +47,8 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.JaxenException;
 import org.jaxen.expr.iter.IterableAncestorAxis;
 import org.jaxen.expr.iter.IterableAncestorOrSelfAxis;
@@ -73,11 +75,14 @@ import org.jaxen.saxpath.Operator;
  */
 public class DefaultXPathFactory implements XPathFactory
 {
+    @SideEffectFree
+    @Impure
     public XPathExpr createXPath( Expr rootExpr ) throws JaxenException
     {
         return new DefaultXPathExpr( rootExpr );
     }
 
+    @Impure
     public PathExpr createPathExpr( FilterExpr filterExpr,
                                     LocationPath locationPath ) throws JaxenException
     {
@@ -85,16 +90,19 @@ public class DefaultXPathFactory implements XPathFactory
                                     locationPath );
     }
 
+    @Impure
     public LocationPath createRelativeLocationPath() throws JaxenException
     {
         return new DefaultRelativeLocationPath();
     }
 
+    @Impure
     public LocationPath createAbsoluteLocationPath() throws JaxenException
     {
         return new DefaultAbsoluteLocationPath();
     }
 
+    @Impure
     public BinaryExpr createOrExpr( Expr lhs,
                                     Expr rhs ) throws JaxenException
     {
@@ -102,6 +110,7 @@ public class DefaultXPathFactory implements XPathFactory
                                   rhs );
     }
 
+    @Impure
     public BinaryExpr createAndExpr( Expr lhs,
                                      Expr rhs ) throws JaxenException
     {
@@ -109,6 +118,7 @@ public class DefaultXPathFactory implements XPathFactory
                                    rhs );
     }
 
+    @Impure
     public BinaryExpr createEqualityExpr( Expr lhs,
                                           Expr rhs,
                                           int equalityOperator ) throws JaxenException
@@ -129,6 +139,7 @@ public class DefaultXPathFactory implements XPathFactory
         throw new JaxenException( "Unhandled operator in createEqualityExpr(): " + equalityOperator );
     }
 
+    @Impure
     public BinaryExpr createRelationalExpr( Expr lhs,
                                             Expr rhs,
                                             int relationalOperator ) throws JaxenException
@@ -159,6 +170,7 @@ public class DefaultXPathFactory implements XPathFactory
         throw new JaxenException( "Unhandled operator in createRelationalExpr(): " + relationalOperator );
     }
 
+    @Impure
     public BinaryExpr createAdditiveExpr( Expr lhs,
                                           Expr rhs,
                                           int additiveOperator ) throws JaxenException
@@ -179,6 +191,7 @@ public class DefaultXPathFactory implements XPathFactory
         throw new JaxenException( "Unhandled operator in createAdditiveExpr(): " + additiveOperator );
     }
 
+    @Impure
     public BinaryExpr createMultiplicativeExpr( Expr lhs,
                                                 Expr rhs,
                                                 int multiplicativeOperator ) throws JaxenException
@@ -204,6 +217,7 @@ public class DefaultXPathFactory implements XPathFactory
         throw new JaxenException( "Unhandled operator in createMultiplicativeExpr(): " + multiplicativeOperator );
     }
 
+    @Impure
     public Expr createUnaryExpr( Expr expr,
                                  int unaryOperator ) throws JaxenException
     {
@@ -217,6 +231,7 @@ public class DefaultXPathFactory implements XPathFactory
         return expr;
     }
 
+    @Impure
     public UnionExpr createUnionExpr( Expr lhs,
                                       Expr rhs ) throws JaxenException
     {
@@ -224,11 +239,13 @@ public class DefaultXPathFactory implements XPathFactory
                                      rhs );
     }
 
+    @Impure
     public FilterExpr createFilterExpr( Expr expr ) throws JaxenException
     {
         return new DefaultFilterExpr( expr, createPredicateSet() );
     }
 
+    @Impure
     public FunctionCallExpr createFunctionCallExpr( String prefix,
                                                     String functionName ) throws JaxenException
     {
@@ -236,21 +253,25 @@ public class DefaultXPathFactory implements XPathFactory
                                             functionName );
     }
 
+    @Impure
     public NumberExpr createNumberExpr( int number ) throws JaxenException
     {
         return new DefaultNumberExpr( new Double( number ) );
     }
 
+    @Impure
     public NumberExpr createNumberExpr( double number ) throws JaxenException
     {
         return new DefaultNumberExpr( new Double( number ) );
     }
 
+    @Impure
     public LiteralExpr createLiteralExpr( String literal ) throws JaxenException
     {
         return new DefaultLiteralExpr( literal );
     }
 
+    @Impure
     public VariableReferenceExpr createVariableReferenceExpr( String prefix,
                                                               String variable ) throws JaxenException
     {
@@ -258,6 +279,8 @@ public class DefaultXPathFactory implements XPathFactory
                                                  variable );
     }
 
+    @SideEffectFree
+    @Impure
     public Step createNameStep( int axis,
                                 String prefix,
                                 String localName ) throws JaxenException
@@ -269,24 +292,32 @@ public class DefaultXPathFactory implements XPathFactory
                                     createPredicateSet() );
     }
 
+    @SideEffectFree
+    @Impure
     public Step createTextNodeStep( int axis ) throws JaxenException
     {
         IterableAxis iter = getIterableAxis( axis );
         return new DefaultTextNodeStep( iter, createPredicateSet() );
     }
 
+    @SideEffectFree
+    @Impure
     public Step createCommentNodeStep( int axis ) throws JaxenException
     {
         IterableAxis iter = getIterableAxis( axis );
         return new DefaultCommentNodeStep( iter, createPredicateSet() );
     }
 
+    @SideEffectFree
+    @Impure
     public Step createAllNodeStep( int axis ) throws JaxenException
     {
         IterableAxis iter = getIterableAxis( axis );
         return new DefaultAllNodeStep( iter, createPredicateSet() );
     }
 
+    @SideEffectFree
+    @Impure
     public Step createProcessingInstructionNodeStep( int axis,
                                                      String piName ) throws JaxenException
     {
@@ -296,11 +327,14 @@ public class DefaultXPathFactory implements XPathFactory
                                                          createPredicateSet() );
     }
 
+    @Impure
     public Predicate createPredicate( Expr predicateExpr ) throws JaxenException
     {
         return new DefaultPredicate( predicateExpr );
     }
 
+    @SideEffectFree
+    @Impure
     protected IterableAxis getIterableAxis( int axis ) throws JaxenException
     {
 
@@ -338,6 +372,8 @@ public class DefaultXPathFactory implements XPathFactory
 
     }
 
+    @SideEffectFree
+    @Impure
     public PredicateSet createPredicateSet() throws JaxenException
     {
         return new PredicateSet();

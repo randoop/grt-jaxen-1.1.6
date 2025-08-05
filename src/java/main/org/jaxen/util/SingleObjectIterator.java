@@ -48,6 +48,9 @@
 
 package org.jaxen.util;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -67,6 +70,7 @@ public class SingleObjectIterator implements Iterator
      * 
      * @param object the object to iterate over
      */
+    @SideEffectFree
     public SingleObjectIterator(Object object)
     {
         this.object = object;
@@ -81,6 +85,7 @@ public class SingleObjectIterator implements Iterator
      * 
      * @see java.util.Iterator#hasNext()
      */
+    @Pure
     public boolean hasNext()
     {
         return ! this.seen;
@@ -96,6 +101,7 @@ public class SingleObjectIterator implements Iterator
      * 
      * @see java.util.Iterator#next()
      */
+    @Impure
     public Object next()
     {
         if ( hasNext() )
@@ -112,6 +118,7 @@ public class SingleObjectIterator implements Iterator
      * 
      * @throws UnsupportedOperationException always
      */
+    @SideEffectFree
     public void remove()
     {
         throw new UnsupportedOperationException();

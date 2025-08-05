@@ -49,6 +49,7 @@
 
 package org.jaxen.dom4j;
 
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.BaseXPath;
 import org.jaxen.JaxenException;
 
@@ -87,6 +88,7 @@ public class Dom4jXPath extends BaseXPath
      *  @throws JaxenException if there is a syntax error while
      *          parsing the expression
      */
+    @Impure
     public Dom4jXPath(String xpathExpr) throws JaxenException
     {
         super( xpathExpr, DocumentNavigator.getInstance() );

@@ -48,6 +48,8 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.HashMap;
 
 /** Simple default implementation of <code>FunctionContext</code>.
@@ -72,6 +74,7 @@ public class SimpleFunctionContext implements FunctionContext
      *  Construct an empty function context.
      *  </p>
      */
+    @Impure
     public SimpleFunctionContext()
     {
         this.functions = new HashMap();
@@ -105,6 +108,7 @@ public class SimpleFunctionContext implements FunctionContext
      *  @param function a {@link Function} implementation object
      *         to be used when evaluating the function
      */
+    @Impure
     public void registerFunction(String namespaceURI,
                                  String localName,
                                  Function function )
@@ -113,6 +117,8 @@ public class SimpleFunctionContext implements FunctionContext
                             function );
     }
 
+    @SideEffectFree
+    @Impure
     public Function getFunction(String namespaceURI,
                                 String prefix,
                                 String localName )

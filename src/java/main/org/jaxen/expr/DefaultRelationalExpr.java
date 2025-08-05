@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 import org.jaxen.Context;
@@ -58,16 +60,20 @@ import org.jaxen.function.NumberFunction;
 
 abstract class DefaultRelationalExpr extends DefaultTruthExpr implements RelationalExpr 
   {
+  @Impure
   DefaultRelationalExpr( Expr lhs, Expr rhs )
     {
     super( lhs, rhs );
     }
   
+  @Pure
+  @Impure
   public String toString()
     {
     return "[(DefaultRelationalExpr): " + getLHS() + ", " + getRHS() + "]";
     }
 
+  @Impure
   public Object evaluate( Context context ) throws JaxenException
     {
     Object lhsValue = getLHS().evaluate( context );
@@ -94,6 +100,7 @@ abstract class DefaultRelationalExpr extends DefaultTruthExpr implements Relatio
     return evaluateObjectObject( lhsValue, rhsValue, nav ) ? Boolean.TRUE : Boolean.FALSE;
     }
 
+  @Impure
   private Object evaluateSetSet( List lhsSet, List rhsSet, Navigator nav )
     {
     if( setIsEmpty( lhsSet ) || setIsEmpty( rhsSet ) ) // return false if either is null or empty
@@ -119,6 +126,7 @@ abstract class DefaultRelationalExpr extends DefaultTruthExpr implements Relatio
     return Boolean.FALSE;
     }
   
+  @Impure
   private boolean evaluateObjectObject( Object lhs, Object rhs, Navigator nav )
     {
     if( lhs == null || rhs == null )
@@ -137,6 +145,7 @@ abstract class DefaultRelationalExpr extends DefaultTruthExpr implements Relatio
     return evaluateDoubleDouble( lhsNum, rhsNum );
     }
   
+  @Pure
   protected abstract boolean evaluateDoubleDouble( Double lhs, Double rhs );    
   }
 

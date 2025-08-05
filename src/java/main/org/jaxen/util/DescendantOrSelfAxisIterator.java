@@ -48,6 +48,8 @@ package org.jaxen.util;
  * $Id: DescendantOrSelfAxisIterator.java 1255 2006-11-09 18:20:12Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Navigator;
 
 /**
@@ -66,6 +68,8 @@ public class DescendantOrSelfAxisIterator extends DescendantAxisIterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @SideEffectFree
+    @Impure
     public DescendantOrSelfAxisIterator(Object contextNode,
                                         Navigator navigator)
     {

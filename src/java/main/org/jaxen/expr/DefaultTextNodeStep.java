@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.ContextSupport;
 import org.jaxen.Navigator;
 import org.jaxen.expr.iter.IterableAxis;
@@ -64,11 +67,15 @@ public class DefaultTextNodeStep extends DefaultStep implements TextNodeStep
      */
     private static final long serialVersionUID = -3821960984972022948L;
 
+    @SideEffectFree
+    @Impure
     public DefaultTextNodeStep(IterableAxis axis, PredicateSet predicateSet )
     {
         super( axis, predicateSet );
     }
 
+    @Pure
+    @Impure
     public boolean matches(Object node,
                            ContextSupport support)
     {
@@ -77,6 +84,7 @@ public class DefaultTextNodeStep extends DefaultStep implements TextNodeStep
         return nav.isText( node );
     }
 
+    @Impure
     public String getText()
     {
         return getAxisName() + "::text()" + super.getText();

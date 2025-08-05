@@ -48,6 +48,7 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Represents an XPath variable reference. This is production 36 in the 
@@ -64,6 +65,7 @@ public interface VariableReferenceExpr extends Expr
      * 
      * @return the namespace prefix of the variable
      */
+    @Pure
     public String getPrefix();
     
     /**
@@ -71,6 +73,7 @@ public interface VariableReferenceExpr extends Expr
      * 
      * @return the local name of the variable
      */
+    @Pure
     public String getVariableName();
 
 }

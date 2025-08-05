@@ -48,6 +48,7 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * @deprecated this class will become non-public in the future;
@@ -61,6 +62,7 @@ public class DefaultRelativeLocationPath extends DefaultLocationPath
      */
     private static final long serialVersionUID = -1006862529366150615L;
 
+    @SideEffectFree
     public String toString()
     {
         return "[(DefaultRelativeLocationPath): " + super.toString() + "]";

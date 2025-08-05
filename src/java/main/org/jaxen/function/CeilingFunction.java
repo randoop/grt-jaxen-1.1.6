@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -84,6 +86,7 @@ public class CeilingFunction implements Function
     /**
      * Create a new <code>CeilingFunction</code> object.
      */
+    @SideEffectFree
     public CeilingFunction() {}
     
     /** Returns the smallest integer greater than or equal to a number.
@@ -98,6 +101,7 @@ public class CeilingFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more or less than one item
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -120,6 +124,7 @@ public class CeilingFunction implements Function
      * @return a <code>Double</code> containing the smallest integer 
      *     greater than or equal to <code>obj</code>
      */
+    @Impure
     public static Double evaluate(Object obj,
                                   Navigator nav)
     {

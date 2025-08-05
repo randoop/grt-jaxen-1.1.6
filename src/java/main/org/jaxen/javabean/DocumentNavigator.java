@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen.javabean;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -80,76 +83,92 @@ public class DocumentNavigator
 
     /** Retrieve the singleton instance of this <code>DocumentNavigator</code>.
      */
+    @Pure
     public static Navigator getInstance()
     {
         return instance;
     }
 
+    @Pure
     public boolean isElement(Object obj)
     {
         return (obj instanceof Element);
     }
 
+    @Pure
     public boolean isComment(Object obj)
     {
         return false;
     }
 
+    @Pure
     public boolean isText(Object obj)
     {
         return ( obj instanceof String );
     }
 
+    @Pure
     public boolean isAttribute(Object obj)
     {
         return false;
     }
 
+    @Pure
     public boolean isProcessingInstruction(Object obj)
     {
         return false;
     }
 
+    @Pure
     public boolean isDocument(Object obj)
     {
         return false;
     }
 
+    @Pure
     public boolean isNamespace(Object obj)
     {
         return false;
     }
 
+    @Pure
+    @Impure
     public String getElementName(Object obj)
     {
         return ((Element)obj).getName();
     }
 
+    @Pure
     public String getElementNamespaceUri(Object obj)
     {
         return "";
     }
 
+    @Pure
     public String getElementQName(Object obj)
     {
         return "";
     }
 
+    @Pure
     public String getAttributeName(Object obj)
     {
         return "";
     }
 
+    @Pure
     public String getAttributeNamespaceUri(Object obj)
     {
         return "";
     }
 
+    @Pure
     public String getAttributeQName(Object obj)
     {
         return "";
     }
 
+    @Pure
     public Iterator getChildAxisIterator(Object contextNode)
     {
         return JaxenConstants.EMPTY_ITERATOR;
@@ -165,6 +184,7 @@ public class DocumentNavigator
      * @param namespaceURI  the namespace URI of the children to return
      * @return an Iterator that traverses the named children, or null if none
      */
+    @Impure
     public Iterator getChildAxisIterator(Object contextNode,
                                          String localName,
                                          String namespacePrefix,
@@ -237,6 +257,8 @@ public class DocumentNavigator
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @SideEffectFree
+    @Impure
     public Iterator getParentAxisIterator(Object contextNode)
     {
         if ( contextNode instanceof Element )
@@ -247,6 +269,7 @@ public class DocumentNavigator
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @Pure
     public Iterator getAttributeAxisIterator(Object contextNode)
     {
         return JaxenConstants.EMPTY_ITERATOR;
@@ -262,6 +285,7 @@ public class DocumentNavigator
      * @param namespaceURI  the namespace URI of the attributes to return
      * @return an Iterator that traverses the named attributes, not null
      */
+    @Pure
     public Iterator getAttributeAxisIterator(Object contextNode,
                                              String localName,
                                              String namespacePrefix,
@@ -269,16 +293,20 @@ public class DocumentNavigator
         return JaxenConstants.EMPTY_ITERATOR;
     }
         
+    @Pure
     public Iterator getNamespaceAxisIterator(Object contextNode)
     {
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @Pure
     public Object getDocumentNode(Object contextNode)
     {
         return null;
     }
 
+    @Pure
+    @Impure
     public Object getParentNode(Object contextNode)
     {
         if ( contextNode instanceof Element )
@@ -289,6 +317,8 @@ public class DocumentNavigator
         return JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @SideEffectFree
+    @Impure
     public String getTextStringValue(Object obj)
     {
         if ( obj instanceof Element )
@@ -298,6 +328,8 @@ public class DocumentNavigator
         return obj.toString();
     }
 
+    @SideEffectFree
+    @Impure
     public String getElementStringValue(Object obj)
     {
         if ( obj instanceof Element )
@@ -307,57 +339,68 @@ public class DocumentNavigator
         return obj.toString();
     }
 
+    @SideEffectFree
     public String getAttributeStringValue(Object obj)
     {
         return obj.toString();
     }
 
+    @SideEffectFree
     public String getNamespaceStringValue(Object obj)
     {
         return obj.toString();
     }
 
+    @Pure
     public String getNamespacePrefix(Object obj)
     {
         return null;
     }
 
+    @Pure
     public String getCommentStringValue(Object obj)
     {
         return null;
     }
     
+    @Pure
     public String translateNamespacePrefixToUri(String prefix, Object context)
     {
         return null;
     }
     
+    @Pure
     public short getNodeType(Object node) 
     {
         return 0;
     }
     
+    @Pure
     public Object getDocument(String uri) throws FunctionCallException
     {
         return null;
     }
 
+    @Pure
     public String getProcessingInstructionTarget(Object obj)
     {
         return null;
     }
 
+    @Pure
     public String getProcessingInstructionData(Object obj)
     {
         return null;
     }
 
+    @Impure
     public XPath parseXPath(String xpath)
         throws org.jaxen.saxpath.SAXPathException
     {
         return new JavaBeanXPath( xpath );
     }
 
+    @SideEffectFree
     protected String javacase(String name)
     {
         if ( name.length() == 0 )

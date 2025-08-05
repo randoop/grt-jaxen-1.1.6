@@ -48,6 +48,8 @@
 
 
 package org.jaxen.util;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 /**
  * 
@@ -65,6 +67,8 @@ public class SelfAxisIterator extends SingleObjectIterator
      * 
      * @param node the node to start from
      */
+    @SideEffectFree
+    @Impure
     public SelfAxisIterator(Object node)
     {
         super(node);

@@ -48,6 +48,10 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -69,6 +73,7 @@ public class FalseFunction implements Function
     /**
      * Create a new <code>FalseFunction</code> object.
      */
+    @SideEffectFree
     public FalseFunction() {}
     
     /** Returns <code>Boolean.FALSE</code>
@@ -81,6 +86,9 @@ public class FalseFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> is not empty
      */
+    @Pure
+    @Deterministic
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -97,6 +105,7 @@ public class FalseFunction implements Function
      * 
      * @return <code>Boolean.FALSE</code>
      */
+    @Pure
     public static Boolean evaluate()
     {
         return Boolean.FALSE;

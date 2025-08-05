@@ -34,6 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  */
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,6 +97,7 @@ public class Context implements Serializable {
      *
      *  @param contextSupport the context-support
      */
+    @SideEffectFree
     public Context(ContextSupport contextSupport)
     {
         this.contextSupport = contextSupport;
@@ -122,6 +126,7 @@ public class Context implements Serializable {
      *
      *  @param nodeSet the context node-set
      */
+    @Impure
     public void setNodeSet(List nodeSet)
     {
         this.nodeSet = nodeSet;
@@ -135,6 +140,7 @@ public class Context implements Serializable {
      *
      *  @return the context node-set
      */
+    @Pure
     public List getNodeSet()
     {
         return this.nodeSet;
@@ -144,6 +150,7 @@ public class Context implements Serializable {
      *
      *  @param contextSupport the context-support
      */
+    @Impure
     public void setContextSupport(ContextSupport contextSupport)
     {
         this.contextSupport = contextSupport;
@@ -153,6 +160,7 @@ public class Context implements Serializable {
      *
      *  @return the context-support
      */
+    @Pure
     public ContextSupport getContextSupport()
     {
         return this.contextSupport;
@@ -162,6 +170,8 @@ public class Context implements Serializable {
      *
      *  @return the navigator
      */
+    @Pure
+    @Impure
     public Navigator getNavigator()
     {
         return getContextSupport().getNavigator();
@@ -173,6 +183,8 @@ public class Context implements Serializable {
      *
      *  @return the namespace URI mapped to the prefix
      */
+    @Pure
+    @Impure
     public String translateNamespacePrefixToUri(String prefix)
     {
         return getContextSupport().translateNamespacePrefixToUri( prefix );
@@ -188,6 +200,8 @@ public class Context implements Serializable {
      *
      *  @throws UnresolvableException if unable to locate a bound variable
      */
+    @SideEffectFree
+    @Impure
     public Object getVariableValue(String namespaceURI,
                                    String prefix,
                                    String localName)
@@ -208,6 +222,8 @@ public class Context implements Serializable {
      *
      *  @throws UnresolvableException if unable to locate a bound function
      */
+    @SideEffectFree
+    @Impure
     public Function getFunction(String namespaceURI,
                                 String prefix,
                                 String localName)
@@ -226,6 +242,7 @@ public class Context implements Serializable {
      *
      *  @param size the size
      */
+    @Impure
     public void setSize(int size)
     {
         this.size = size;
@@ -235,6 +252,7 @@ public class Context implements Serializable {
      *
      *  @return the size
      */
+    @Pure
     public int getSize()
     {
         return this.size;
@@ -244,6 +262,7 @@ public class Context implements Serializable {
      *
      *  @param position the position
      */
+    @Impure
     public void setPosition(int position)
     {
         this.position = position;
@@ -253,6 +272,7 @@ public class Context implements Serializable {
      *
      *  @return the current position
      */
+    @Pure
     public int getPosition()
     {
         return this.position;
@@ -266,6 +286,7 @@ public class Context implements Serializable {
      *
      *  @return the duplicate
      */
+    @Impure
     public Context duplicate()
     {
         Context dupe = new Context( getContextSupport() );

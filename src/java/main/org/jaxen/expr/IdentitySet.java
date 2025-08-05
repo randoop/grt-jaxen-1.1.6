@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.HashSet;
 
 
@@ -48,15 +51,19 @@ final class IdentitySet {
 
     private HashSet contents = new HashSet();
     
+    @SideEffectFree
     IdentitySet() {
         super();
     }
 
+    @Impure
     void add(Object object) {
         IdentityWrapper wrapper = new IdentityWrapper(object);
         contents.add(wrapper);
     }
 
+    @SideEffectFree
+    @Impure
     public boolean contains(Object object) {
         IdentityWrapper wrapper = new IdentityWrapper(object);
         return contents.contains(wrapper);
@@ -66,15 +73,18 @@ final class IdentitySet {
 
         private Object object;
         
+        @SideEffectFree
         IdentityWrapper(Object object) {
             this.object = object;
         }
         
+        @Pure
         public boolean equals(Object o) {
             IdentityWrapper w = (IdentityWrapper) o;
             return object == w.object;
         }
 
+        @Pure
         public int hashCode() {
             return System.identityHashCode(object);
         }

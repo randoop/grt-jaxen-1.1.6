@@ -47,6 +47,8 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 
 /**
@@ -82,6 +84,8 @@ public class JaxenException extends org.jaxen.saxpath.SAXPathException
      *
      * @param message the error message
      */
+    @SideEffectFree
+    @Impure
     public JaxenException( String message )
     {
         super( message );
@@ -92,6 +96,7 @@ public class JaxenException extends org.jaxen.saxpath.SAXPathException
      *
      * @param rootCause the root cause of this exception
      */
+    @Impure
     public JaxenException( Throwable rootCause )
     {
         super( rootCause );
@@ -104,6 +109,7 @@ public class JaxenException extends org.jaxen.saxpath.SAXPathException
      * @param message the detail message
      * @param nestedException the cause of this exception
      */
+    @Impure
     public JaxenException(String message, Throwable nestedException) {
         super( message, nestedException );
     }

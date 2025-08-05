@@ -47,6 +47,8 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.JaxenException;
 
 /**
@@ -63,6 +65,8 @@ public interface XPathFactory
      * @return an XPathExpr wrapping the root expression
      * @throws JaxenException
      */
+    @SideEffectFree
+    @Impure
     XPathExpr createXPath( Expr rootExpr ) throws JaxenException;
 
     /**
@@ -73,6 +77,7 @@ public interface XPathFactory
      * @return a path expression formed by concatenating the two arguments
      * @throws JaxenException
      */
+    @Impure
     PathExpr createPathExpr( FilterExpr filterExpr,
                              LocationPath locationPath ) throws JaxenException;
 
@@ -82,6 +87,7 @@ public interface XPathFactory
      * @return an empty relative location path
      * @throws JaxenException
      */
+    @Impure
     LocationPath createRelativeLocationPath() throws JaxenException;
 
     /**
@@ -90,6 +96,7 @@ public interface XPathFactory
      * @return an empty absolute location path
      * @throws JaxenException
      */
+    @Impure
     LocationPath createAbsoluteLocationPath() throws JaxenException;
 
     /**
@@ -100,6 +107,7 @@ public interface XPathFactory
      * @return <code><i>lhs</i> or <i>rhs</i></code>
      * @throws JaxenException
      */
+    @Impure
     BinaryExpr createOrExpr( Expr lhs,
                              Expr rhs ) throws JaxenException;
 
@@ -111,6 +119,7 @@ public interface XPathFactory
      * @return <code><i>lhs</i> and <i>rhs</i></code>
      * @throws JaxenException
      */
+    @Impure
     BinaryExpr createAndExpr( Expr lhs,
                               Expr rhs ) throws JaxenException;
 
@@ -124,6 +133,7 @@ public interface XPathFactory
      * @throws JaxenException if the third argument is not 
      *                        <code>Operator.EQUALS</code> or <code>Operator.NOT_EQUALS</code>
      */
+    @Impure
     BinaryExpr createEqualityExpr( Expr lhs,
                                    Expr rhs,
                                    int equalityOperator ) throws JaxenException;
@@ -138,6 +148,7 @@ public interface XPathFactory
      * @return <code><i>lhs</i> <i>relationalOperator</i> <i>rhs</i></code> or <code><i>lhs</i> != <i>rhs</i></code>
      * @throws JaxenException if the third argument is not a relational operator constant
      */
+    @Impure
     BinaryExpr createRelationalExpr( Expr lhs,
                                      Expr rhs,
                                      int relationalOperator ) throws JaxenException;
@@ -152,6 +163,7 @@ public interface XPathFactory
      * @throws JaxenException if the third argument is not 
      *                        <code>Operator.ADD</code> or <code>Operator.SUBTRACT</code>
      */
+    @Impure
     BinaryExpr createAdditiveExpr( Expr lhs,
                                    Expr rhs,
                                    int additiveOperator ) throws JaxenException;
@@ -167,6 +179,7 @@ public interface XPathFactory
      *         or <code><i>lhs</i> mod <i>rhs</i></code>
      * @throws JaxenException if the third argument is not a multiplicative operator constant
      */
+    @Impure
     BinaryExpr createMultiplicativeExpr( Expr lhs,
                                          Expr rhs,
                                          int multiplicativeOperator ) throws JaxenException;
@@ -179,6 +192,7 @@ public interface XPathFactory
      * @return <code>- <i>expr</i></code> or <code><i>expr</i></code>
      * @throws JaxenException
      */
+    @Impure
     Expr createUnaryExpr( Expr expr,
                           int unaryOperator ) throws JaxenException;
 
@@ -190,6 +204,7 @@ public interface XPathFactory
      * @return <code><i>lhs</i> | <i>rhs</i></code></code>
      * @throws JaxenException
      */
+    @Impure
     UnionExpr createUnionExpr( Expr lhs,
                                Expr rhs ) throws JaxenException;
 
@@ -200,6 +215,7 @@ public interface XPathFactory
      * @return the expression with an empty predicate set
      * @throws JaxenException
      */
+    @Impure
     FilterExpr createFilterExpr( Expr expr ) throws JaxenException;
 
     
@@ -211,6 +227,7 @@ public interface XPathFactory
      * @return a function with an empty argument list
      * @throws JaxenException
      */
+    @Impure
     FunctionCallExpr createFunctionCallExpr( String prefix,
                                              String functionName ) throws JaxenException;
 
@@ -221,6 +238,7 @@ public interface XPathFactory
      * @return a number expression wrapping that value
      * @throws JaxenException
      */
+    @Impure
     NumberExpr createNumberExpr( int number ) throws JaxenException;
 
     /**
@@ -230,6 +248,7 @@ public interface XPathFactory
      * @return a number expression wrapping that value
      * @throws JaxenException
      */
+    @Impure
     NumberExpr createNumberExpr( double number ) throws JaxenException;
 
     /**
@@ -239,6 +258,7 @@ public interface XPathFactory
      * @return a literal expression wrapping that value
      * @throws JaxenException
      */
+    @Impure
     LiteralExpr createLiteralExpr( String literal ) throws JaxenException;
 
     /**
@@ -249,6 +269,7 @@ public interface XPathFactory
      * @return a variable expression
      * @throws JaxenException
      */
+    @Impure
     VariableReferenceExpr createVariableReferenceExpr( String prefix,
                                                        String variableName ) throws JaxenException;
 
@@ -261,6 +282,8 @@ public interface XPathFactory
      * @return a name step
      * @throws JaxenException if <code>axis</code> is not one of the axis constants????
      */
+    @SideEffectFree
+    @Impure
     Step createNameStep( int axis,
                          String prefix,
                          String localName ) throws JaxenException;
@@ -272,6 +295,8 @@ public interface XPathFactory
      * @return an all node step
      * @throws JaxenException if <code>axis</code> is not one of the axis constants????
      */
+    @SideEffectFree
+    @Impure
     Step createAllNodeStep( int axis ) throws JaxenException;
 
     /**
@@ -281,6 +306,8 @@ public interface XPathFactory
      * @return a comment node step
      * @throws JaxenException if <code>axis</code> is not one of the axis constants????
      */
+    @SideEffectFree
+    @Impure
     Step createCommentNodeStep( int axis ) throws JaxenException;
 
     /**
@@ -290,6 +317,8 @@ public interface XPathFactory
      * @return a text node step
      * @throws JaxenException if <code>axis</code> is not one of the axis constants????
      */
+    @SideEffectFree
+    @Impure
     Step createTextNodeStep( int axis ) throws JaxenException;
 
     /**
@@ -300,6 +329,8 @@ public interface XPathFactory
      * @return a processing instruction node step
      * @throws JaxenException if <code>axis</code> is not one of the axis constants????
      */
+    @SideEffectFree
+    @Impure
     Step createProcessingInstructionNodeStep( int axis,
                                               String name ) throws JaxenException;
 
@@ -310,6 +341,7 @@ public interface XPathFactory
      * @return a predicate
      * @throws JaxenException
      */
+    @Impure
     Predicate createPredicate( Expr predicateExpr ) throws JaxenException;
 
     /**
@@ -318,6 +350,8 @@ public interface XPathFactory
      * @return an empty predicate set
      * @throws JaxenException
      */
+    @SideEffectFree
+    @Impure
     PredicateSet createPredicateSet() throws JaxenException;
     
 }

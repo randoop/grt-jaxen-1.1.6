@@ -51,6 +51,7 @@
 
 package org.jaxen.saxpath.helpers;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.jaxen.saxpath.SAXPathException;
 import org.jaxen.saxpath.XPathHandler;
 
@@ -72,181 +73,225 @@ import org.jaxen.saxpath.XPathHandler;
 public class DefaultXPathHandler implements XPathHandler
 {
 
+    @SideEffectFree
     public void startXPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endXPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startPathExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endPathExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startAbsoluteLocationPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endAbsoluteLocationPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startRelativeLocationPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endRelativeLocationPath() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startNameStep(int axis,
                               String prefix,
                               String localName) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endNameStep() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startTextNodeStep(int axis) throws SAXPathException
     {
     }
+    @SideEffectFree
     public void endTextNodeStep() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startCommentNodeStep(int axis) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endCommentNodeStep() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startAllNodeStep(int axis) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endAllNodeStep() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startProcessingInstructionNodeStep(int axis,
                                                    String name) throws SAXPathException
     {
     }
+    @SideEffectFree
     public void endProcessingInstructionNodeStep() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startPredicate() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endPredicate() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startFilterExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endFilterExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startOrExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endOrExpr(boolean create) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startAndExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endAndExpr(boolean create) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startEqualityExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endEqualityExpr(int operator) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startRelationalExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endRelationalExpr(int operator) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startAdditiveExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endAdditiveExpr(int operator) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startMultiplicativeExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endMultiplicativeExpr(int operator) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startUnaryExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endUnaryExpr(int operator) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startUnionExpr() throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endUnionExpr(boolean create) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void number(int number) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void number(double number) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void literal(String literal) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void variableReference(String prefix,
                                   String variableName) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void startFunction(String prefix,
                               String functionName) throws SAXPathException
     {
     }
 
+    @SideEffectFree
     public void endFunction() throws SAXPathException
     {
     }

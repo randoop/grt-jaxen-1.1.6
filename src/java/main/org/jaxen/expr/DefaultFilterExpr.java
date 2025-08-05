@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.ArrayList;
 import java.util.List;
 import org.jaxen.Context;
@@ -67,42 +69,51 @@ public class DefaultFilterExpr extends DefaultExpr implements FilterExpr, Predic
     private Expr expr;
     private PredicateSet predicates;
 
+    @Impure
     public DefaultFilterExpr(PredicateSet predicateSet)
     {
         this.predicates = predicateSet;
     }
 
+    @Impure
     public DefaultFilterExpr(Expr expr, PredicateSet predicateSet)
     {
         this.expr       = expr;
         this.predicates = predicateSet;
     }
 
+    @Impure
     public void addPredicate(Predicate predicate)
     {
         this.predicates.addPredicate( predicate );
     }
 
+    @Pure
+    @Impure
     public List getPredicates()
     {
         return this.predicates.getPredicates();
     }
 
+    @Pure
     public PredicateSet getPredicateSet()
     {
         return this.predicates;
     }
 
+    @Pure
     public Expr getExpr()
     {
         return this.expr;
     }
 
+    @Pure
     public String toString()
     {
         return "[(DefaultFilterExpr): expr: " + expr + " predicates: " + predicates + " ]";
     }
 
+    @Impure
     public String getText()
     {
         String text = "";
@@ -114,6 +125,7 @@ public class DefaultFilterExpr extends DefaultExpr implements FilterExpr, Predic
         return text;
     }
 
+    @Impure
     public Expr simplify()
     {
         this.predicates.simplify();
@@ -133,6 +145,7 @@ public class DefaultFilterExpr extends DefaultExpr implements FilterExpr, Predic
 
     /** Returns true if the current filter matches at least one of the context nodes
      */
+    @Impure
     public boolean asBoolean(Context context) throws JaxenException 
     {
         Object results = null;
@@ -163,6 +176,7 @@ public class DefaultFilterExpr extends DefaultExpr implements FilterExpr, Predic
         return false;
     }
     
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         Object results = getExpr().evaluate( context );

@@ -47,6 +47,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 import org.jaxen.Context;
@@ -58,16 +60,20 @@ import org.jaxen.function.StringFunction;
 
 abstract class DefaultEqualityExpr extends DefaultTruthExpr implements EqualityExpr 
   {
+  @Impure
   DefaultEqualityExpr( Expr lhs, Expr rhs )
     {
     super( lhs, rhs );
     }
 
+  @Pure
+  @Impure
   public String toString()
     {
     return "[(DefaultEqualityExpr): " + getLHS() + ", " + getRHS() + "]";
     }
   
+  @Impure
   public Object evaluate( Context context ) throws JaxenException
     {
     Object lhsValue = getLHS().evaluate( context );
@@ -105,6 +111,7 @@ abstract class DefaultEqualityExpr extends DefaultTruthExpr implements EqualityE
     }    
   }
   
+  @Impure
   private Boolean evaluateSetSet( List lhsSet, List rhsSet, Navigator nav )
     {
       /* If both objects to be compared are node-sets, then the comparison will be 
@@ -133,6 +140,7 @@ abstract class DefaultEqualityExpr extends DefaultTruthExpr implements EqualityE
     return Boolean.FALSE;
     }
   
+  @Impure
   private boolean evaluateObjectObject( Object lhs, Object rhs, Navigator nav )
     {
     if( eitherIsBoolean( lhs, rhs ) )
@@ -156,5 +164,7 @@ abstract class DefaultEqualityExpr extends DefaultTruthExpr implements EqualityE
       }
     }
   
+  @Pure
+  @Impure
   protected abstract boolean evaluateObjectObject( Object lhs, Object rhs );
   }

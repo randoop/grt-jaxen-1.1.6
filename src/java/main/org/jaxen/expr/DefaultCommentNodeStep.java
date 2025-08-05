@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.ContextSupport;
 import org.jaxen.Navigator;
 import org.jaxen.expr.iter.IterableAxis;
@@ -63,21 +66,29 @@ public class DefaultCommentNodeStep extends DefaultStep implements CommentNodeSt
      * 
      */
     private static final long serialVersionUID = 4340788283861875606L;
+    @SideEffectFree
+    @Impure
     public DefaultCommentNodeStep(IterableAxis axis, PredicateSet predicateSet)
     {
         super( axis, predicateSet );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultCommentNodeStep): " + getAxis() + "]";
     }
 
+    @Pure
+    @Impure
     public String getText()
     {
         return getAxisName() + "::comment()";
     }
 
+    @Pure
+    @Impure
     public boolean matches(Object node,
                            ContextSupport contextSupport)
     {

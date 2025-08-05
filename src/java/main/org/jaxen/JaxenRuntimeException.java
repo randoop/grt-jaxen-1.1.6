@@ -1,5 +1,8 @@
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
@@ -71,6 +74,7 @@ public class JaxenRuntimeException extends RuntimeException
      * @param cause the nested exception that's wrapped 
      *     inside this exception
      */
+    @Impure
     public JaxenRuntimeException(Throwable cause)
     {
         super(cause.getMessage());
@@ -82,6 +86,7 @@ public class JaxenRuntimeException extends RuntimeException
      * 
      * @param message the detail message
      */
+    @SideEffectFree
     public JaxenRuntimeException(String message) {
         super(message);
     }
@@ -93,6 +98,7 @@ public class JaxenRuntimeException extends RuntimeException
      * 
      * @return the exception that caused this exception
      */
+    @Pure
     public Throwable getCause() {
         return cause;
     }
@@ -107,6 +113,7 @@ public class JaxenRuntimeException extends RuntimeException
      * 
      * @return this exception
      */
+    @Impure
     public Throwable initCause(Throwable cause) {
         if (causeSet) throw new IllegalStateException("Cause cannot be reset");
         if (cause == this) throw new IllegalArgumentException("Exception cannot be its own cause");
@@ -120,6 +127,7 @@ public class JaxenRuntimeException extends RuntimeException
      *
      * @param s the stream on which to print the stack trace
      */
+    @Impure
     public void printStackTrace ( PrintStream s )
     {
         super.printStackTrace ( s );
@@ -134,6 +142,7 @@ public class JaxenRuntimeException extends RuntimeException
      *
      * @param s the writer on which to print the stack trace
      */
+    @Impure
     public void printStackTrace ( PrintWriter s )
     {
         super.printStackTrace( s );

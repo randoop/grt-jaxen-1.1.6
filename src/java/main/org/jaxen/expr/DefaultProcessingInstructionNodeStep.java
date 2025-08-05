@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.ContextSupport;
 import org.jaxen.Navigator;
 import org.jaxen.expr.iter.IterableAxis;
@@ -66,6 +69,8 @@ public class DefaultProcessingInstructionNodeStep extends DefaultStep
     private static final long serialVersionUID = -4825000697808126927L;
     private String name;
 
+    @SideEffectFree
+    @Impure
     public DefaultProcessingInstructionNodeStep(IterableAxis axis,
                                                 String name,
                                                 PredicateSet predicateSet)
@@ -75,11 +80,13 @@ public class DefaultProcessingInstructionNodeStep extends DefaultStep
         this.name = name;
     }
 
+    @Pure
     public String getName()
     {
         return this.name;
     }
 
+    @Impure
     public String getText()
     {
         StringBuffer buf = new StringBuffer();
@@ -97,6 +104,7 @@ public class DefaultProcessingInstructionNodeStep extends DefaultStep
         return buf.toString();
     }
 
+    @Impure
     public boolean matches(Object node,
                            ContextSupport support)
     {

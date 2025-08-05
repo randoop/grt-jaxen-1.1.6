@@ -48,6 +48,7 @@ package org.jaxen;
  * $Id: $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -59,6 +60,7 @@ import java.util.ListIterator;
 public class JaxenConstants
 {
     
+    @SideEffectFree
     private JaxenConstants() {}
 
     /**

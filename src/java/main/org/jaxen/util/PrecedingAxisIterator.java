@@ -48,6 +48,8 @@ package org.jaxen.util;
  * $Id: PrecedingAxisIterator.java 1257 2006-11-13 22:10:09Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.JaxenConstants;
 import org.jaxen.JaxenRuntimeException;
 import org.jaxen.Navigator;
@@ -103,6 +105,8 @@ public class PrecedingAxisIterator implements Iterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @SideEffectFree
+    @Impure
     public PrecedingAxisIterator(Object contextNode,
                                  Navigator navigator) throws UnsupportedAxisException
     {
@@ -121,6 +125,7 @@ public class PrecedingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#hasNext()
      */
+    @Impure
     public boolean hasNext()
     {
         try
@@ -154,6 +159,7 @@ public class PrecedingAxisIterator implements Iterator
         }
     }
 
+    @Impure
     private ListIterator childrenOrSelf(Object node)
     {
         try
@@ -185,6 +191,7 @@ public class PrecedingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#next()
      */
+    @Impure
     public Object next() throws NoSuchElementException
     {
         if (!hasNext())
@@ -211,6 +218,7 @@ public class PrecedingAxisIterator implements Iterator
      * 
      * @throws UnsupportedOperationException always
      */
+    @SideEffectFree
     public void remove() throws UnsupportedOperationException
     {
         throw new UnsupportedOperationException();

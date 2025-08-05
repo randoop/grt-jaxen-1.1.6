@@ -47,6 +47,8 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 /** Implemented by classes that know how to resolve XPath function names and
  *  namespaces to implementations of these functions.
@@ -86,6 +88,8 @@ public interface FunctionContext
      *  @return  a Function implementation object.
      *  @throws UnresolvableException  when the function cannot be resolved
      */
+    @SideEffectFree
+    @Impure
     Function getFunction( String namespaceURI,
                           String prefix,
                           String localName ) throws UnresolvableException;

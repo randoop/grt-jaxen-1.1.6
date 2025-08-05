@@ -48,6 +48,8 @@
 
 package org.jaxen.util;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -62,17 +64,20 @@ public class LinkedIterator implements Iterator
     private List iterators;
     private int  cur;
 
+    @SideEffectFree
     public LinkedIterator()
     {
         this.iterators = new ArrayList();
         this.cur       = 0;
     }
 
+    @Impure
     public void addIterator(Iterator i)
     {
         this.iterators.add( i );
     }
 
+    @Impure
     public boolean hasNext()
     {
         boolean has = false;
@@ -97,6 +102,7 @@ public class LinkedIterator implements Iterator
         return has;
     }
 
+    @Impure
     public Object next()
     {
         if ( ! hasNext() )
@@ -112,6 +118,7 @@ public class LinkedIterator implements Iterator
      * 
      * @throws UnsupportedOperationException
      */
+    @SideEffectFree
     public void remove()
     {
         throw new UnsupportedOperationException();

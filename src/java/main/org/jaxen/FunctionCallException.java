@@ -47,6 +47,9 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 /** 
  * Thrown if an exception occurs during the evaluation of a function.
@@ -70,6 +73,8 @@ public class FunctionCallException extends JaxenException
      * 
      * @param message the detail message
      */
+    @SideEffectFree
+    @Impure
     public FunctionCallException(String message) {
         super( message );
     }
@@ -79,6 +84,7 @@ public class FunctionCallException extends JaxenException
      * 
      * @param nestedException the cause of this exception
      */
+    @Impure
     public FunctionCallException(Throwable nestedException) {
         super( nestedException );
     }
@@ -90,6 +96,7 @@ public class FunctionCallException extends JaxenException
      * @param message the detail message
      * @param nestedException the cause of this exception
      */
+    @Impure
     public FunctionCallException(String message, Exception nestedException) {
         super( message, nestedException );
     }
@@ -104,6 +111,7 @@ public class FunctionCallException extends JaxenException
      * 
      * @deprecated replaced by {@link #getCause()}
      */
+    @Pure
     public Throwable getNestedException() {
         return getCause();
     }

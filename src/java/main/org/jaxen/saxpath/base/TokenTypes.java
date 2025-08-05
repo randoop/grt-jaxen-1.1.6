@@ -47,6 +47,7 @@
  */
 
 package org.jaxen.saxpath.base;
+import org.checkerframework.dataflow.qual.Pure;
 
 
 class TokenTypes
@@ -99,6 +100,7 @@ class TokenTypes
     // split star into two token types
     static final int STAR_OPERATOR = 31;
 
+    @Pure
     static String getTokenText( int tokenType )
     {
         switch( tokenType )

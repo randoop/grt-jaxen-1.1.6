@@ -48,6 +48,7 @@
 
 package org.jaxen.function.xslt;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -64,6 +65,7 @@ import org.jaxen.function.StringFunction;
 public class DocumentFunction implements Function
 {
 
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -81,6 +83,7 @@ public class DocumentFunction implements Function
         throw new FunctionCallException( "document() requires one argument." );
     }
 
+    @Impure
     public static Object evaluate(String url,
                                   Navigator nav) throws FunctionCallException
     {

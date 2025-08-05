@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen.expr.iter;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -56,6 +59,7 @@ public abstract class IterableAxis implements Serializable {
      * 
      * @param axisValue
      */
+    @SideEffectFree
     public IterableAxis(int axisValue) {
         this.value = axisValue;
     }
@@ -65,6 +69,7 @@ public abstract class IterableAxis implements Serializable {
      * 
      * @return the axis value
      */
+    @Pure
     public int value() {
         return this.value;
     }
@@ -77,6 +82,7 @@ public abstract class IterableAxis implements Serializable {
      * @return an iterator for the axis 
      * @throws UnsupportedAxisException
      */
+    @Impure
     public abstract Iterator iterator(Object contextNode, ContextSupport support) throws UnsupportedAxisException;
 
     /**
@@ -88,6 +94,7 @@ public abstract class IterableAxis implements Serializable {
      * @param namespacePrefix  the prefix of the namespace of the nodes to return
      * @param namespaceURI  the URI of the namespace of the nodes to return
      */
+    @Impure
     public Iterator namedAccessIterator(
         Object contextNode,
         ContextSupport support,
@@ -105,6 +112,8 @@ public abstract class IterableAxis implements Serializable {
      * @param support  the additional context information
      * @return true if named access supported. If not iterator() will be used
      */
+    @Pure
+    @Impure
     public boolean supportsNamedAccess(ContextSupport support) {
         return false;
     }

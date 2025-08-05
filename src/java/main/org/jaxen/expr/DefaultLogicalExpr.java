@@ -48,9 +48,11 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Impure;
 
 abstract class DefaultLogicalExpr extends DefaultTruthExpr implements LogicalExpr
 {
+    @Impure
     DefaultLogicalExpr(Expr lhs,
                               Expr rhs)
     {

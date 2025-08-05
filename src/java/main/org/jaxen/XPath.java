@@ -34,6 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  */
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 /** Represents an XPath 1.0 expression which
@@ -96,6 +98,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     Object evaluate(Object context) throws JaxenException;
     
     // ----------------------------------------------------------------------
@@ -123,6 +126,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     String valueOf(Object context)
         throws JaxenException;
 
@@ -145,6 +149,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+     @Impure
      String stringValueOf(Object context)
         throws JaxenException;
     
@@ -171,6 +176,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     boolean booleanValueOf(Object context)
         throws JaxenException;
     
@@ -194,6 +200,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     Number numberValueOf(Object context)
         throws JaxenException;
 
@@ -224,6 +231,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     List selectNodes(Object context)
         throws JaxenException;
 
@@ -243,6 +251,7 @@ public interface XPath
      *  @throws JaxenException if an error occurs while attempting
      *          to evaluate the expression
      */
+    @Impure
     Object selectSingleNode(Object context)
         throws JaxenException;
     
@@ -273,6 +282,7 @@ public interface XPath
      *  @throws JaxenException if a <code>NamespaceContext</code>
      *          used by this XPath has been explicitly installed
      */
+    @Impure
     void addNamespace(String prefix,
                       String uri)
         throws JaxenException;
@@ -295,6 +305,7 @@ public interface XPath
      *  @param namespaceContext the <code>NamespaceContext</code> to
      *         install for this expression
      */
+    @Impure
     void setNamespaceContext(NamespaceContext namespaceContext);
 
     /** Set a <code>FunctionContext</code> for  this XPath
@@ -311,6 +322,7 @@ public interface XPath
      *  @param functionContext the <code>FunctionContext</code> to
      *         install for this expression
      */
+    @Impure
     void setFunctionContext(FunctionContext functionContext);
 
     /** Set a <code>VariableContext</code> for this XPath
@@ -327,6 +339,7 @@ public interface XPath
      *  @param variableContext the <code>VariableContext</code> to
      *         install for this expression.
      */
+    @Impure
     void setVariableContext(VariableContext variableContext);
 
     /** Retrieve the <code>NamespaceContext</code> used by this XPath
@@ -347,6 +360,7 @@ public interface XPath
      *
      *  @return the <code>NamespaceContext</code> used by this expression
      */
+    @Impure
     NamespaceContext getNamespaceContext();
 
     /** Retrieve the <code>FunctionContext</code> used by this XPath
@@ -367,6 +381,7 @@ public interface XPath
      *
      *  @return the <code>FunctionContext</code> used by this expression
      */
+    @Impure
     FunctionContext getFunctionContext();
 
     /** Retrieve the <code>VariableContext</code> used by this XPath
@@ -387,6 +402,7 @@ public interface XPath
      *  
      *  @return the <code>VariableContext</code> used by this expression
      */
+    @Impure
     VariableContext getVariableContext();
     
 
@@ -395,5 +411,6 @@ public interface XPath
      *
      *  @return the implementation-specific <code>Navigator</code>
      */
+    @Pure
     Navigator getNavigator();
 }

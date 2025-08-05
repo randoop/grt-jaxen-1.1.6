@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.io.Serializable;
 import java.util.List;
 
@@ -63,6 +65,7 @@ public interface Predicated extends Serializable
      * 
      * @param predicate the predicate to add
      */
+    @Impure
     void addPredicate(Predicate predicate);
     
     
@@ -71,6 +74,8 @@ public interface Predicated extends Serializable
      * 
      * @return the list of predicates
      */
+    @Pure
+    @Impure
     List getPredicates();
     
     
@@ -79,5 +84,6 @@ public interface Predicated extends Serializable
      * 
      * @return the set of predicates
      */
+    @Pure
     PredicateSet getPredicateSet();
 }

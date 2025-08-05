@@ -47,6 +47,7 @@
 
 package org.jaxen.function.ext;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,6 +76,7 @@ import org.jaxen.function.StringFunction;
 public class LowerFunction extends LocaleFunctionSupport
 {
 
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -101,6 +103,7 @@ public class LowerFunction extends LocaleFunctionSupport
      *        English should be used
      * @param nav the Navigator to use
      */
+    @Impure
     public static String evaluate(Object strArg,
                                   Locale locale,
                                   Navigator nav)

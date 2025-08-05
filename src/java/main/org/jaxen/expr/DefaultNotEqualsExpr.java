@@ -48,6 +48,8 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 
 class DefaultNotEqualsExpr extends DefaultEqualityExpr 
   {
@@ -56,21 +58,27 @@ class DefaultNotEqualsExpr extends DefaultEqualityExpr
      */
     private static final long serialVersionUID = -8001267398136979152L;
 
+@Impure
 DefaultNotEqualsExpr( Expr lhs, Expr rhs )
     {
     super( lhs, rhs );
     }
 
+  @Pure
   public String getOperator()
     {
     return "!=";
     }
 
+  @Pure
+  @Impure
   public String toString()
     {
     return "[(DefaultNotEqualsExpr): " + getLHS() + ", " + getRHS() + "]";
     }
   
+    @Pure
+    @Impure
     protected boolean evaluateObjectObject( Object lhs, Object rhs )
     {
         if( eitherIsNumber( lhs, rhs ) )

@@ -46,6 +46,7 @@
  * $Id: NumberExpr.java 1237 2006-11-08 17:17:32Z elharo $
  */
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Represents an XPath floating point literal. This is production 30 in the 
@@ -64,5 +65,6 @@ public interface NumberExpr extends Expr
      * 
      * @return a <code>java.lang.Double</code> representing the number
      */
+    @Pure
     public Number getNumber();
 }

@@ -47,6 +47,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -68,6 +70,7 @@ public class CountFunction implements Function
     /**
      * Create a new <code>CountFunction</code> object.
      */
+    @SideEffectFree
     public CountFunction() {}
     
     /**
@@ -82,6 +85,7 @@ public class CountFunction implements Function
      * @throws FunctionCallException if args does not have exactly one 
      *     item; or that item is not a <code>List</code>
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -102,6 +106,7 @@ public class CountFunction implements Function
      * @return the integral number of items in the list
      * @throws FunctionCallException if obj is not a <code>List</code>
      */
+    @Impure
     public static Double evaluate(Object obj) throws FunctionCallException
     {
       

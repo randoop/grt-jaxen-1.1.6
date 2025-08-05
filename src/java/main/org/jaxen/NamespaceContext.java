@@ -47,6 +47,7 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.Pure;
 
 /** Resolves namespace prefixes to namespace URIs.
  *
@@ -95,5 +96,6 @@ public interface NamespaceContext
      *  @return the namespace URI bound to the prefix; or null if there
      *     is no such namespace 
      */
+    @Pure
     String translateNamespacePrefixToUri(String prefix);
 }

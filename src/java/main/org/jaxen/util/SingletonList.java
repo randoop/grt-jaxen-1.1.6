@@ -49,6 +49,8 @@
 
 package org.jaxen.util;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.AbstractList;
 
 /**
@@ -70,6 +72,7 @@ public class SingletonList extends AbstractList {
      * 
      * @param element the single member of the list
      */
+    @SideEffectFree
     public SingletonList(Object element) {
         this.element = element;
     }
@@ -79,6 +82,7 @@ public class SingletonList extends AbstractList {
      * 
      * @return 1
      */
+    @Pure
     public int size() {
         return 1;
     }
@@ -91,6 +95,7 @@ public class SingletonList extends AbstractList {
      * @throws IndexOutOfBoundsException if index is not 0
      * 
      */
+    @Pure
     public Object get(int index) {
         if(index == 0) {
             return element;

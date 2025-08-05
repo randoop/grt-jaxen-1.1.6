@@ -49,6 +49,9 @@
 
 package org.jaxen.util;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -79,6 +82,7 @@ public class FollowingSiblingAxisIterator implements Iterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @Impure
     public FollowingSiblingAxisIterator(Object contextNode,
                                         Navigator navigator) throws UnsupportedAxisException
     {
@@ -87,6 +91,7 @@ public class FollowingSiblingAxisIterator implements Iterator
         init();
     }
 
+    @Impure
     private void init() throws UnsupportedAxisException
     {
         Object parent = this.navigator.getParentNode( this.contextNode );
@@ -114,6 +119,7 @@ public class FollowingSiblingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#hasNext()
      */
+    @Pure
     public boolean hasNext()
     {
         return siblingIter.hasNext();
@@ -128,6 +134,7 @@ public class FollowingSiblingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#next()
      */
+    @Impure
     public Object next() throws NoSuchElementException
     {
         return siblingIter.next();
@@ -138,6 +145,7 @@ public class FollowingSiblingAxisIterator implements Iterator
      * 
      * @throws UnsupportedOperationException always
      */
+    @SideEffectFree
     public void remove() throws UnsupportedOperationException
     {
         throw new UnsupportedOperationException();

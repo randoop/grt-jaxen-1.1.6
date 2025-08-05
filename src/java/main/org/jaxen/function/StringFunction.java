@@ -48,6 +48,9 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.jaxen.Context;
 import org.jaxen.Function;
 import org.jaxen.FunctionCallException;
@@ -197,6 +200,7 @@ public class StringFunction implements Function
     /**
      * Create a new <code>StringFunction</code> object.
      */
+    @SideEffectFree
     public StringFunction() {}
     
     /**
@@ -211,6 +215,7 @@ public class StringFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more than one item
      */    
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -243,6 +248,7 @@ public class StringFunction implements Function
      * 
      * @return a <code>String</code>. May be empty but is never null.
      */    
+    @Impure
     public static String evaluate(Object obj,
                                   Navigator nav)
     {
@@ -331,6 +337,7 @@ public class StringFunction implements Function
 
     }
 
+    @Impure
     private static String stringValue(double value)
     {
         
@@ -347,6 +354,7 @@ public class StringFunction implements Function
         
     }
 
+    @Pure
     private static String stringValue(boolean value)
     {
         return value ? "true" : "false";

@@ -50,6 +50,8 @@
 
 
 package org.jaxen.saxpath;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 
 /** Interface for event-based XPath parsing.
@@ -73,34 +75,42 @@ public interface XPathHandler
 {
     /** Receive notification of the start of an XPath expression parse.
      */
+    @Impure
     void startXPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an XPath expression parse.
      */
+    @Impure
     void endXPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a path expression.
      */
+    @Impure
     void startPathExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a path expression.
      */
+    @Impure
     void endPathExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of an absolute location path expression.
      */
+    @Impure
     void startAbsoluteLocationPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an absolute location path expression.
      */
+    @Impure
     void endAbsoluteLocationPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a relative location path expression.
      */
+    @Impure
     void startRelativeLocationPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a relative location path expression.
      */
+    @Impure
     void endRelativeLocationPath() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a name step.
@@ -110,42 +120,50 @@ public interface XPathHandler
      *         or the empty string if no prefix is specified
      *  @param localName the local part of the name to test
      */
+    @Impure
     void startNameStep(int axis,
                        String prefix,
                        String localName) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a NameStep
      */
+    @Impure
     void endNameStep() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a text() step.
      *
      *  @param axis the axis of this step
      */
+    @Impure
     void startTextNodeStep(int axis) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a text() step.
      */
+    @Impure
     void endTextNodeStep() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a comment() step.
      *
      *  @param axis the axis of this step
      */
+    @Impure
     void startCommentNodeStep(int axis) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a comment() step.
      */
+    @Impure
     void endCommentNodeStep() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a node() step.
      *
      *  @param axis the axis of this step
      */
+    @Impure
     void startAllNodeStep(int axis) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a node() step.
      */
+    @Impure
     void endAllNodeStep() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a processing-instruction(...) step.
@@ -154,31 +172,38 @@ public interface XPathHandler
      *  @param name the name of the processing-instruction, or
      *         the empty string if none is specified
      */
+    @Impure
     void startProcessingInstructionNodeStep(int axis,
                                             String name) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a processing-instruction(...) step.
      */
+    @Impure
     void endProcessingInstructionNodeStep() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a predicate.
      */
+    @Impure
     void startPredicate() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a predicate.
      */
+    @Impure
     void endPredicate() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a filter expression.
      */
+    @Impure
     void startFilterExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a filter expression.
      */
+    @Impure
     void endFilterExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of an 'or' expression.
      */
+    @SideEffectFree
     void startOrExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an 'or' expression.
@@ -187,10 +212,12 @@ public interface XPathHandler
      *         should truly be instantiated, or if it was just
      *         a pass-through, based upon the grammar productions
      */
+    @Impure
     void endOrExpr(boolean create) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of an 'and' expression.
      */
+    @SideEffectFree
     void startAndExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an 'and' expression.
@@ -199,10 +226,12 @@ public interface XPathHandler
      *         should truly be instantiated, or if it was just
      *         a pass-through, based upon the grammar productions
      */
+    @Impure
     void endAndExpr(boolean create) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of an equality ('=' or '!=') expression.
      */
+    @SideEffectFree
     void startEqualityExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an equality ('=' or '!=') expression.
@@ -212,10 +241,12 @@ public interface XPathHandler
      *         is only a pass-through, and should not actually
      *         be instantiated.
      */
+    @Impure
     void endEqualityExpr(int equalityOperator) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a relational ('&lt;', '>', '&lt;=', or '>=') expression.
      */
+    @SideEffectFree
     void startRelationalExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a relational ('&lt;', '>', '&lt;=', or '>=') expression.
@@ -225,10 +256,12 @@ public interface XPathHandler
      *         is only a pass-through, and should not actually
      *         be instantiated.
      */
+    @Impure
     void endRelationalExpr(int relationalOperator) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of an additive ('+' or '-') expression.
      */
+    @SideEffectFree
     void startAdditiveExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of an additive ('+' or '-') expression.
@@ -238,10 +271,12 @@ public interface XPathHandler
      *         is only a pass-through, and should not actually
      *         be instantiated.
      */
+    @Impure
     void endAdditiveExpr(int additiveOperator) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a multiplicative ('*', 'div' or 'mod') expression.
      */
+    @SideEffectFree
     void startMultiplicativeExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a multiplicative ('*', 'div' or 'mod') expression.
@@ -251,10 +286,12 @@ public interface XPathHandler
      *         is only a pass-through, and should not actually
      *         be instantiated.
      */
+    @Impure
     void endMultiplicativeExpr(int multiplicativeOperator) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a unary ('+' or '-') expression.
      */
+    @SideEffectFree
     void startUnaryExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a unary ('+' or '-') expression.
@@ -265,10 +302,12 @@ public interface XPathHandler
      *         If not {@link org.jaxen.saxpath.Operator#NO_OP}, it will 
      *         always be {@link org.jaxen.saxpath.Operator#NEGATIVE}.
      */
+    @Impure
     void endUnaryExpr(int unaryOperator) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the start of a union ('|') expression.
      */
+    @SideEffectFree
     void startUnionExpr() throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a union ('|') expression.
@@ -277,24 +316,28 @@ public interface XPathHandler
      *         should truly be instantiated, or if it was just
      *         a pass-through, based upon the grammar productions
      */
+    @Impure
     void endUnionExpr(boolean create) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of a number expression.
      *
      *  @param number the number value
      */
+    @Impure
     void number(int number) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of a number expression.
      *
      *  @param number the number value
      */
+    @Impure
     void number(double number) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of a literal expression.
      *
      *  @param literal the string literal value
      */
+    @Impure
     void literal(String literal) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of a variable-reference expression.
@@ -302,6 +345,7 @@ public interface XPathHandler
      *  @param prefix the namespace prefix of the variable
      *  @param variableName the local name of the variable
      */
+    @Impure
     void variableReference(String prefix,
                            String variableName) throws org.jaxen.saxpath.SAXPathException;
 
@@ -310,10 +354,12 @@ public interface XPathHandler
      *  @param prefix the namespace prefix of the function
      *  @param functionName the local name of the function
      */
+    @Impure
     void startFunction(String prefix,
                        String functionName) throws org.jaxen.saxpath.SAXPathException;
 
     /** Receive notification of the end of a function call
      */
+    @Impure
     void endFunction() throws org.jaxen.saxpath.SAXPathException;
 }

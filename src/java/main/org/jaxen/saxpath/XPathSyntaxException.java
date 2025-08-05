@@ -47,6 +47,9 @@
  */
 
 package org.jaxen.saxpath;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 
 
 /**
@@ -71,6 +74,8 @@ public class XPathSyntaxException extends SAXPathException
      * @param position the index of the character at which the syntax error was detected
      * @param message the detail message
      */
+    @SideEffectFree
+    @Impure
     public XPathSyntaxException(String xpath,
                                 int position,
                                 String message)
@@ -89,6 +94,7 @@ public class XPathSyntaxException extends SAXPathException
      * @return the character index in the XPath expression  
      *     at which the syntax error was detected
      */
+    @Pure
     public int getPosition()
     {
         return this.position;
@@ -101,11 +107,14 @@ public class XPathSyntaxException extends SAXPathException
      * 
      * @return the syntactically incorrect XPath expression
      */
+    @Pure
     public String getXPath()
     {
         return this.xpath;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return getClass() + ": " + getXPath() + ": " + getPosition() + ": " + getMessage();
@@ -120,6 +129,7 @@ public class XPathSyntaxException extends SAXPathException
      * 
      * @return the position marker 
      */
+    @Impure
     private String getPositionMarker()
     {
         int pos = getPosition();
@@ -143,6 +153,7 @@ public class XPathSyntaxException extends SAXPathException
      * 
      * @return a longer description of the error on multiple lines
      */
+    @Impure
     public String getMultilineMessage()
     {
         StringBuffer buf = new StringBuffer();

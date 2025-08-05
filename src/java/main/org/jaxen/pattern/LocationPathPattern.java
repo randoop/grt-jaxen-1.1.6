@@ -47,6 +47,9 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -83,15 +86,18 @@ public class LocationPathPattern extends Pattern {
     private boolean absolute;
     
     
+    @Impure
     public LocationPathPattern()   
     {
     }
 
+    @Impure
     public LocationPathPattern(NodeTest nodeTest)   
     {
         this.nodeTest = nodeTest;
     }
 
+    @Impure
     public Pattern simplify()
     {
         if ( parentPattern != null )
@@ -121,6 +127,7 @@ public class LocationPathPattern extends Pattern {
     
     /** Adds a filter to this pattern
      */
+    @Impure
     public void addFilter(FilterExpr filter) 
     {
         if ( filters == null )
@@ -133,6 +140,7 @@ public class LocationPathPattern extends Pattern {
     /** Adds a pattern for the parent of the current
      * context node used in this pattern.
      */
+    @Impure
     public void setParentPattern(Pattern parentPattern) 
     {
         this.parentPattern = parentPattern;
@@ -141,6 +149,7 @@ public class LocationPathPattern extends Pattern {
     /** Adds a pattern for an ancestor of the current
      * context node used in this pattern.
      */
+    @Impure
     public void setAncestorPattern(Pattern ancestorPattern) 
     {
         this.ancestorPattern = ancestorPattern;
@@ -148,6 +157,7 @@ public class LocationPathPattern extends Pattern {
     
     /** Allows the NodeTest to be set
      */
+    @Impure
     public void setNodeTest(NodeTest nodeTest) throws JaxenException
     {
         if ( this.nodeTest instanceof AnyNodeTest )
@@ -162,6 +172,7 @@ public class LocationPathPattern extends Pattern {
     
     /** @return true if the pattern matches the given node
       */
+    @Impure
     public boolean matches( Object node, Context context ) throws JaxenException
     {
         Navigator navigator = context.getNavigator();
@@ -239,6 +250,7 @@ public class LocationPathPattern extends Pattern {
         return true;
     }
     
+    @Impure
     public double getPriority() 
     {
         if ( filters != null ) 
@@ -249,11 +261,13 @@ public class LocationPathPattern extends Pattern {
     }
 
 
+    @Impure
     public short getMatchType() 
     {
         return nodeTest.getMatchType();
     }
     
+    @Impure
     public String getText() 
     {
         StringBuffer buffer = new StringBuffer();
@@ -294,6 +308,7 @@ public class LocationPathPattern extends Pattern {
         return buffer.toString();
     }
     
+    @SideEffectFree
     public String toString()
     {
         return super.toString() + "[ absolute: " + absolute + " parent: " + parentPattern + " ancestor: " 
@@ -301,16 +316,19 @@ public class LocationPathPattern extends Pattern {
             + nodeTest + " ]";
     }
     
+    @Pure
     public boolean isAbsolute()
     {
         return absolute;
     }
     
+    @Impure
     public void setAbsolute(boolean absolute)
     {
         this.absolute = absolute;
     }
     
+    @Pure
     public boolean hasAnyNodeTest()
     {
         return nodeTest instanceof AnyNodeTest;

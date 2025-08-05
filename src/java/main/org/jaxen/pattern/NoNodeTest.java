@@ -47,6 +47,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 
 /** <p><code>NoNodeTest</code> matches no nodes.</p>
@@ -58,32 +60,38 @@ public class NoNodeTest extends NodeTest {
     
     private static NoNodeTest instance = new NoNodeTest();
     
+    @Pure
     public static NoNodeTest getInstance() 
     {
         return instance;
     }
     
+    @Impure
     public NoNodeTest() 
     {
     }
         
     /** @return true if the pattern matches the given node
       */
+    @Pure
     public boolean matches( Object node, Context context ) 
     {
         return false;
     }
     
+    @Pure
     public double getPriority() 
     {
         return -0.5;
     }
 
+    @Pure
     public short getMatchType() 
     {
         return NO_NODE;
     }
 
+    @Pure
     public String getText() 
     {
         return "";

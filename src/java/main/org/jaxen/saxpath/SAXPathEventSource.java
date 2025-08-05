@@ -49,6 +49,8 @@
 
 
 package org.jaxen.saxpath;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 
 
@@ -64,6 +66,7 @@ public interface SAXPathEventSource
      *
      *  @param handler the handler to receive callbacks
      */
+    @Impure
     void setXPathHandler(XPathHandler handler);
     
     /** Retrieve the current {@link org.jaxen.saxpath.XPathHandler}
@@ -71,6 +74,7 @@ public interface SAXPathEventSource
      *
      *  @return the currently installed  <code>XPathHandler</code>
      */
+    @Pure
     XPathHandler getXPathHandler();
     
 }

@@ -48,6 +48,8 @@ package org.jaxen.util;
  * $Id: FollowingAxisIterator.java 1255 2006-11-09 18:20:12Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -80,6 +82,7 @@ public class FollowingAxisIterator implements Iterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @Impure
     public FollowingAxisIterator(Object contextNode,
                                  Navigator navigator) throws UnsupportedAxisException
     {
@@ -89,6 +92,7 @@ public class FollowingAxisIterator implements Iterator
         this.currentSibling = JaxenConstants.EMPTY_ITERATOR;
     }
 
+    @Impure
     private boolean goForward()
     {
         while ( ! siblings.hasNext() )
@@ -106,6 +110,7 @@ public class FollowingAxisIterator implements Iterator
         return true;
     }
 
+    @Impure
     private boolean goUp()
     {
         if ( contextNode == null
@@ -145,6 +150,7 @@ public class FollowingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#hasNext()
      */
+    @Impure
     public boolean hasNext()
     {
         while ( ! currentSibling.hasNext() )
@@ -167,6 +173,7 @@ public class FollowingAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#next()
      */
+    @Impure
     public Object next() throws NoSuchElementException
     {
         if ( ! hasNext() )
@@ -182,6 +189,7 @@ public class FollowingAxisIterator implements Iterator
      * 
      * @throws UnsupportedOperationException always
      */
+    @SideEffectFree
     public void remove() throws UnsupportedOperationException
     {
         throw new UnsupportedOperationException();

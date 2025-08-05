@@ -48,6 +48,8 @@
 
 package org.jaxen.expr.iter;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 
 import org.jaxen.ContextSupport;
@@ -60,11 +62,14 @@ public class IterableFollowingAxis extends IterableAxis
      */
     private static final long serialVersionUID = -7100245752300813209L;
 
+    @SideEffectFree
+    @Impure
     public IterableFollowingAxis(int value)
     {
         super( value );
     }
 
+    @Impure
     public Iterator iterator(Object contextNode,
                              ContextSupport support) throws UnsupportedAxisException
     {

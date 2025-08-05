@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -79,6 +81,7 @@ public class StringLengthFunction implements Function
     /**
      * Create a new <code>StringLengthFunction</code> object.
      */
+    @SideEffectFree
     public StringLengthFunction() {}
     
     
@@ -96,6 +99,7 @@ public class StringLengthFunction implements Function
      * 
      * @throws FunctionCallException if args has more than one item
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -126,6 +130,7 @@ public class StringLengthFunction implements Function
      * 
      * @throws FunctionCallException if the string contains mismatched surrogates
      */
+    @Impure
     public static Double evaluate(Object obj, Navigator nav) throws FunctionCallException
     {
         String str = StringFunction.evaluate( obj, nav );

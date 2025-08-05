@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 
 class DefaultLiteralExpr extends DefaultExpr implements LiteralExpr
@@ -59,21 +61,27 @@ class DefaultLiteralExpr extends DefaultExpr implements LiteralExpr
     private static final long serialVersionUID = -953829179036273338L;
     private String literal;
 
+    @Impure
     DefaultLiteralExpr(String literal)
     {
         this.literal = literal;
     }
 
+    @Pure
     public String getLiteral()
     {
         return this.literal;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultLiteralExpr): " + getLiteral() + "]";
     }
 
+    @Pure
+    @Impure
     public String getText()
     {
         
@@ -86,6 +94,8 @@ class DefaultLiteralExpr extends DefaultExpr implements LiteralExpr
             
     }
 
+    @Pure
+    @Impure
     public Object evaluate(Context context)
     {
         return getLiteral();

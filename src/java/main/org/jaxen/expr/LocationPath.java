@@ -47,6 +47,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 /**
@@ -67,6 +69,7 @@ public interface LocationPath extends Expr
      * 
      * @param step
      */
+    @Impure
     void addStep(Step step);
 
     /**
@@ -75,6 +78,7 @@ public interface LocationPath extends Expr
      * 
      * @return the ordered list of steps in this location path
      */
+    @Pure
     List getSteps();
     
     /**
@@ -84,5 +88,6 @@ public interface LocationPath extends Expr
      * 
      * @return true if this is an absol;ute location path; false if it isn't
      */
+    @Pure
     boolean isAbsolute();
 }

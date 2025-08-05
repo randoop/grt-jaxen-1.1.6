@@ -47,6 +47,8 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 /** Thrown when a function-call or variable-reference, or any other lookup
  *  based on namespace and local name, couldn't be resolved.
@@ -66,6 +68,8 @@ public class UnresolvableException extends JaxenException
      * 
      * @param message the detail message
      */
+    @SideEffectFree
+    @Impure
     public UnresolvableException(String message)
     {
         super( message );

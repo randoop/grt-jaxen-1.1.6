@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,11 +63,14 @@ import org.jaxen.util.SingletonList;
  */
 public abstract class DefaultExpr implements Expr
 {
+    @Impure
     public Expr simplify()
     {
         return this;
     }
 
+    @SideEffectFree
+    @Impure
     static public Iterator convertToIterator(Object obj)
     {
         if ( obj instanceof Iterator )
@@ -81,6 +86,8 @@ public abstract class DefaultExpr implements Expr
         return new SingleObjectIterator( obj );
     }
 
+    @SideEffectFree
+    @Impure
     static public List convertToList(Object obj)
     {
         if ( obj instanceof List )

@@ -47,6 +47,8 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 /** Resolves variable bindings within an XPath expression.
  *
@@ -107,6 +109,8 @@ public interface VariableContext
      *  @return  the variable's value (which can be <code>null</code>)
      *  @throws UnresolvableException  when the variable cannot be resolved
      */
+    @SideEffectFree
+    @Impure
     public Object getVariableValue( String namespaceURI,
                                     String prefix,
                                     String localName )

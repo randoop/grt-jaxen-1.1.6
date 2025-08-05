@@ -47,6 +47,9 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 
@@ -63,10 +66,12 @@ public class UnionPattern extends Pattern {
     private String matchesNodeName = null;
     
     
+    @Impure
     public UnionPattern() 
     {
     }
     
+    @Impure
     public UnionPattern(Pattern lhs, Pattern rhs) 
     {
         this.lhs = lhs;
@@ -75,22 +80,26 @@ public class UnionPattern extends Pattern {
     }
     
     
+    @Pure
     public Pattern getLHS() 
     {
         return lhs;
     }
     
+    @Impure
     public void setLHS(Pattern lhs) 
     {
         this.lhs = lhs;
         init();
     }
     
+    @Pure
     public Pattern getRHS() 
     {
         return rhs;
     }
     
+    @Impure
     public void setRHS(Pattern rhs) 
     {
         this.rhs = rhs;
@@ -103,29 +112,34 @@ public class UnionPattern extends Pattern {
     
     /** @return true if the pattern matches the given node
       */
+    @Impure
     public boolean matches( Object node, Context context ) throws JaxenException
     {
         return lhs.matches( node, context ) || rhs.matches( node, context );
     }
     
+    @Pure
     public Pattern[] getUnionPatterns() 
     {
         return new Pattern[] { lhs, rhs };
     }
 
     
+    @Pure
     public short getMatchType() 
     {
         return nodeType;
     }
 
 
+    @Pure
     public String getMatchesNodeName() 
     {
         return matchesNodeName;
     }
     
     
+    @Impure
     public Pattern simplify() 
     {
         this.lhs = lhs.simplify();
@@ -134,11 +148,13 @@ public class UnionPattern extends Pattern {
         return this;
     }
     
+    @Impure
     public String getText() 
     {
         return lhs.getText() + " | " + rhs.getText();
     }
         
+    @SideEffectFree
     public String toString()
     {
         return super.toString() + "[ lhs: " + lhs + " rhs: " + rhs + " ]";
@@ -146,6 +162,7 @@ public class UnionPattern extends Pattern {
     
     // Implementation methods
     //-------------------------------------------------------------------------    
+    @Impure
     private void init() 
     {
         short type1 = lhs.getMatchType();

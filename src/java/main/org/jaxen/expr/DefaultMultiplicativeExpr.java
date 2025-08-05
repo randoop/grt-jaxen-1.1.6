@@ -48,10 +48,13 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 abstract class DefaultMultiplicativeExpr extends DefaultArithExpr 
     implements MultiplicativeExpr
 {
+    @Impure
     DefaultMultiplicativeExpr(Expr lhs,
                                      Expr rhs)
     {
@@ -59,6 +62,8 @@ abstract class DefaultMultiplicativeExpr extends DefaultArithExpr
                rhs );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultMultiplicativeExpr): " + getLHS() + ", " + getRHS() + "]";

@@ -48,6 +48,9 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +107,7 @@ public class TranslateFunction implements Function
     /**
      * Create a new <code>TranslateFunction</code> object.
      */
+    @SideEffectFree
     public TranslateFunction() {}
     
     
@@ -121,6 +125,7 @@ public class TranslateFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have exactly three items
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -154,6 +159,7 @@ public class TranslateFunction implements Function
      *     that is, if surrogate characters don't line up properly
      * 
      */
+    @Impure
     public static String evaluate(Object strArg,
                                   Object fromArg,
                                   Object toArg,
@@ -206,6 +212,7 @@ public class TranslateFunction implements Function
         return outStr.toString();
     }
 
+    @Impure
     private static String[] toUnicodeCharacters(String s) throws FunctionCallException {
 
         String[] result = new String[s.length()];
@@ -242,10 +249,12 @@ public class TranslateFunction implements Function
         
     }
 
+    @Pure
     private static boolean isHighSurrogate(char c) {
         return c >= 0xD800 && c <= 0xDBFF;
     }
      
+    @Pure
     private static boolean isLowSurrogate(char c) {
         return c >= 0xDC00 && c <= 0xDFFF;
     }

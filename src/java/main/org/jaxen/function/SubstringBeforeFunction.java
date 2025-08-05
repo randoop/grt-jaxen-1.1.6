@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -78,6 +80,7 @@ public class SubstringBeforeFunction implements Function
     /**
      * Create a new <code>SubstringBeforeFunction</code> object.
      */
+    @SideEffectFree
     public SubstringBeforeFunction() {}
     
     
@@ -96,6 +99,7 @@ public class SubstringBeforeFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have length two
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -123,6 +127,7 @@ public class SubstringBeforeFunction implements Function
      * of <code>matchArg</code>
      * 
      */
+    @Impure
     public static String evaluate(Object strArg,
                                   Object matchArg,
                                   Navigator nav)

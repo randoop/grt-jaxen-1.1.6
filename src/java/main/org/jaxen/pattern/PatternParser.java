@@ -48,6 +48,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -83,6 +85,7 @@ public class PatternParser
 {
     private static final boolean TRACE = false;
     private static final boolean USE_HANDLER = false;
+    @Impure
     public static Pattern parse(String text) throws JaxenException, org.jaxen.saxpath.SAXPathException
     {
         if ( USE_HANDLER )
@@ -110,6 +113,7 @@ public class PatternParser
         }
     }
     
+    @Impure
     protected static Pattern convertExpr(Expr expr) throws JaxenException 
     {
         if ( TRACE )
@@ -143,6 +147,7 @@ public class PatternParser
         }
     }
     
+    @Impure
     protected static LocationPathPattern convertExpr(LocationPath locationPath) throws JaxenException
     {
         LocationPathPattern answer = new LocationPathPattern();        
@@ -187,6 +192,7 @@ public class PatternParser
         return answer;
     }   
     
+    @Impure
     protected static LocationPathPattern convertStep(LocationPathPattern path, Step step) throws JaxenException
     {
         if ( step instanceof DefaultAllNodeStep )
@@ -264,6 +270,7 @@ public class PatternParser
         return path;
     }
     
+    @Impure
     protected static LocationPathPattern convertDefaultStep(LocationPathPattern path, DefaultStep step) throws JaxenException
     {
         List predicates = step.getPredicates();
@@ -279,6 +286,8 @@ public class PatternParser
         return path;
     }
     
+    @Pure
+    @Impure
     protected static boolean navigationStep( Step step )
     {
         if ( step instanceof DefaultNameStep )

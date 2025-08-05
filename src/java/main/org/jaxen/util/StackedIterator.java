@@ -49,6 +49,9 @@
 
 package org.jaxen.util;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -70,6 +73,7 @@ public abstract class StackedIterator implements Iterator
 
     private Set        created;
 
+    @Impure
     public StackedIterator(Object contextNode,
                            Navigator navigator)
     {
@@ -80,12 +84,14 @@ public abstract class StackedIterator implements Iterator
               navigator );
     }
 
+    @Impure
     protected StackedIterator()
     {
         this.iteratorStack = new LinkedList();
         this.created       = new HashSet();
     }
 
+    @Impure
     protected void init(Object contextNode,
                         Navigator navigator)
     {
@@ -94,6 +100,7 @@ public abstract class StackedIterator implements Iterator
         //pushIterator( internalCreateIterator( contextNode ) );
     }
 
+    @Impure
     protected Iterator internalCreateIterator(Object contextNode)
     {
         if ( this.created.contains( contextNode ) )
@@ -106,6 +113,7 @@ public abstract class StackedIterator implements Iterator
         return createIterator( contextNode );
     }
 
+    @Impure
     public boolean hasNext()
     {
         Iterator curIter = currentIterator();
@@ -118,6 +126,7 @@ public abstract class StackedIterator implements Iterator
         return curIter.hasNext();
     }
 
+    @Impure
     public Object next() throws NoSuchElementException
     {
         if ( ! hasNext() )
@@ -133,13 +142,16 @@ public abstract class StackedIterator implements Iterator
         return object;
     }
 
+    @SideEffectFree
     public void remove() throws UnsupportedOperationException
     {
         throw new UnsupportedOperationException();
     }
 
+    @Pure
     abstract protected Iterator createIterator(Object contextNode);
 
+    @Impure
     protected void pushIterator(Iterator iter)
     {
         if ( iter != null )
@@ -148,6 +160,7 @@ public abstract class StackedIterator implements Iterator
         }
     }
 
+    @Impure
     private Iterator currentIterator()
     {
         while ( iteratorStack.size() > 0 )
@@ -165,6 +178,7 @@ public abstract class StackedIterator implements Iterator
         return null;
     }
 
+    @Pure
     protected Navigator getNavigator()
     {
         return this.navigator;

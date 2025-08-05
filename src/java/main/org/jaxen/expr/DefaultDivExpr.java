@@ -48,6 +48,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 import org.jaxen.function.NumberFunction;
@@ -59,6 +61,7 @@ class DefaultDivExpr extends DefaultMultiplicativeExpr
      */
     private static final long serialVersionUID = 6318739386201615441L;
     
+    @Impure
     DefaultDivExpr(Expr lhs,
                           Expr rhs)
     {
@@ -66,11 +69,13 @@ class DefaultDivExpr extends DefaultMultiplicativeExpr
                rhs );
     }
 
+    @Pure
     public String getOperator()
     {
         return "div";
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         Number lhsValue = NumberFunction.evaluate( getLHS().evaluate( context ),

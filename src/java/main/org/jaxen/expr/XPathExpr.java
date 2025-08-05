@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.io.Serializable;
 import java.util.List;
 
@@ -68,6 +70,7 @@ public interface XPathExpr extends Serializable
      * 
      * @return the wrapped Expr object
      */
+    @Pure
     Expr getRootExpr();
     
     
@@ -76,6 +79,7 @@ public interface XPathExpr extends Serializable
      * 
      * @param rootExpr the new expression object to wrap
      */
+    @Impure
     void setRootExpr(Expr rootExpr);
     
     /**
@@ -83,6 +87,7 @@ public interface XPathExpr extends Serializable
      * 
      * @return the text form of this XPath expression
      */
+    @Impure
     String getText();
     
     /**
@@ -91,6 +96,7 @@ public interface XPathExpr extends Serializable
      * <code>//para</code>. In practice, this is usually a noop.
      * Jaxen does not currently perform any simplification.
      */
+    @Impure
     void   simplify();
     
     
@@ -103,6 +109,7 @@ public interface XPathExpr extends Serializable
      * @return a list
      * @throws JaxenException
      */
+    @Impure
     List asList(Context context) throws JaxenException;
 
 }

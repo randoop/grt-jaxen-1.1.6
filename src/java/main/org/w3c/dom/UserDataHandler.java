@@ -5,6 +5,7 @@
  */
 
 package org.w3c.dom;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 public interface UserDataHandler {
     // OperationType
@@ -14,6 +15,7 @@ public interface UserDataHandler {
     public static final short NODE_RENAMED              = 4;
     public static final short NODE_ADOPTED              = 5;
 
+    @SideEffectFree
     public void handle(short operation, 
                        String key, 
                        Object data, 

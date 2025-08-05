@@ -48,6 +48,8 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.function.BooleanFunction;
 import org.jaxen.function.CeilingFunction;
 import org.jaxen.function.ConcatFunction;
@@ -124,6 +126,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
      *
      *  @return the default function context
      */
+    @Pure
     public static FunctionContext getInstance()
     {
         return instance;
@@ -132,6 +135,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
     /** Create a new XPath function context.
      *  All core XPath and Jaxen extension functions are registered.
      */
+    @Impure
     public XPathFunctionContext()
     {
         this(true);
@@ -143,6 +147,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
      * @param includeExtensionFunctions if true extension functions are included;
      *     if false, they aren't
      */
+    @Impure
     public XPathFunctionContext(boolean includeExtensionFunctions)
     {
         registerXPathFunctions();
@@ -152,6 +157,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
         }
     }
 
+    @Impure
     private void registerXPathFunctions() {
 
         registerFunction( null,  // namespace URI
@@ -263,6 +269,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
                           new TranslateFunction() );
     }
 
+    @Impure
     private void registerXSLTFunctions() {
 
         // extension functions defined in XSLT
@@ -271,6 +278,7 @@ public class XPathFunctionContext extends SimpleFunctionContext
                           new DocumentFunction() );
     }
 
+    @Impure
     private void registerExtensionFunctions() {
         // extension functions should go into a namespace, but which one?
         // for now, keep them in default namespace to not break any code

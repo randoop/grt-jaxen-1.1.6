@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 
@@ -75,10 +77,12 @@ public interface FilterExpr extends Expr, Predicated
      * 
      * @return true if a node matches; false if no node matches
      */
+    @Impure
     public boolean asBoolean(Context context) throws JaxenException;
     
     /** 
      * @return the underlying filter expression
      */
+    @Pure
     public Expr getExpr();
 }

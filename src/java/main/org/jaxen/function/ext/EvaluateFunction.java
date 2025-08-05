@@ -47,6 +47,7 @@
 
 package org.jaxen.function.ext;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,6 +66,7 @@ import org.jaxen.function.StringFunction;
  */
 public class EvaluateFunction implements Function
 {
+    @Impure
     public Object call( Context context, List args )
         throws FunctionCallException
     {
@@ -75,6 +77,7 @@ public class EvaluateFunction implements Function
         throw new FunctionCallException( "evaluate() requires one argument" );
     }
 
+    @Impure
     public static List evaluate (Context context, Object arg)
         throws FunctionCallException
     {

@@ -51,6 +51,8 @@
 
 package org.jaxen.saxpath.helpers;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.jaxen.saxpath.SAXPathException;
 import org.jaxen.saxpath.XPathReader;
 
@@ -73,6 +75,7 @@ public class XPathReaderFactory
     /** The default driver to use if none is configured. */
     protected static final String DEFAULT_DRIVER = "org.jaxen.saxpath.base.XPathReader";
     
+    @SideEffectFree
     private XPathReaderFactory() {}
     
     
@@ -87,6 +90,7 @@ public class XPathReaderFactory
      *          or if the class doesn't implement the <code>XPathReader</code>
      *          interface
      */
+    @Impure
     public static XPathReader createReader() throws SAXPathException
     {
         String className = null;
@@ -123,6 +127,7 @@ public class XPathReaderFactory
      *          class doesn't implement the <code>XPathReader</code>
      *          interface
      */
+    @Impure
     public static XPathReader createReader(String className) throws SAXPathException
     {
         Class readerClass  = null;

@@ -48,6 +48,8 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 /**
  * Represents an XPath path expression.
@@ -68,6 +70,7 @@ public interface PathExpr extends Expr
      * 
      * @return the filter expression that starts the path expression
      */
+    @Pure
     Expr getFilterExpr();
     
     
@@ -76,6 +79,7 @@ public interface PathExpr extends Expr
      * 
      * @param filterExpr the new filter expression
      */
+    @Impure
     void setFilterExpr(Expr filterExpr);
 
     /**
@@ -83,6 +87,7 @@ public interface PathExpr extends Expr
      * 
      * @return the location path part of this expression
      */
+    @Pure
     LocationPath getLocationPath();
     
 }

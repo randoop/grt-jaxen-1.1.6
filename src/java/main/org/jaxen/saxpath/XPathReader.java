@@ -48,6 +48,7 @@
 
 
 package org.jaxen.saxpath;
+import org.checkerframework.dataflow.qual.Impure;
 
 
 /** Interface for readers which can parse textual
@@ -65,5 +66,6 @@ public interface XPathReader extends SAXPathEventSource
      *
      *  @throws SAXPathException if the expression is syntactically incorrect
      */
+    @Impure
     void parse(String xpath) throws SAXPathException;
 }

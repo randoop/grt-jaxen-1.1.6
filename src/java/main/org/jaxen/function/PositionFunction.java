@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -71,6 +73,7 @@ public class PositionFunction implements Function
     /**
      * Create a new <code>PositionFunction</code> object.
      */
+    @SideEffectFree
     public PositionFunction() {}
     
     /**
@@ -86,6 +89,7 @@ public class PositionFunction implements Function
      * 
      * @see Context#getSize()
      */
+    @Impure
     public Object call(Context context, List args) throws FunctionCallException 
     {
         if ( args.size() == 0 )
@@ -107,6 +111,7 @@ public class PositionFunction implements Function
      * 
      * @see Context#getPosition()
      */
+    @Impure
     public static Double evaluate(Context context)
     {
         return new Double( context.getPosition() );

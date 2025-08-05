@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -73,6 +75,7 @@ public class StartsWithFunction implements Function
     /**
      * Create a new <code>StartsWithFunction</code> object.
      */
+    @SideEffectFree
     public StartsWithFunction() {}
     
     /** 
@@ -90,6 +93,7 @@ public class StartsWithFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have length two
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -117,6 +121,7 @@ public class StartsWithFunction implements Function
      *     otherwise <code>Boolean.FALSE</code>
      * 
      */
+    @Impure
     public static Boolean evaluate(Object strArg,
                                    Object matchArg,
                                    Navigator nav)

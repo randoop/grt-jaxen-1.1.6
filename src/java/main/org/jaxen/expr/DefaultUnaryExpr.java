@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 import org.jaxen.function.NumberFunction;
@@ -61,26 +63,32 @@ class DefaultUnaryExpr extends DefaultExpr implements UnaryExpr
     private static final long serialVersionUID = 2303714238683092334L;
     private Expr expr;
 
+    @Impure
     DefaultUnaryExpr(Expr expr)
     {
         this.expr = expr;
     }
 
+    @Pure
     public Expr getExpr()
     {
         return this.expr;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultUnaryExpr): " + getExpr() + "]";
     }
 
+    @Impure
     public String getText()
     {
         return "-(" + getExpr().getText() + ")";
     }
 
+    @Impure
     public Expr simplify()
     {
         expr = expr.simplify();
@@ -88,6 +96,7 @@ class DefaultUnaryExpr extends DefaultExpr implements UnaryExpr
         return this;
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         Number number = NumberFunction.evaluate( getExpr().evaluate( context ),

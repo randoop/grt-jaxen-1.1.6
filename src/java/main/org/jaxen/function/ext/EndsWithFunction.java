@@ -47,6 +47,7 @@
 
 package org.jaxen.function.ext;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -63,6 +64,7 @@ import org.jaxen.function.StringFunction;
 public class EndsWithFunction implements Function
 {
 
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -76,6 +78,7 @@ public class EndsWithFunction implements Function
         throw new FunctionCallException( "ends-with() requires two arguments." );
     }
 
+    @Impure
     public static Boolean evaluate(Object strArg,
                                    Object matchArg,
                                    Navigator nav)

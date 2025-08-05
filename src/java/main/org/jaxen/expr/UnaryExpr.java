@@ -48,6 +48,7 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Represents an XPath unary expression such as <code>-78</code>.
@@ -65,6 +66,7 @@ public interface UnaryExpr extends Expr
      * 
      * @return the expression following the minus sign
      */
+    @Pure
     Expr getExpr();
     
 }

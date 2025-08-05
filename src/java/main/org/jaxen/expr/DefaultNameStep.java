@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -95,6 +98,8 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * @param localName  the local name
      * @param predicateSet  the set of predicates
      */    
+    @SideEffectFree
+    @Impure
     public DefaultNameStep(IterableAxis axis,
                            String prefix,
                            String localName,
@@ -112,6 +117,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * 
      * @return the prefix
      */
+    @Pure
     public String getPrefix() {
         return this.prefix;
     }
@@ -121,6 +127,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * 
      * @return the local name
      */
+    @Pure
     public String getLocalName() {
         return this.localName;
     }
@@ -130,6 +137,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * 
      * @return true if it matches any name
      */
+    @Pure
     public boolean isMatchesAnyName() {
         return matchesAnyName;
     }
@@ -139,6 +147,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * 
      * @return the full XPath for this step
      */
+    @Impure
     public String getText() {
         StringBuffer buf = new StringBuffer(64);
         buf.append(getAxisName()).append("::");
@@ -153,6 +162,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * <p>
      * This method overrides the version in <code>DefaultStep</code> for performance.
      */
+    @Impure
     public List evaluate(Context context) throws JaxenException {
 
         List contextNodeSet  = context.getNodeSet();
@@ -316,6 +326,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * @return true if matches
      * @throws JaxenException 
      */
+    @Impure
     public boolean matches(Object node, ContextSupport contextSupport) throws JaxenException {
         
         Navigator nav  = contextSupport.getNavigator();
@@ -384,6 +395,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * @param uri  the URI to check
      * @return true if non-null and non-empty
      */
+    @Pure
     private boolean hasNamespace(String uri) {
         return (uri != null && uri.length() > 0);
     }
@@ -395,6 +407,7 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * @param uri2  the second URI
      * @return true if equal, where null==""
      */
+    @Pure
     protected boolean matchesNamespaceURIs(String uri1, String uri2) {
         if (uri1 == uri2) {
             return true;
@@ -413,6 +426,8 @@ public class DefaultNameStep extends DefaultStep implements NameStep {
      * 
      * @return a debugging string
      */
+    @Pure
+    @Impure
     public String toString() {
         String prefix = getPrefix();
         String qName = "".equals(prefix) ? getLocalName() : getPrefix() + ":" + getLocalName();

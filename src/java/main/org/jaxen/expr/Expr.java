@@ -49,6 +49,7 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.io.Serializable;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
@@ -69,6 +70,7 @@ public interface Expr extends Serializable
      * 
      * @return the text form of this XPath expression
      */
+    @Impure
     String getText();
     
     /**
@@ -79,6 +81,7 @@ public interface Expr extends Serializable
      * 
      * @return the simplified expression
      */
+    @Impure
     Expr   simplify();
     
     
@@ -95,6 +98,7 @@ public interface Expr extends Serializable
      * @return an object representing the result of the evaluation
      * @throws JaxenException
      */
+    @Impure
     Object evaluate(Context context) throws JaxenException;
     
 }

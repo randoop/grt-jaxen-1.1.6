@@ -46,6 +46,9 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -66,63 +69,79 @@ public abstract class DefaultStep implements Step
     private IterableAxis axis;
     private PredicateSet predicates;
 
+    @SideEffectFree
     public DefaultStep(IterableAxis axis, PredicateSet predicates)
     {
         this.axis = axis;
         this.predicates = predicates;
     }
 
+    @Impure
     public void addPredicate(Predicate predicate)
     {
         this.predicates.addPredicate(predicate);
     }
 
+    @Pure
+    @Impure
     public List getPredicates()
     {
         return this.predicates.getPredicates();
     }
 
+    @Pure
     public PredicateSet getPredicateSet()
     {
         return this.predicates;
     }
 
+    @Pure
+    @Impure
     public int getAxis()
     {
         return this.axis.value();
     }
 
+    @Pure
     public IterableAxis getIterableAxis()
     {
         return this.axis;
     }
 
+    @Pure
+    @Impure
     public String getAxisName()
     {
         return Axis.lookup(getAxis());
     }
 
+    @Impure
     public String getText()
     {
         return this.predicates.getText();
     }
 
+    @SideEffectFree
+    @Impure
     public String toString()
     {
         return getIterableAxis() + " " + super.toString();
     }
 
+    @Impure
     public void simplify()
     {
         this.predicates.simplify();
     }
 
+    @Impure
     public Iterator axisIterator(Object contextNode, ContextSupport support)
         throws UnsupportedAxisException
     {
         return getIterableAxis().iterator(contextNode, support);
     }
 
+    @Impure
     public List evaluate(final Context context) throws JaxenException
     {
         final List contextNodeSet  = context.getNodeSet();

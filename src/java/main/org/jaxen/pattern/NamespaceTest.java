@@ -47,6 +47,9 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.Navigator;
 
@@ -63,6 +66,7 @@ public class NamespaceTest extends NodeTest {
     /** The type of node to match - either attribute or element */
     private short nodeType;
     
+    @Impure
     public NamespaceTest(String prefix, short nodeType)   
     {
         if ( prefix == null ) 
@@ -75,6 +79,7 @@ public class NamespaceTest extends NodeTest {
         
     /** @return true if the pattern matches the given node
       */
+    @Impure
     public boolean matches( Object node, Context context ) 
     {
         Navigator navigator = context.getNavigator();
@@ -93,22 +98,26 @@ public class NamespaceTest extends NodeTest {
         return false;
     }
     
+    @Pure
     public double getPriority() 
     {
         return -0.25;
     }
 
 
+    @Pure
     public short getMatchType() 
     {
         return nodeType;
     }
     
+    @Pure
     public String getText() 
     {
         return prefix + ":";
     }
     
+    @SideEffectFree
     public String toString()
     {
         return super.toString() + "[ prefix: " + prefix + " type: " + nodeType + " ]";
@@ -116,6 +125,7 @@ public class NamespaceTest extends NodeTest {
     
     /** Returns the URI of the current prefix or "" if no URI can be found
      */
+    @Impure
     protected String getURI(Object node, Context context)
     {
         String uri = context.getNavigator().translateNamespacePrefixToUri( prefix, node );

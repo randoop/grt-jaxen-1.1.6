@@ -50,6 +50,9 @@
 
 package org.jaxen.saxpath;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.jaxen.JaxenRuntimeException;
 
 
@@ -62,6 +65,7 @@ import org.jaxen.JaxenRuntimeException;
 public class Axis
 {
     
+    @SideEffectFree
     private Axis() {}
     
     // XXX Ultimately these should use the type-safe enum pattern instead
@@ -117,6 +121,8 @@ public class Axis
      * @throws JaxenRuntimeException if the number does not represent one of the 13
      *     XPath axes
      */
+    @Pure
+    @Deterministic
     public static String lookup(int axisNum)
     {
         switch ( axisNum )
@@ -172,6 +178,7 @@ public class Axis
      * @param axisName the name of the axis: child, parent, descendant, descendant-or-self, etc.
      * @return the axis code
      */
+    @Pure
     public static int lookup(String axisName)
     {
         

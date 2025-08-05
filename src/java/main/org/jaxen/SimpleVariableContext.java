@@ -48,6 +48,8 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,6 +79,7 @@ public class SimpleVariableContext implements VariableContext, Serializable
      *  Create a new empty variable context.
      *  </p>
      */
+    @Impure
     public SimpleVariableContext()
     {
         variables = new HashMap();
@@ -99,6 +102,7 @@ public class SimpleVariableContext implements VariableContext, Serializable
      *  @param localName the local name of the variable
      *  @param value The value to be bound to the variable
      */
+    @Impure
     public void setVariableValue( String namespaceURI,
                                   String localName,
                                   Object value )
@@ -119,12 +123,15 @@ public class SimpleVariableContext implements VariableContext, Serializable
      *  @param localName the local name of the variable
      *  @param value the value to be bound to the variable
      */
+    @Impure
     public void setVariableValue( String localName,
                                   Object value )
     {
         this.variables.put( new QualifiedName(null, localName), value );
     }
 
+    @SideEffectFree
+    @Impure
     public Object getVariableValue( String namespaceURI,
                                     String prefix,
                                     String localName )

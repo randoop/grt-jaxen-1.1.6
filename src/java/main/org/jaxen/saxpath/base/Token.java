@@ -50,6 +50,9 @@
 
 
 package org.jaxen.saxpath.base;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 
 class Token
 {
@@ -58,6 +61,7 @@ class Token
     private int    tokenBegin;
     private int    tokenEnd;
 
+    @Impure
     Token(int tokenType,
           String parseText,
           int tokenBegin,
@@ -69,47 +73,58 @@ class Token
         setTokenEnd( tokenEnd );
     }
 
+    @Impure
     private void setTokenType(int tokenType)
     {
         this.tokenType = tokenType;
     }
 
+    @Pure
     int getTokenType()
     {
         return this.tokenType;
     }
 
+    @Impure
     private void setParseText(String parseText)
     {
         this.parseText = parseText;
     }
 
+    @SideEffectFree
+    @Impure
     String getTokenText()
     {
         return this.parseText.substring( getTokenBegin(),
                                          getTokenEnd() );
     }
 
+    @Impure
     private void setTokenBegin(int tokenBegin)
     {
         this.tokenBegin = tokenBegin;
     }
 
+    @Pure
     int getTokenBegin()
     {
         return this.tokenBegin;
     }
 
+    @Impure
     private void setTokenEnd(int tokenEnd)
     {
         this.tokenEnd = tokenEnd;
     }
 
+    @Pure
     int getTokenEnd()
     {
         return this.tokenEnd;
     }
 
+    @SideEffectFree
+    @Impure
     public String toString()
     {
         return ("[ (" + tokenType + ") (" + getTokenText() + ")");

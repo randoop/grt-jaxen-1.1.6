@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -76,6 +78,7 @@ public class LocalNameFunction implements Function
     /**
      * Create a new <code>LocalNameFunction</code> object.
      */
+    @SideEffectFree
     public LocalNameFunction() {}
     
     /**
@@ -90,6 +93,7 @@ public class LocalNameFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more than one item
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -118,6 +122,7 @@ public class LocalNameFunction implements Function
      * 
      * @throws FunctionCallException if <code>list.get(0)</code> is not a node
      */
+    @Impure
     public static String evaluate(List list,
                                   Navigator nav) throws FunctionCallException
     {

@@ -49,10 +49,13 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 abstract class DefaultTruthExpr extends DefaultBinaryExpr 
 {
+    @Impure
     DefaultTruthExpr(Expr lhs,
                             Expr rhs)
     {
@@ -60,11 +63,14 @@ abstract class DefaultTruthExpr extends DefaultBinaryExpr
                rhs );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultTruthExpr): " + getLHS() + ", " + getRHS() + "]";
     }
 
+    @Pure
     protected boolean bothAreSets(Object lhs,
                                   Object rhs)
     {
@@ -73,6 +79,7 @@ abstract class DefaultTruthExpr extends DefaultBinaryExpr
                  rhs instanceof List );
     }
 
+    @Pure
     protected boolean eitherIsSet(Object lhs,
                                   Object rhs)
     {
@@ -81,21 +88,25 @@ abstract class DefaultTruthExpr extends DefaultBinaryExpr
                  rhs instanceof List );
     }
 
+    @Pure
     protected boolean isSet(Object obj)
     {
         return ( obj instanceof List );
     }
     
+    @Pure
     protected boolean isBoolean(Object obj)
     {
         return ( obj instanceof Boolean );
     }
     
+    @Pure
     protected boolean setIsEmpty( List set )
       {
       return (set == null || set.size() == 0);
       }
 
+    @Pure
     protected boolean eitherIsBoolean(Object lhs,
                                       Object rhs)
     {
@@ -104,6 +115,7 @@ abstract class DefaultTruthExpr extends DefaultBinaryExpr
                  rhs instanceof Boolean );
     }
 
+    @Pure
     protected boolean bothAreBoolean(Object lhs,
                                      Object rhs)
     {
@@ -112,6 +124,7 @@ abstract class DefaultTruthExpr extends DefaultBinaryExpr
                  rhs instanceof Boolean );
     }
 
+    @Pure
     protected boolean eitherIsNumber(Object lhs,
                                      Object rhs)
     {

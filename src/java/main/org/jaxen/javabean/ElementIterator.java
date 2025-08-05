@@ -1,5 +1,8 @@
 package org.jaxen.javabean;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.Iterator;
 
 public class ElementIterator
@@ -9,6 +12,7 @@ public class ElementIterator
     private String name;
     private Iterator iterator;
 
+    @SideEffectFree
     public ElementIterator(Element parent,
                            String name,
                            Iterator iterator)
@@ -18,11 +22,13 @@ public class ElementIterator
         this.iterator = iterator;
     }
 
+    @Pure
     public boolean hasNext()
     {
         return this.iterator.hasNext();
     }
 
+    @Impure
     public Object next()
     {
         return new Element( parent,
@@ -30,6 +36,7 @@ public class ElementIterator
                             this.iterator.next() );
     }
 
+    @SideEffectFree
     public void remove()
     {
         throw new UnsupportedOperationException();

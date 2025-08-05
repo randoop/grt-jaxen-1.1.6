@@ -46,9 +46,12 @@
  * $Id: DefaultAdditiveExpr.java 1128 2006-02-05 21:49:04Z elharo $
  */
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 abstract class DefaultAdditiveExpr extends DefaultArithExpr implements AdditiveExpr
 {
+    @Impure
     DefaultAdditiveExpr( Expr lhs,
                                 Expr rhs )
     {
@@ -56,6 +59,8 @@ abstract class DefaultAdditiveExpr extends DefaultArithExpr implements AdditiveE
                rhs );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(" + getClass().getName() + "): " + getLHS() + ", " + getRHS() + "]";

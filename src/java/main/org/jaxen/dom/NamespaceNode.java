@@ -51,6 +51,9 @@
 
 package org.jaxen.dom;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -125,6 +128,7 @@ public class NamespaceNode implements Node
      * @param name the namespace prefix
      * @param value the namespace URI
      */
+    @SideEffectFree
     public NamespaceNode (Node parent, String name, String value)
     {
         this.parent = parent;
@@ -140,6 +144,7 @@ public class NamespaceNode implements Node
      * @param attribute the DOM attribute object containing the
      *        namespace declaration
      */
+    @SideEffectFree
     NamespaceNode (Node parent, Node attribute)
     {
         String attributeName = attribute.getNodeName();
@@ -169,6 +174,7 @@ public class NamespaceNode implements Node
      *
      * @return the namespace prefix, or "" for the default namespace
      */
+    @Pure
     public String getNodeName ()
     {
         return name;
@@ -180,6 +186,7 @@ public class NamespaceNode implements Node
      *
      * @return the namespace URI
      */
+    @Pure
     public String getNodeValue ()
     {
         return value;
@@ -192,6 +199,7 @@ public class NamespaceNode implements Node
      * @param value the new URI
      * @throws DOMException always
      */
+    @Impure
     public void setNodeValue (String value) throws DOMException
     {
         disallowModification();
@@ -203,6 +211,7 @@ public class NamespaceNode implements Node
      *
      * @return always {@link #NAMESPACE_NODE}.
      */
+    @Pure
     public short getNodeType ()
     {
         return NAMESPACE_NODE;
@@ -218,6 +227,7 @@ public class NamespaceNode implements Node
      *
      * @return the parent node (not null)
      */
+    @Pure
     public Node getParentNode ()
     {
         return parent;
@@ -229,6 +239,7 @@ public class NamespaceNode implements Node
      *
      * @return an empty node list
      */
+    @Impure
     public NodeList getChildNodes ()
     {
         return new EmptyNodeList();
@@ -240,6 +251,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public Node getFirstChild ()
     {
         return null;
@@ -251,6 +263,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public Node getLastChild ()
     {
         return null;
@@ -262,6 +275,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public Node getPreviousSibling ()
     {
         return null;
@@ -273,6 +287,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public Node getNextSibling ()
     {
         return null;
@@ -284,6 +299,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public NamedNodeMap getAttributes ()
     {
         return null;
@@ -295,6 +311,7 @@ public class NamespaceNode implements Node
      *
      * @return the owner document <em>of the parent node</em>
      */
+    @Pure
     public Document getOwnerDocument ()
     {
         if (parent == null) return null;
@@ -311,6 +328,7 @@ public class NamespaceNode implements Node
      * @throws DOMException always
      * @see Node#insertBefore
      */
+    @Impure
     public Node insertBefore (Node newChild, Node refChild)
     throws DOMException
     {
@@ -328,6 +346,7 @@ public class NamespaceNode implements Node
      * @throws DOMException always
      * @see Node#replaceChild
      */
+    @Impure
     public Node replaceChild (Node newChild, Node oldChild) throws DOMException
     {
         disallowModification();
@@ -343,6 +362,7 @@ public class NamespaceNode implements Node
      * @throws DOMException always
      * @see Node#removeChild
      */
+    @Impure
     public Node removeChild(Node oldChild) throws DOMException
     {
         disallowModification();
@@ -358,6 +378,7 @@ public class NamespaceNode implements Node
      * @throws DOMException always
      * @see Node#appendChild
      */
+    @Impure
     public Node appendChild(Node newChild) throws DOMException
     {
         disallowModification();
@@ -370,6 +391,7 @@ public class NamespaceNode implements Node
      *
      * @return false
      */
+    @Pure
     public boolean hasChildNodes()
     {
         return false;
@@ -383,6 +405,8 @@ public class NamespaceNode implements Node
      *        don't have children).
      * @return a new copy of this namespace node
      */
+    @SideEffectFree
+    @Impure
     public Node cloneNode (boolean deep)
     {
         return new NamespaceNode(parent, name, value);
@@ -395,6 +419,7 @@ public class NamespaceNode implements Node
      * <p>This method has no effect, since namespace nodes have no
      * descendants.</p>
      */
+    @SideEffectFree
     public void normalize ()
     {
     // no op
@@ -408,6 +433,7 @@ public class NamespaceNode implements Node
      * @param version the feature version
      * @return false
      */
+    @Pure
     public boolean isSupported(String feature, String version)
     {
         return false;
@@ -422,6 +448,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Pure
     public String getNamespaceURI()
     {
        return null;
@@ -437,6 +464,7 @@ public class NamespaceNode implements Node
      * @return null
      * @see #getLocalName
      */
+    @Pure
     public String getPrefix()
     {
         return null;
@@ -449,6 +477,7 @@ public class NamespaceNode implements Node
      * @param prefix the new prefix
      * @throws DOMException always thrown
      */
+    @Impure
     public void setPrefix(String prefix)
     throws DOMException
     {
@@ -462,6 +491,7 @@ public class NamespaceNode implements Node
      *
      * @return the namespace prefix
      */
+    @Pure
     public String getLocalName ()
     {
         return name;
@@ -473,6 +503,7 @@ public class NamespaceNode implements Node
      *
      * @return false
      */
+    @Pure
     public boolean hasAttributes ()
     {
         return false;
@@ -484,6 +515,7 @@ public class NamespaceNode implements Node
      *
      * @throws DOMException always thrown
      */
+    @Impure
     private void disallowModification () throws DOMException
     {
         throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
@@ -502,6 +534,8 @@ public class NamespaceNode implements Node
      *
      * @return a hash code for this node
      */
+    @Pure
+    @Impure
     public int hashCode ()
     {
         return hashCode(parent) + hashCode(name) + hashCode(value);
@@ -518,6 +552,8 @@ public class NamespaceNode implements Node
      * @return true if the object is equivalent to this node, false
      *         otherwise
      */
+    @Pure
+    @Impure
     public boolean equals (Object o)
     {
         if (o == this) return true;
@@ -540,6 +576,7 @@ public class NamespaceNode implements Node
      * @return the object's hash code, or 0 if the object is null
      * @see java.lang.Object#hashCode
      */
+    @Pure
     private int hashCode (Object o)
     {
         return (o == null ? 0 : o.hashCode());
@@ -554,6 +591,7 @@ public class NamespaceNode implements Node
      * @return true if the objects are equivalent or are both null
      * @see java.lang.Object#equals
      */
+    @Pure
     private boolean equals (Object a, Object b)
     {
         return ((a == null && b == null) ||
@@ -589,6 +627,7 @@ public class NamespaceNode implements Node
         /**
          * @see NodeList#getLength
          */
+        @Pure
         public int getLength ()
         {
             return 0;
@@ -598,6 +637,7 @@ public class NamespaceNode implements Node
         /**
          * @see NodeList#item
          */
+        @Pure
         public Node item(int index)
         {
             return null;
@@ -615,6 +655,7 @@ public class NamespaceNode implements Node
      *
      * @return null
      */
+    @Impure
     public String getBaseURI() {
         Class clazz = Node.class;
         try {
@@ -638,6 +679,7 @@ public class NamespaceNode implements Node
      * @return never
      * @throws DOMException NOT_SUPPORTED_ERR
      */
+    @Impure
     public short compareDocumentPosition(Node other) throws DOMException {
         DOMException ex = new DOMException(
           DOMException.NOT_SUPPORTED_ERR,
@@ -653,6 +695,7 @@ public class NamespaceNode implements Node
      * @return the namespace URI
      * @see #getNodeValue
      */
+    @Pure
     public String getTextContent() {
         return value;
     }
@@ -665,6 +708,7 @@ public class NamespaceNode implements Node
      * @param textContent the new content
      * @throws DOMException always
      */
+    @Impure
     public void setTextContent(String textContent) throws DOMException {
         disallowModification();
     }
@@ -679,6 +723,7 @@ public class NamespaceNode implements Node
      * @return true if this object represents the same XPath namespace node
      *     as other; false otherwise
      */
+    @Impure
     public boolean isSameNode(Node other)  {
         boolean a = this.isEqualNode(other);
         // a bit flaky (should really be 
@@ -722,6 +767,7 @@ public class NamespaceNode implements Node
      * @return a prefix matching this namespace URI
      * @throws UnsupportedOperationException in DOM 2
      */
+    @Impure
     public String lookupPrefix(String namespaceURI) {
         // This could be fully implemented even in Java 1.4. See
         // http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/namespaces-algorithms.html#lookupNamespaceURIAlgo
@@ -758,6 +804,7 @@ public class NamespaceNode implements Node
      * @return never
      * @throws UnsupportedOperationException always
      */
+    @Pure
     public boolean isDefaultNamespace(String namespaceURI) {
         return namespaceURI.equals(this.lookupNamespaceURI(null));
     }
@@ -772,6 +819,7 @@ public class NamespaceNode implements Node
      * @return the namespace URI mapped to this prefix
      * @throws UnsupportedOperationException in DOM 2
      */
+    @Impure
     public String lookupNamespaceURI(String prefix) {
         // This could be fully implemented even in Java 1.4. See
         // http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/namespaces-algorithms.html#lookupNamespaceURIAlgo
@@ -804,6 +852,7 @@ public class NamespaceNode implements Node
      * @param arg the node to compare to
      * @return true if this object has the same prefix and URI as the argument; false otherwise
      */
+    @Pure
     public boolean isEqualNode(Node arg) {
         if (arg.getNodeType() == this.getNodeType()) {
             NamespaceNode other = (NamespaceNode) arg;
@@ -826,6 +875,7 @@ public class NamespaceNode implements Node
      * 
      * @return null
      */
+    @Pure
     public Object getFeature(String feature, String version) {
         return null;
     }
@@ -844,6 +894,7 @@ public class NamespaceNode implements Node
      * @return the value previously associated with this key; or null
      *     if there isn't any such previous value
      */
+    @Impure
     public Object setUserData(String key, Object data, UserDataHandler handler) {
         Object oldValue = getUserData(key);
         userData.put(key, data);
@@ -858,6 +909,7 @@ public class NamespaceNode implements Node
      * 
      * @return the object associated with the key; or null if no such object is available
      */
+    @Pure
     public Object getUserData(String key) {
         return userData.get(key);
     }

@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.ContextSupport;
 import org.jaxen.expr.iter.IterableAxis;
 
@@ -63,21 +66,27 @@ public class DefaultAllNodeStep extends DefaultStep implements AllNodeStep
      */
     private static final long serialVersionUID = 292886316770123856L;
     
+    @SideEffectFree
+    @Impure
     public DefaultAllNodeStep(IterableAxis axis, PredicateSet predicateSet)
     {
         super( axis, predicateSet );
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultAllNodeStep): " + getAxisName() + "]";
     }
 
+    @Impure
     public String getText()
     {
         return getAxisName() + "::node()" + super.getText();
     }
 
+    @Pure
     public boolean matches(Object node,
                            ContextSupport contextSupport)
     {

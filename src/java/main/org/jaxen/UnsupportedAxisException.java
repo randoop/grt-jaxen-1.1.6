@@ -48,6 +48,8 @@
 
 
 package org.jaxen;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 
 /** 
  * Indicates attempt to evaluate an XPath axis that
@@ -70,6 +72,8 @@ public class UnsupportedAxisException extends JaxenException
      *
      *  @param message the error message
      */
+    @SideEffectFree
+    @Impure
     public UnsupportedAxisException(String message)
     {
         super( message );

@@ -45,6 +45,7 @@
  * $Id: ProcessingInstructionNodeStep.java 1226 2006-11-08 15:44:33Z elharo $
  */
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Represents the XPath node-test <code>processing-instruction()</code>.
@@ -57,5 +58,6 @@ public interface ProcessingInstructionNodeStep extends Step
      * 
      * @return the target of the processing instruction
      */
+    @Pure
     public String getName();
 }

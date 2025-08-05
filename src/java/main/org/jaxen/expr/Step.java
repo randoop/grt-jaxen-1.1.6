@@ -47,6 +47,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,6 +77,7 @@ public interface Step extends Predicated
      * 
      * @return true if the node matches this step; false if it doesn't
      */    
+    @Impure
     boolean matches(Object node,
                     ContextSupport contextSupport) throws JaxenException;
 
@@ -83,12 +86,14 @@ public interface Step extends Predicated
      * 
      * @return the text form of this step
      */
+    @Impure
     String getText();
 
     /**
      * Simplifies the XPath step. In practice, this is usually a noop.
      * Jaxen does not currently perform any simplification.
      */
+    @Impure
     void simplify();
 
     /**
@@ -97,6 +102,8 @@ public interface Step extends Predicated
      * @return the axis identifier
      * @see org.jaxen.saxpath.Axis
      */
+    @Pure
+    @Impure
     public int getAxis();
 
     /**
@@ -108,6 +115,7 @@ public interface Step extends Predicated
      * @throws UnsupportedAxisException if the navigator does not support this step's axis
      * 
      */
+    @Impure
     Iterator axisIterator(Object contextNode,
                           ContextSupport support) throws UnsupportedAxisException;
     
@@ -118,6 +126,7 @@ public interface Step extends Predicated
      * 
      * @return a list of matching nodes
      */
+    @Impure
     List evaluate(Context context) throws JaxenException;
 
 }

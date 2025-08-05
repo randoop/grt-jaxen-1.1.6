@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen.expr.iter;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 
 import org.jaxen.ContextSupport;
@@ -58,6 +61,8 @@ public class IterableChildAxis extends IterableAxis {
      * 
      * @param value the axis value
      */
+    @SideEffectFree
+    @Impure
     public IterableChildAxis(int value) {
         super(value);
     }
@@ -70,6 +75,7 @@ public class IterableChildAxis extends IterableAxis {
      * @return an iterator over the children of the context node
      * @throws UnsupportedAxisException if the child axis is not supported
      */
+    @Impure
     public Iterator iterator(Object contextNode, ContextSupport support) 
       throws UnsupportedAxisException {
         return support.getNavigator().getChildAxisIterator(contextNode);
@@ -86,6 +92,7 @@ public class IterableChildAxis extends IterableAxis {
      * @return an iterator over the children of the context node
      * @throws UnsupportedAxisException if the child axis is not supported by the model
      */
+    @Impure
     public Iterator namedAccessIterator(
         Object contextNode,
         ContextSupport support,
@@ -104,6 +111,8 @@ public class IterableChildAxis extends IterableAxis {
      * @param support the additional context information
      * @return true if named access supported. If not iterator() will be used
      */
+    @Pure
+    @Impure
     public boolean supportsNamedAccess(ContextSupport support) {
         return (support.getNavigator() instanceof NamedAccessNavigator);
     }

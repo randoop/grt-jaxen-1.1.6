@@ -42,6 +42,8 @@
  */
 
 package org.jaxen.saxpath.base;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 /**
  * A utility class to handle well-formedness checks on names. 
@@ -62,6 +64,8 @@ final class Verifier {
      * @return <code>boolean</code> true if it's a name character, 
      *                                false otherwise
      */
+     @Pure
+     @Impure
      static boolean isXMLNCNameCharacter(char c) {
     
       return (isXMLLetter(c) || isXMLDigit(c) || c == '.' || c == '-' 
@@ -79,6 +83,8 @@ final class Verifier {
      * @param c <code>char</code> to check for XML name start compliance
      * @return true if it's a name start character, false otherwise
      */
+    @Pure
+    @Impure
     static boolean isXMLNCNameStartCharacter(char c) {
     
       return (isXMLLetter(c) || c == '_');
@@ -92,6 +98,7 @@ final class Verifier {
      * @param c <code>char</code> to check for XML name compliance
      * @return <code>String</code> true if it's a letter, false otherwise
      */
+    @Pure
     static boolean isXMLLetter(char c) {
         // Note that order is very important here.  The search proceeds 
         // from lowest to highest values, so that no searching occurs 
@@ -317,6 +324,7 @@ final class Verifier {
      * @return <code>boolean</code> true if it's a combining character,
      *         false otherwise
      */
+    @Pure
     static boolean isXMLCombiningChar(char c) {
         // CombiningChar
         if (c < 0x0300) return false;  if (c <= 0x0345) return true;
@@ -451,6 +459,7 @@ final class Verifier {
      * @param c <code>char</code> to check
      * @return true if it's an extender, false otherwise
      */
+    @Pure
     static boolean isXMLExtender(char c) {
 
         if (c < 0x00B6) return false;  // quick short circuit
@@ -480,6 +489,7 @@ final class Verifier {
      * @param c <code>char</code> to check for XML digit compliance
      * @return <code>boolean</code> true if it's a digit, false otherwise
      */
+    @Pure
     static boolean isXMLDigit(char c) {
       
         if (c < 0x0030) return false;  if (c <= 0x0039) return true;

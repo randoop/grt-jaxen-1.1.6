@@ -48,6 +48,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Iterator;
 import java.util.List;
 
@@ -73,6 +75,7 @@ public class SumFunction implements Function
     /**
      * Create a new <code>SumFunction</code> object.
      */
+    @SideEffectFree
     public SumFunction() {}
     
     /** Returns the sum of its arguments.
@@ -86,6 +89,7 @@ public class SumFunction implements Function
      * @throws FunctionCallException if <code>args</code> has more or less than one item;
      *     or if the first argument is not a <code>List</code>
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -111,6 +115,7 @@ public class SumFunction implements Function
      * 
      * @throws FunctionCallException if <code>obj</code> is not a <code>List</code>
      */
+    @Impure
     public static Double evaluate(Object obj,
                                   Navigator nav) throws FunctionCallException
     {

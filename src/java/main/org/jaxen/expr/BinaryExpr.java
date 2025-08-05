@@ -48,6 +48,7 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 
 /**
@@ -65,6 +66,7 @@ public interface BinaryExpr extends Expr
      * 
      * @return the left hand side expression
      */
+    @Pure
     Expr getLHS();
 
     
@@ -73,6 +75,7 @@ public interface BinaryExpr extends Expr
      * 
      * @return the right-hand side expression
      */
+    @Pure
     Expr getRHS();
     
     /**
@@ -81,6 +84,7 @@ public interface BinaryExpr extends Expr
      * 
      * @return the operator for the expression
      */
+    @Pure
     String getOperator();
     
 }

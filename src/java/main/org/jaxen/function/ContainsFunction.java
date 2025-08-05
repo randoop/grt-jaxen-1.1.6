@@ -47,6 +47,8 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -72,6 +74,7 @@ public class ContainsFunction implements Function
     /**
      * Create a new <code>ContainsFunction</code> object.
      */
+    @SideEffectFree
     public ContainsFunction() {}
     
     /** 
@@ -92,6 +95,7 @@ public class ContainsFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have exactly two items
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -118,6 +122,7 @@ public class ContainsFunction implements Function
      * @return <code>Boolean.TRUE</code> if true if the first string contains 
      *     the second string; <code>Boolean.FALSE</code> otherwise.
      */
+    @Impure
     public static Boolean evaluate(Object strArg,
                                    Object matchArg,
                                    Navigator nav) 

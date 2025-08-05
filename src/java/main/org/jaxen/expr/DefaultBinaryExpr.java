@@ -48,50 +48,62 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 
 abstract class DefaultBinaryExpr extends DefaultExpr implements BinaryExpr
 {
     private Expr lhs;
     private Expr rhs;
 
+    @Impure
     DefaultBinaryExpr(Expr lhs, Expr rhs)
     {
         this.lhs = lhs;
         this.rhs = rhs;
     }
 
+    @Pure
     public Expr getLHS()
     {
         return this.lhs;
     }
 
+    @Pure
     public Expr getRHS()
     {
         return this.rhs;
     }
 
+    @Impure
     public void setLHS(Expr lhs)
     {
         this.lhs = lhs;
     }
 
+    @Impure
     public void setRHS(Expr rhs)
     {
         this.rhs = rhs;
     }
 
+    @Pure
     public abstract String getOperator();
 
+    @Impure
     public String getText()
     {
         return "(" + getLHS().getText() + " " + getOperator() + " " + getRHS().getText() +")";
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[" + getClass().getName() + ": " + getLHS() + ", " + getRHS() + "]";
     }
 
+    @Impure
     public Expr simplify()
     {
         setLHS( getLHS().simplify() );

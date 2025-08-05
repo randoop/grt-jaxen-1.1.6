@@ -48,6 +48,9 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -83,6 +86,7 @@ public class NormalizeSpaceFunction implements Function
     /**
      * Create a new <code>NormalizeSpaceFunction</code> object.
      */
+    @SideEffectFree
     public NormalizeSpaceFunction() {}
     
     /** 
@@ -100,6 +104,7 @@ public class NormalizeSpaceFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> does not have length one
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -130,6 +135,7 @@ public class NormalizeSpaceFunction implements Function
      * 
      * @return the normalized string-value
      */
+    @Impure
     public static String evaluate(Object strArg,
                                   Navigator nav) 
     {
@@ -167,6 +173,7 @@ public class NormalizeSpaceFunction implements Function
     }
     
     
+    @Pure
     private static boolean isXMLSpace(char c) {
         return c == ' ' || c == '\n' || c == '\r' || c == '\t';
     }

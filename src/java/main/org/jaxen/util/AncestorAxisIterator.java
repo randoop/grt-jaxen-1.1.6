@@ -50,6 +50,7 @@
 package org.jaxen.util;
 
 
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Navigator;
 
 /**
@@ -70,6 +71,7 @@ public class AncestorAxisIterator extends AncestorOrSelfAxisIterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @Impure
     public AncestorAxisIterator(Object contextNode,
                                 Navigator navigator)
     {

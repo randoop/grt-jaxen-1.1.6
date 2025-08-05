@@ -47,6 +47,7 @@
 
 package org.jaxen.function.ext;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -79,6 +80,7 @@ public abstract class LocaleFunctionSupport implements Function
      * @return the Locale for the value or null if one could 
      *      not be deduced
      */
+    @Impure
     protected Locale getLocale(Object value, Navigator navigator) 
     {
         if (value instanceof Locale)
@@ -112,6 +114,7 @@ public abstract class LocaleFunctionSupport implements Function
      * @return the locale for the given text or null if one could not
      *      be found 
      */
+    @Impure
     protected Locale findLocale(String localeText) {
         StringTokenizer tokens = new StringTokenizer( localeText, "-" );
         if (tokens.hasMoreTokens())
@@ -146,6 +149,7 @@ public abstract class LocaleFunctionSupport implements Function
      * @return the locale for the given language or null if one could not
      *      be found 
      */
+    @Impure
     protected Locale findLocaleForLanguage(String language) {
         Locale[] locales = Locale.getAvailableLocales();
         for ( int i = 0, size = locales.length; i < size; i++ ) 

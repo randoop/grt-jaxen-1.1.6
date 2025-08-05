@@ -47,6 +47,9 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Iterator;
 import java.util.List;
 
@@ -133,6 +136,7 @@ public class NumberFunction implements Function
     /**
      * Create a new <code>NumberFunction</code> object.
      */
+    @SideEffectFree
     public NumberFunction() {}
 
     /** 
@@ -149,6 +153,7 @@ public class NumberFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more than one item
      */
+    @Impure
     public Object call(Context context, List args) throws FunctionCallException
     {
         if (args.size() == 1)
@@ -172,6 +177,7 @@ public class NumberFunction implements Function
      * 
      * @return a <code>Double</code>
      */
+    @Impure
     public static Double evaluate(Object obj, Navigator nav)
     {
         if( obj instanceof Double )
@@ -222,6 +228,7 @@ public class NumberFunction implements Function
    * @param val the double to test
    * @return true if the value is NaN, false otherwise
    */
+    @Pure
     public static boolean isNaN( double val )
     {
         return Double.isNaN(val);
@@ -234,6 +241,7 @@ public class NumberFunction implements Function
    * @param val the <code>Double</code> to test
    * @return true if the value is NaN, false otherwise
    */
+    @Pure
     public static boolean isNaN( Double val )
     {
         return val.equals( NaN );

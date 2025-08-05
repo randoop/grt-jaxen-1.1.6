@@ -48,6 +48,9 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.util.List;
 
@@ -106,6 +109,7 @@ public class BaseXPath implements XPath, Serializable
      *  @throws JaxenException if there is a syntax error while
      *          parsing the expression
      */
+    @Impure
     protected BaseXPath(String xpathExpr) throws JaxenException
     {
         try
@@ -137,6 +141,7 @@ public class BaseXPath implements XPath, Serializable
      *  @throws JaxenException if there is a syntax error while
      *          parsing the expression
      */
+    @Impure
     public BaseXPath(String xpathExpr, Navigator navigator) throws JaxenException
     {
         this( xpathExpr );
@@ -170,6 +175,7 @@ public class BaseXPath implements XPath, Serializable
      * @throws JaxenException if an XPath error occurs during expression evaluation
      * @throws ClassCastException if the context is not a node
      */
+    @Impure
     public Object evaluate(Object context) throws JaxenException
     {
         List answer = selectNodes(context);
@@ -210,6 +216,7 @@ public class BaseXPath implements XPath, Serializable
      *
      * @see #selectNodesForContext
      */
+    @Impure
     public List selectNodes(Object node) throws JaxenException
     {
         Context context = getContext( node );
@@ -232,6 +239,7 @@ public class BaseXPath implements XPath, Serializable
      *
      * @see #selectNodes
      */
+    @Impure
     public Object selectSingleNode(Object node) throws JaxenException
     {
         List results = selectNodes( node );
@@ -252,6 +260,7 @@ public class BaseXPath implements XPath, Serializable
      * @throws JaxenException if an XPath error occurs during expression evaluation
      * @deprecated replaced by {@link #stringValueOf}
      */
+    @Impure
     public String valueOf(Object node) throws JaxenException
     {
         return stringValueOf( node );
@@ -275,6 +284,7 @@ public class BaseXPath implements XPath, Serializable
      * @return the string-value of the result of evaluating this expression with the specified context node
      * @throws JaxenException if an XPath error occurs during expression evaluation
      */
+    @Impure
     public String stringValueOf(Object node) throws JaxenException
     {
         Context context = getContext( node );
@@ -307,6 +317,7 @@ public class BaseXPath implements XPath, Serializable
      * @return the boolean-value of the result of evaluating this expression with the specified context node
      * @throws JaxenException if an XPath error occurs during expression evaluation
      */
+    @Impure
     public boolean booleanValueOf(Object node) throws JaxenException
     {
         Context context = getContext( node );
@@ -332,6 +343,7 @@ public class BaseXPath implements XPath, Serializable
      *      evaluating this expression against the specified context
      * @throws JaxenException if an XPath error occurs during expression evaluation
      */
+    @Impure
     public Number numberValueOf(Object node) throws JaxenException
     {
         Context context = getContext( node );
@@ -366,6 +378,7 @@ public class BaseXPath implements XPath, Serializable
      *  @throws JaxenException if the <code>NamespaceContext</code>
      *          used by this XPath is not a <code>SimpleNamespaceContext</code>
      */
+    @Impure
     public void addNamespace(String prefix,
                              String uri) throws JaxenException
     {
@@ -402,6 +415,7 @@ public class BaseXPath implements XPath, Serializable
      *  @see NamespaceContext
      *  @see NamespaceContext#translateNamespacePrefixToUri
      */
+    @Impure
     public void setNamespaceContext(NamespaceContext namespaceContext)
     {
         getContextSupport().setNamespaceContext(namespaceContext);
@@ -421,6 +435,7 @@ public class BaseXPath implements XPath, Serializable
      *  @see FunctionContext
      *  @see FunctionContext#getFunction
      */
+    @Impure
     public void setFunctionContext(FunctionContext functionContext)
     {
         getContextSupport().setFunctionContext(functionContext);
@@ -440,6 +455,7 @@ public class BaseXPath implements XPath, Serializable
      *  @see VariableContext
      *  @see VariableContext#getVariableValue
      */
+    @Impure
     public void setVariableContext(VariableContext variableContext)
     {
         getContextSupport().setVariableContext(variableContext);
@@ -463,6 +479,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @see NamespaceContext
      */
+    @Impure
     public NamespaceContext getNamespaceContext()
     {
         return getContextSupport().getNamespaceContext();
@@ -486,6 +503,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @see FunctionContext
      */
+    @Impure
     public FunctionContext getFunctionContext()
     {
         return getContextSupport().getFunctionContext();
@@ -509,6 +527,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @see VariableContext
      */
+    @Impure
     public VariableContext getVariableContext()
     {
         return getContextSupport().getVariableContext();
@@ -529,6 +548,8 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return the root of the AST of this expression
      */
+    @Pure
+    @Impure
     public Expr getRootExpr() 
     {
         return xpath.getRootExpr();
@@ -538,6 +559,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return the normalized XPath expression string
      */
+    @Pure
     public String toString()
     {
         return this.exprText;
@@ -547,6 +569,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return a string representation of the parse tree.
      */
+    @SideEffectFree
     public String debug()
     {
         return this.xpath.toString();
@@ -567,6 +590,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return a <code>Context</code> wrapper around the object
      */
+    @Impure
     protected Context getContext(Object node)
     {
         if ( node instanceof Context )
@@ -596,6 +620,7 @@ public class BaseXPath implements XPath, Serializable
      *  @return aggregate <code>ContextSupport</code> for this
      *          XPath expression
      */
+    @Impure
     protected ContextSupport getContextSupport()
     {
         if ( support == null )
@@ -616,6 +641,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return the implementation-specific <code>Navigator</code>
      */
+    @Pure
     public Navigator getNavigator()
     {
         return navigator;
@@ -633,6 +659,8 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return a default <code>FunctionContext</code>
      */
+    @Pure
+    @Impure
     protected FunctionContext createFunctionContext()
     {
         return XPathFunctionContext.getInstance();
@@ -642,6 +670,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return a default <code>NamespaceContext</code> instance
      */
+    @Impure
     protected NamespaceContext createNamespaceContext()
     {
         return new SimpleNamespaceContext();
@@ -651,6 +680,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @return a default <code>VariableContext</code> instance
      */
+    @Impure
     protected VariableContext createVariableContext()
     {
         return new SimpleVariableContext();
@@ -672,6 +702,7 @@ public class BaseXPath implements XPath, Serializable
      * @throws JaxenException if an XPath error occurs during expression evaluation
      *
      */
+    @Impure
     protected List selectNodesForContext(Context context) throws JaxenException
     {
         List list = this.xpath.asList( context );
@@ -696,6 +727,7 @@ public class BaseXPath implements XPath, Serializable
      *
      *  @see #selectNodesForContext
      */
+    @Impure
     protected Object selectSingleNodeForContext(Context context) throws JaxenException
     {
         List results = selectNodesForContext( context );

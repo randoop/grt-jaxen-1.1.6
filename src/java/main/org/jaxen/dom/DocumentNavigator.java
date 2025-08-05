@@ -48,6 +48,9 @@ package org.jaxen.dom;
  * $Id: DocumentNavigator.java 1364 2011-07-30 09:46:45Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -119,6 +122,7 @@ public class DocumentNavigator extends DefaultNavigator
     /**
      * Default constructor.
      */
+    @Impure
     public DocumentNavigator ()
     {
     }
@@ -129,6 +133,7 @@ public class DocumentNavigator extends DefaultNavigator
      *
      * @return a constant instance of a DocumentNavigator.
      */
+    @Pure
     public static Navigator getInstance ()
     {
         return SINGLETON;
@@ -147,6 +152,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the child axis.
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getChildAxisIterator (Object contextNode)
     {
         Node node = (Node) contextNode;
@@ -154,10 +160,12 @@ public class DocumentNavigator extends DefaultNavigator
         if ( node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.DOCUMENT_NODE)
         {
             return new NodeIterator ((Node)contextNode) {
+                @Pure
                 protected Node getFirstNode (Node node)
                 {
                     return node.getFirstChild();
                 }
+                @Pure
                 protected Node getNextNode (Node node)
                 {
                     return node.getNextSibling();
@@ -176,28 +184,33 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the parent axis
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getParentAxisIterator (Object contextNode)
     {
         Node node = (Node)contextNode;
 
         if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
             return new NodeIterator (node) {
+                    @Pure
                     protected Node getFirstNode (Node n)
                     {
                         // We can assume castability here because we've already
                         // tested the node type.
                         return ((Attr)n).getOwnerElement();
                     }
+                    @Pure
                     protected Node getNextNode (Node n) {
                         return null;
                     }
                 };
         } else {
             return new NodeIterator (node) {
+                    @Pure
                     protected Node getFirstNode (Node n)
                     {
                         return n.getParentNode();
                     }
+                    @Pure
                     protected Node getNextNode (Node n) {
                         return null;
                     }
@@ -216,6 +229,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the parent of the specified node; or null if
      *     the node does not have a parent
      */
+    @Pure
     public Object getParentNode(Object child) {
         Node node = (Node) child;
         if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
@@ -231,13 +245,17 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the sibling iterator
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getFollowingSiblingAxisIterator (Object contextNode)
     {
         return new NodeIterator ((Node)contextNode) {
+                @Pure
+                @Impure
                 protected Node getFirstNode (Node node)
                 {
                     return getNextNode(node);
                 }
+                @Pure
                 protected Node getNextNode (Node node) {
                     return node.getNextSibling();
                 }
@@ -251,13 +269,17 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the preceding sibling axis
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getPrecedingSiblingAxisIterator (Object contextNode)
     {
         return new NodeIterator ((Node)contextNode) {
+                @Pure
+                @Impure
                 protected Node getFirstNode (Node node)
                 {
                     return getNextNode(node);
                 }
+                @Pure
                 protected Node getNextNode (Node node) {
                     return node.getPreviousSibling();
                 }
@@ -271,9 +293,11 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the following axis
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getFollowingAxisIterator (Object contextNode)
     {
         return new NodeIterator ((Node)contextNode) {
+                @Impure
                 protected Node getFirstNode (Node node)
                 {
                     if (node == null) {
@@ -289,6 +313,7 @@ public class DocumentNavigator extends DefaultNavigator
                         }
                     }
                 }
+                @Impure
                 protected Node getNextNode (Node node) {
                     if (node == null) {
                         return null;
@@ -310,6 +335,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the attribute axis
      * @return a possibly-empty iterator (not null)
      */
+    @SideEffectFree
+    @Impure
     public Iterator getAttributeAxisIterator (Object contextNode)
     {
         if (isElement(contextNode)) {
@@ -347,6 +374,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode the context node for the namespace axis
      * @return a possibly-empty iterator (not null)
      */
+    @Impure
     public Iterator getNamespaceAxisIterator (Object contextNode)
     {
         // Only elements have namespace nodes
@@ -436,6 +464,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a parsed form of the given XPath string
      * @throws org.jaxen.saxpath.SAXPathException if the string is syntactically incorrect
      */
+    @Impure
     public XPath parseXPath (String xpath) throws org.jaxen.saxpath.SAXPathException
     {
         return new DOMXPath(xpath);
@@ -447,6 +476,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @param contextNode any node in the document
      * @return the root node
      */
+    @Pure
+    @Impure
     public Object getDocumentNode (Object contextNode)
     {
         if (isDocument(contextNode)) return contextNode;
@@ -463,6 +494,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a string (possibly empty) if the node is an element,
      * and null otherwise
      */
+    @SideEffectFree
     public String getElementNamespaceUri (Object element)
     {
         try {
@@ -484,6 +516,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a string representing the unqualified local name
      *     if the node is an element, or null otherwise
      */
+    @Pure
+    @Impure
     public String getElementName (Object element)
     {
         if (isElement(element)) {
@@ -502,6 +536,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a string representing the qualified (i.e. possibly
      *   prefixed) name if the argument is an element, or null otherwise
      */
+    @SideEffectFree
     public String getElementQName (Object element)
     {
         try {
@@ -524,6 +559,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the namespace name of the specified node
      * 
      */
+    @SideEffectFree
     public String getAttributeNamespaceUri (Object attribute)
     {
         try {
@@ -545,6 +581,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a string representing the unqualified local name
      * if the node is an attribute, or null otherwise
      */
+    @Pure
+    @Impure
     public String getAttributeName (Object attribute)
     {
         if (isAttribute(attribute)) {
@@ -564,6 +602,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return a string representing the qualified (i.e. possibly
      * prefixed) name if the argument is an attribute, or null otherwise
      */
+    @SideEffectFree
     public String getAttributeQName (Object attribute)
     {
         try {
@@ -584,6 +623,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is the document root, false otherwise
      */
+    @Pure
     public boolean isDocument (Object object)
     {
         return (object instanceof Node) &&
@@ -597,6 +637,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is a namespace, false otherwise
      */
+    @Pure
     public boolean isNamespace (Object object)
     {
         return (object instanceof NamespaceNode);
@@ -609,6 +650,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is an element, false otherwise
      */
+    @Pure
     public boolean isElement (Object object)
     {
         return (object instanceof Node) &&
@@ -624,6 +666,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is an attribute, false otherwise
      */
+    @Pure
     public boolean isAttribute (Object object)
     {
         return (object instanceof Node) &&
@@ -638,6 +681,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is a comment, false otherwise
      */
+    @Pure
     public boolean isComment (Object object)
     {
         return (object instanceof Node) &&
@@ -651,6 +695,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is a text node, false otherwise
      */
+    @Pure
     public boolean isText (Object object)
     {
         if (object instanceof Node) {
@@ -673,6 +718,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return true if the node is a processing instruction, false otherwise
      */
+    @Pure
     public boolean isProcessingInstruction (Object object)
     {
         return (object instanceof Node) &&
@@ -687,6 +733,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the text inside the node and its descendants if the node
      * is an element, null otherwise
      */
+    @Impure
     public String getElementStringValue (Object object)
     {
         if (isElement(object)) {
@@ -705,6 +752,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @param buffer the buffer for building the text
      * @return the buffer passed as a parameter (for convenience)
      */
+    @Impure
     private StringBuffer getStringValue (Node node, StringBuffer buffer)
     {
         if (isText(node)) {
@@ -727,6 +775,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the text of the attribute value if the node is an
      *     attribute, null otherwise
      */
+    @Pure
+    @Impure
     public String getAttributeStringValue (Object object)
     {
         if (isAttribute(object)) return ((Node)object).getNodeValue();
@@ -740,6 +790,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return the string of text if the node is text, null otherwise
      */
+    @Pure
+    @Impure
     public String getTextStringValue (Object object)
     {
         if (isText(object)) return ((Node)object).getNodeValue();
@@ -753,6 +805,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @param object the target node
      * @return the text of the comment if the node is a comment, null otherwise
      */
+    @Pure
+    @Impure
     public String getCommentStringValue (Object object)
     {
         if (isComment(object)) return ((Node)object).getNodeValue();
@@ -767,6 +821,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the namespace URI as a (possibly empty) string if the
      *     node is a namespace node, null otherwise
      */
+    @Pure
+    @Impure
     public String getNamespaceStringValue (Object object)
     {
         if (isNamespace(object)) return ((NamespaceNode)object).getNodeValue();
@@ -780,6 +836,8 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the namespace prefix a (possibly empty) string if the
      *     node is a namespace node, null otherwise
      */
+    @Pure
+    @Impure
     public String getNamespacePrefix (Object object)
     {
         if (isNamespace(object)) return ((NamespaceNode)object).getLocalName();
@@ -794,6 +852,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @return the namespace URI bound to the prefix in the scope of <code>element</code>;
      *     null if the prefix is not bound
      */
+    @Impure
     public String translateNamespacePrefixToUri (String prefix, Object element)
     {
         Iterator it = getNamespaceAxisIterator(element);
@@ -814,6 +873,7 @@ public class DocumentNavigator extends DefaultNavigator
      *
      * @todo Possibly we could make the factory a thread local.
      */
+    @Impure
     public Object getDocument(String uri) throws FunctionCallException
     {
         try
@@ -845,6 +905,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @throws ClassCastException if obj is not a processing instruction
      * 
      */
+    @Impure
     public String getProcessingInstructionTarget(Object obj)
     {      
         if (isProcessingInstruction(obj)) {
@@ -862,6 +923,7 @@ public class DocumentNavigator extends DefaultNavigator
      * @throws ClassCastException if obj is not a processing instruction
      * 
      */
+    @Impure
     public String getProcessingInstructionData(Object obj)
     {
         if (isProcessingInstruction(obj)) {
@@ -898,6 +960,7 @@ public class DocumentNavigator extends DefaultNavigator
          *
          * @param contextNode the starting node
          */
+        @Impure
         public NodeIterator (Node contextNode)
         {
             node = getFirstNode(contextNode);
@@ -906,11 +969,13 @@ public class DocumentNavigator extends DefaultNavigator
             }
         }
 
+        @Pure
         public boolean hasNext ()
         {
             return (node != null);
         }
 
+        @Impure
         public Object next ()
         {
             if (node == null) throw new NoSuchElementException();
@@ -922,6 +987,7 @@ public class DocumentNavigator extends DefaultNavigator
             return ret;
         }
 
+        @SideEffectFree
         public void remove ()
         {
             throw new UnsupportedOperationException();
@@ -938,6 +1004,7 @@ public class DocumentNavigator extends DefaultNavigator
          * @return the first node in the iteration
          * @see #getNextNode
          */
+        @Impure
         protected abstract Node getFirstNode (Node contextNode);
 
 
@@ -952,6 +1019,7 @@ public class DocumentNavigator extends DefaultNavigator
          * if there is none
          * @see #getFirstNode
          */
+        @Impure
         protected abstract Node getNextNode (Node contextNode);
 
 
@@ -961,6 +1029,7 @@ public class DocumentNavigator extends DefaultNavigator
          * @param node the DOM node to test
          * @return true if the node is usable, false if it should be skipped
          */
+        @Pure
         private boolean isXPathNode (Node node)
         {
             // null is usable, because it means end
@@ -999,6 +1068,7 @@ public class DocumentNavigator extends DefaultNavigator
          *
          * @param parent the parent DOM element for the attributes.
          */
+        @SideEffectFree
         AttributeIterator (Node parent)
         {
             this.map = parent.getAttributes();
@@ -1012,11 +1082,13 @@ public class DocumentNavigator extends DefaultNavigator
             }
         }
 
+        @Pure
         public boolean hasNext ()
         {
             return pos <= lastAttribute;
         }
 
+        @Impure
         public Object next ()
         {
             Node attr = map.item(pos++);
@@ -1029,6 +1101,7 @@ public class DocumentNavigator extends DefaultNavigator
             else return attr;
         }
 
+        @SideEffectFree
         public void remove ()
         {
             throw new UnsupportedOperationException();
@@ -1061,6 +1134,8 @@ public class DocumentNavigator extends DefaultNavigator
      *  @throws ClassCastException if object is not an <code>org.w3c.dom.Node</code> object
      *  
      */
+    @Pure
+    @Impure
     public Object getElementById(Object object, String elementId)
     {
         Document doc = (Document)getDocumentNode(object);

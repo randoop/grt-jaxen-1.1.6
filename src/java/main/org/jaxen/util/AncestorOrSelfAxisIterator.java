@@ -48,6 +48,9 @@ package org.jaxen.util;
  * $Id: AncestorOrSelfAxisIterator.java 1255 2006-11-09 18:20:12Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -77,6 +80,7 @@ public class AncestorOrSelfAxisIterator implements Iterator
      * @param contextNode the node to start from
      * @param navigator the object model specific navigator
      */
+    @SideEffectFree
     public AncestorOrSelfAxisIterator(Object contextNode,
                                       Navigator navigator)
     {
@@ -93,6 +97,7 @@ public class AncestorOrSelfAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#hasNext()
      */
+    @Pure
     public boolean hasNext()
     {
         return contextNode != null;
@@ -107,6 +112,7 @@ public class AncestorOrSelfAxisIterator implements Iterator
      * 
      * @see java.util.Iterator#next()
      */
+    @Impure
     public Object next()
     {
         try
@@ -129,6 +135,7 @@ public class AncestorOrSelfAxisIterator implements Iterator
      * 
      * @throws UnsupportedOperationException always
      */
+    @SideEffectFree
     public void remove()
     {
         throw new UnsupportedOperationException();

@@ -46,6 +46,8 @@
  */
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -147,6 +149,7 @@ public class SubstringFunction implements Function
     /**
      * Create a new <code>SubstringFunction</code> object.
      */
+    @SideEffectFree
     public SubstringFunction() {}
 
     
@@ -162,6 +165,7 @@ public class SubstringFunction implements Function
      * @throws FunctionCallException if <code>args</code> has more than three
      *     or less than two items
      */
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -232,6 +236,7 @@ public class SubstringFunction implements Function
         
     }
 
+    @Impure
     private static String unicodeSubstring(String s, int start, int end) {
 
         StringBuffer result = new StringBuffer(s.length());

@@ -47,6 +47,8 @@
  */
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 import org.jaxen.function.NumberFunction;
@@ -58,6 +60,7 @@ class DefaultMultiplyExpr extends DefaultMultiplicativeExpr
      */
     private static final long serialVersionUID = 2760053878102260365L;
 
+    @Impure
     DefaultMultiplyExpr( Expr lhs,
                                 Expr rhs )
     {
@@ -65,11 +68,13 @@ class DefaultMultiplyExpr extends DefaultMultiplicativeExpr
                rhs );
     }
 
+    @Pure
     public String getOperator()
     {
         return "*";
     }
 
+    @Impure
     public Object evaluate( Context context ) throws JaxenException
     {
         Number lhsValue = NumberFunction.evaluate( getLHS().evaluate( context ),

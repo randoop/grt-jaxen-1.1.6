@@ -46,6 +46,8 @@
  */
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 class DefaultGreaterThanEqualExpr extends DefaultRelationalExpr
   {
@@ -53,16 +55,19 @@ class DefaultGreaterThanEqualExpr extends DefaultRelationalExpr
      * 
      */
     private static final long serialVersionUID = -7848747981787197470L;
+@Impure
 DefaultGreaterThanEqualExpr( Expr lhs, Expr rhs )
     {
     super( lhs, rhs );
     }
 
+  @Pure
   public String getOperator()
     {
     return ">=";
     }
 
+  @Pure
   protected boolean evaluateDoubleDouble( Double lhs, Double rhs )
     {
     return lhs.compareTo( rhs ) >= 0;        

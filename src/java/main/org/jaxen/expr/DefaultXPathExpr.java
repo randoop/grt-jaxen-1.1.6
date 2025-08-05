@@ -49,6 +49,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -66,36 +69,44 @@ public class DefaultXPathExpr implements XPathExpr
     private static final long serialVersionUID = 3007613096320896040L;
     private Expr rootExpr;
 
+    @SideEffectFree
     public DefaultXPathExpr(Expr rootExpr)
     {
         this.rootExpr = rootExpr;
     }
 
+    @Pure
     public Expr getRootExpr()
     {
         return this.rootExpr;
     }
 
+    @Impure
     public void setRootExpr(Expr rootExpr)
     {
         this.rootExpr = rootExpr;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultXPath): " + getRootExpr() + "]";
     }
 
+    @Impure
     public String getText()
     {
         return getRootExpr().getText();
     }
 
+    @Impure
     public void simplify()
     {
         setRootExpr( getRootExpr().simplify() );
     }
 
+    @Impure
     public List asList(Context context) throws JaxenException
     {
         Expr expr = getRootExpr();

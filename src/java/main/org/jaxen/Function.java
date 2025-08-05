@@ -48,6 +48,7 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.List;
 
 /** Interface for the extensible function framework.
@@ -82,6 +83,7 @@ public interface Function
      * @throws FunctionCallException if an XPath error occurs during evaluation;
      *     for instance, if the number or type of the arguments is incorrect
      */
+    @Impure
     Object call(Context context,
                 List args) throws FunctionCallException;
 }

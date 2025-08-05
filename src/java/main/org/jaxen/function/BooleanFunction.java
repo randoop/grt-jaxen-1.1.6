@@ -48,6 +48,10 @@
 
 package org.jaxen.function;
 
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.List;
 
 import org.jaxen.Context;
@@ -106,6 +110,7 @@ public class BooleanFunction implements Function
     /**
      * Create a new <code>BooleanFunction</code> object.
      */
+    @SideEffectFree
     public BooleanFunction() {}
     
     /** Convert the argument to a <code>Boolean</code>
@@ -120,6 +125,9 @@ public class BooleanFunction implements Function
      * 
      * @throws FunctionCallException if <code>args</code> has more or less than one item
      */
+    @Pure
+    @Deterministic
+    @Impure
     public Object call(Context context,
                        List args) throws FunctionCallException
     {
@@ -148,6 +156,7 @@ public class BooleanFunction implements Function
      * 
      * @return <code>Boolean.TRUE</code> or <code>Boolean.FALSE</code>
      */
+    @Pure
     public static Boolean evaluate(Object obj, Navigator nav)
     {
         if ( obj instanceof List )

@@ -48,6 +48,8 @@
 
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,6 +72,7 @@ public class SimpleNamespaceContext implements NamespaceContext, Serializable
     /**
      * Creates a new empty namespace context.
      */
+    @Impure
     public SimpleNamespaceContext()
     {
         this.namespaces = new HashMap();
@@ -85,6 +88,7 @@ public class SimpleNamespaceContext implements NamespaceContext, Serializable
      * @throws NullPointerException if the argument is null   
      * @throws ClassCastException if any keys or values in the map are not strings   
      */
+    @Impure
     public SimpleNamespaceContext(Map namespaces)
     {
         Iterator entries = namespaces.entrySet().iterator();
@@ -110,6 +114,7 @@ public class SimpleNamespaceContext implements NamespaceContext, Serializable
      *  @throws UnsupportedAxisException if the navigator does not support the 
      *     namespace axis
      */
+    @Impure
     public void addElementNamespaces( Navigator nav, Object element )
         throws UnsupportedAxisException
     {
@@ -132,11 +137,13 @@ public class SimpleNamespaceContext implements NamespaceContext, Serializable
      * @param prefix the namespace prefix
      * @param URI    the namespace URI
      */
+    @Impure
     public void addNamespace(String prefix, String URI)
     {
         this.namespaces.put( prefix, URI );
     }
 
+    @Pure
     public String translateNamespacePrefixToUri(String prefix)
     {
         if ( this.namespaces.containsKey( prefix ) )

@@ -48,6 +48,7 @@
 
 
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 
 /**
@@ -66,5 +67,6 @@ public interface LiteralExpr extends Expr
      * 
      * @return the contents of the string literal
      */
+    @Pure
     public String getLiteral();
 }

@@ -48,6 +48,9 @@ package org.jaxen;
  * $Id: Navigator.java 1157 2006-06-03 20:07:37Z elharo $
 */
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -85,6 +88,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the child axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getChildAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -98,6 +102,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the desscendant axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getDescendantAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -110,6 +115,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the parent axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getParentAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -123,6 +129,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the ancestor axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getAncestorAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -136,6 +143,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the following-sibling axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getFollowingSiblingAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -149,6 +157,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the preceding-sibling axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getPrecedingSiblingAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -162,6 +171,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the following axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getFollowingAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -174,6 +184,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the preceding axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getPrecedingAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -187,6 +198,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the attribute axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getAttributeAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -200,6 +212,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the namespace axis are
      *          not supported by this object model
      */
+    @Impure
     Iterator getNamespaceAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -213,6 +226,8 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the self axis are
      *          not supported by this object model
      */
+    @SideEffectFree
+    @Impure
     Iterator getSelfAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -226,6 +241,8 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the descendant-or-self axis are
      *          not supported by this object model
      */
+    @SideEffectFree
+    @Impure
     Iterator getDescendantOrSelfAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -239,6 +256,8 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the semantics of the ancestor-or-self axis are
      *          not supported by this object model
      */
+    @SideEffectFree
+    @Impure
     Iterator getAncestorOrSelfAxisIterator(Object contextNode)
         throws UnsupportedAxisException;
 
@@ -254,6 +273,7 @@ public interface Navigator extends Serializable
      *
       * @throws FunctionCallException if the document could not be loaded
      */
+    @Impure
     Object getDocument(String uri)
         throws FunctionCallException;
 
@@ -265,6 +285,7 @@ public interface Navigator extends Serializable
      *
      *  @return the document of the context node
      */
+    @Impure
     Object getDocumentNode(Object contextNode);
     
     /** Returns the parent of the given context node.
@@ -284,6 +305,7 @@ public interface Navigator extends Serializable
      *  @throws UnsupportedAxisException if the parent axis is not
      *          supported by the model
      */
+    @Impure
     Object getParentNode(Object contextNode)
         throws UnsupportedAxisException;
     
@@ -293,6 +315,7 @@ public interface Navigator extends Serializable
      *
      *  @return the namespace URI of the element node
      */
+    @Impure
     String getElementNamespaceUri(Object element);    
 
     /** Retrieve the local name of the given element node.
@@ -301,6 +324,7 @@ public interface Navigator extends Serializable
      *
      *  @return the local name of the element node
      */
+    @Impure
     String getElementName(Object element);    
 
     /** Retrieve the qualified name of the given element node.
@@ -309,6 +333,7 @@ public interface Navigator extends Serializable
      *
      *  @return the qualified name of the element node
      */
+    @Impure
     String getElementQName(Object element);
 
     /** Retrieve the namespace URI of the given attribute node.
@@ -317,6 +342,7 @@ public interface Navigator extends Serializable
      *
      *  @return the namespace URI of the attribute node
      */
+    @Impure
     String getAttributeNamespaceUri(Object attr);    
 
     /** Retrieve the local name of the given attribute node.
@@ -325,6 +351,7 @@ public interface Navigator extends Serializable
      *
      *  @return the local name of the attribute node
      */
+    @Impure
     String getAttributeName(Object attr);
 
     /** Retrieve the qualified name of the given attribute node.
@@ -333,6 +360,7 @@ public interface Navigator extends Serializable
      *
      *  @return the qualified name of the attribute node
      */
+    @Impure
     String getAttributeQName(Object attr);
 
     /** Retrieve the target of a processing-instruction.
@@ -341,6 +369,7 @@ public interface Navigator extends Serializable
      *
      *  @return the target of the processing-instruction node
      */
+    @Impure
     String getProcessingInstructionTarget(Object pi);
 
     /** Retrieve the data of a processing-instruction.
@@ -349,6 +378,7 @@ public interface Navigator extends Serializable
      *
      *  @return the data of the processing-instruction node
      */
+    @Impure
     String getProcessingInstructionData(Object pi);
 
     // ----------------------------------------------------------------------
@@ -363,6 +393,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is a document node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isDocument(Object object);
 
     /** Returns whether the given object is an element node.
@@ -372,6 +403,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is an element node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isElement(Object object);
 
     /** Returns whether the given object is an attribute node. 
@@ -381,6 +413,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is an attribute node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isAttribute(Object object);
 
     /** Returns whether the given object is a namespace node. 
@@ -390,6 +423,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is a namespace node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isNamespace(Object object);
 
     /** Returns whether the given object is a comment node. 
@@ -399,6 +433,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is a comment node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isComment(Object object);
 
     /** Returns whether the given object is a text node. 
@@ -408,6 +443,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is a text node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isText(Object object);
 
     /** Returns whether the given object is a processing-instruction node.
@@ -417,6 +453,7 @@ public interface Navigator extends Serializable
      *  @return <code>true</code> if the object is a processing-instruction node,
      *          else <code>false</code>
      */
+    @Pure
     boolean isProcessingInstruction(Object object);
 
     // ----------------------------------------------------------------------
@@ -431,6 +468,7 @@ public interface Navigator extends Serializable
      *
      *  @return the string-value of the node
      */
+    @Impure
     String getCommentStringValue(Object comment);
 
     /** Retrieve the string-value of an element node.
@@ -441,6 +479,7 @@ public interface Navigator extends Serializable
      *
      *  @return the string-value of the node.
      */
+    @Impure
     String getElementStringValue(Object element);
 
     /** Retrieve the string-value of an attribute node. 
@@ -451,6 +490,7 @@ public interface Navigator extends Serializable
      *
      *  @return the string-value of the node
      */
+    @Impure
     String getAttributeStringValue(Object attr);
 
     /** Retrieve the string-value of a namespace node.
@@ -461,6 +501,7 @@ public interface Navigator extends Serializable
      *
      *  @return the string-value of the node
      */
+    @Impure
     String getNamespaceStringValue(Object ns);
 
     /** Retrieve the string-value of a text node.
@@ -471,6 +512,7 @@ public interface Navigator extends Serializable
      *
      *  @return the string-value of the node
      */
+    @Impure
     String getTextStringValue(Object text);
 
     // ----------------------------------------------------------------------
@@ -483,6 +525,7 @@ public interface Navigator extends Serializable
      *
      *  @return the prefix associated with the node
      */
+    @Impure
     String getNamespacePrefix(Object ns);
 
     
@@ -502,6 +545,7 @@ public interface Navigator extends Serializable
      *
      *  @return the namespace URI associated with the prefix
      */
+    @Impure
     String translateNamespacePrefixToUri(String prefix,
                                          Object element);
 
@@ -517,6 +561,7 @@ public interface Navigator extends Serializable
      *  @throws SAXPathException if the string is not a syntactically 
      *      correct XPath expression
      */
+    @Impure
     XPath parseXPath(String xpath) throws SAXPathException;
 
     /**
@@ -534,6 +579,8 @@ public interface Navigator extends Serializable
      *            element exists in the document or if the implementation
      *            does not know about attribute types
      */
+    @Pure
+    @Impure
     Object getElementById(Object contextNode,
                           String elementId);
 
@@ -545,5 +592,6 @@ public interface Navigator extends Serializable
      *
      *  @see org.jaxen.pattern.Pattern
      */
+    @Impure
     short getNodeType(Object node);
 }

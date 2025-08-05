@@ -47,6 +47,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 
 /** <p><code>AnyChildNodeTest</code> matches any child node.</p>
@@ -58,17 +60,20 @@ public class AnyChildNodeTest extends NodeTest {
 
     private static AnyChildNodeTest instance = new AnyChildNodeTest();
     
+    @Pure
     public static AnyChildNodeTest getInstance() 
     {
         return instance;
     }
     
+    @Impure
     public AnyChildNodeTest() 
     {
     }
     
     /** @return true if the pattern matches the given node
       */
+    @Impure
     public boolean matches( Object node, Context context ) 
     {
         short type = context.getNavigator().getNodeType( node );
@@ -76,16 +81,19 @@ public class AnyChildNodeTest extends NodeTest {
             || type == COMMENT_NODE || type == PROCESSING_INSTRUCTION_NODE;
     }
     
+    @Pure
     public double getPriority() 
     {
         return -0.5;
     }
 
+    @Pure
     public short getMatchType() 
     {
         return ANY_NODE;
     }
     
+    @Pure
     public String getText() 
     {
         return "*";

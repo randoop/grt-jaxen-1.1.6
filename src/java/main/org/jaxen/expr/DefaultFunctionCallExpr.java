@@ -48,6 +48,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -70,6 +72,7 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
     private String functionName;
     private List parameters;
 
+    @Impure
     public DefaultFunctionCallExpr(String prefix, String functionName)
     {
         this.prefix = prefix;
@@ -77,28 +80,33 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
         this.parameters = new ArrayList();
     }
 
+    @Impure
     public void addParameter(Expr parameter)
     {
         this.parameters.add(parameter);
     }
 
 
+    @Pure
     public List getParameters()
     {
         return this.parameters;
     }
 
+    @Pure
     public String getPrefix()
     {
         return this.prefix;
     }
 
+    @Pure
     public String getFunctionName()
     {
         return this.functionName;
     }
 
 
+    @Impure
     public String getText()
     {
         StringBuffer buf = new StringBuffer();
@@ -132,6 +140,7 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
         return buf.toString();
     }
 
+    @Impure
     public Expr simplify()
     {
         List paramExprs = getParameters();
@@ -152,6 +161,8 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
     }
 
 
+    @Pure
+    @Impure
     public String toString()
     {
         String prefix = getPrefix();
@@ -164,6 +175,7 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
         return "[(DefaultFunctionCallExpr): " + getPrefix() + ":" + getFunctionName() + "(" + getParameters() + ") ]";
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         String prefix = getPrefix();
@@ -181,6 +193,7 @@ public class DefaultFunctionCallExpr extends DefaultExpr implements FunctionCall
         return func.call(context, paramValues);
     }
 
+    @Impure
     public List evaluateParams(Context context) throws JaxenException
     {
         List paramExprs = getParameters();

@@ -47,6 +47,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.UnresolvableException;
 
@@ -59,6 +62,7 @@ class DefaultVariableReferenceExpr extends DefaultExpr implements VariableRefere
     private String prefix;
     private String localName;
 
+    @Impure
     DefaultVariableReferenceExpr(String prefix,
                                         String variableName)
     {
@@ -66,21 +70,26 @@ class DefaultVariableReferenceExpr extends DefaultExpr implements VariableRefere
         this.localName = variableName;
     }
 
+    @Pure
     public String getPrefix()
     {
         return this.prefix;
     }
 
+    @Pure
     public String getVariableName()
     {
         return this.localName;
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultVariableReferenceExpr): " + getQName() + "]";
     }
     
+    @Pure
     private String getQName() {
         if ( "".equals(prefix) )
         {
@@ -89,11 +98,15 @@ class DefaultVariableReferenceExpr extends DefaultExpr implements VariableRefere
         return prefix + ":" + localName;
     }
 
+    @Pure
+    @Impure
     public String getText()
     {
         return "$" + getQName();
     }
 
+    @SideEffectFree
+    @Impure
     public Object evaluate(Context context) throws UnresolvableException
     {
         String prefix = getPrefix();

@@ -48,6 +48,9 @@
 
 package org.jaxen.saxpath;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
@@ -81,6 +84,7 @@ public class SAXPathException extends Exception
      *
      *  @param message the error message
      */
+    @SideEffectFree
     public SAXPathException(String message)
     {
         super( message );
@@ -90,6 +94,7 @@ public class SAXPathException extends Exception
      *
      *  @param cause the error source
      */
+    @Impure
     public SAXPathException(Throwable cause)
     {
         super ( cause.getMessage() );
@@ -103,6 +108,7 @@ public class SAXPathException extends Exception
      * @param message the detail message
      * @param cause the cause of this exception
      */
+    @Impure
     public SAXPathException(String message, Throwable cause) {
         super( message );
         initCause(cause);
@@ -119,6 +125,7 @@ public class SAXPathException extends Exception
      * 
      * @return the exception that caused this exception
      */
+    @Pure
     public Throwable getCause() {
         return cause;
     }
@@ -133,6 +140,7 @@ public class SAXPathException extends Exception
      * 
      * @return this exception
      */
+    @Impure
     public Throwable initCause(Throwable cause) {
         if (causeSet) throw new IllegalStateException("Cause cannot be reset");
         if (cause == this) throw new IllegalArgumentException("Exception cannot be its own cause");
@@ -146,6 +154,7 @@ public class SAXPathException extends Exception
      *
      * @param s the stream on which to print the stack trace
      */
+    @Impure
     public void printStackTrace ( PrintStream s )
     {
         super.printStackTrace ( s );
@@ -160,6 +169,7 @@ public class SAXPathException extends Exception
      *
      * @param s the writer on which to print the stack trace
      */
+    @Impure
     public void printStackTrace ( PrintWriter s )
     {
         super.printStackTrace( s );

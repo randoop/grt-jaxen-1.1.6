@@ -48,6 +48,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.LinkedList;
 
 import org.jaxen.JaxenException;
@@ -66,6 +68,7 @@ public class PatternHandler extends JaxenHandler
 {
     private Pattern pattern;
     
+    @Impure
     public PatternHandler()
     {
     }
@@ -79,6 +82,7 @@ public class PatternHandler extends JaxenHandler
      *
      *  @return The Pattern expression tree.
      */
+    @Impure
     public Pattern getPattern()
     {
         return getPattern( true );
@@ -96,6 +100,7 @@ public class PatternHandler extends JaxenHandler
      *
      *  @return The Pattern expression tree.
      */
+    @Impure
     public Pattern getPattern(boolean shouldSimplify)
     {
         if ( shouldSimplify && ! this.simplified )
@@ -111,6 +116,7 @@ public class PatternHandler extends JaxenHandler
     
     
     
+    @Impure
     public void endXPath()
     {
         this.pattern = (Pattern) pop();
@@ -120,6 +126,7 @@ public class PatternHandler extends JaxenHandler
         popFrame();
     }
 
+    @Impure
     public void endPathExpr()
     {
         //System.err.println("endPathExpr()");
@@ -170,6 +177,7 @@ public class PatternHandler extends JaxenHandler
 */
     }
 
+    @Impure
     public void startAbsoluteLocationPath()
     {
         //System.err.println("startAbsoluteLocationPath()");
@@ -178,12 +186,14 @@ public class PatternHandler extends JaxenHandler
         push( createAbsoluteLocationPath() );
     }
     
+    @Impure
     public void endAbsoluteLocationPath() throws JaxenException
     {
         //System.err.println("endAbsoluteLocationPath()");
         endLocationPath();
     }
 
+    @Impure
     public void startRelativeLocationPath()
     {
         //System.err.println("startRelativeLocationPath()");
@@ -192,12 +202,14 @@ public class PatternHandler extends JaxenHandler
         push( createRelativeLocationPath() );
     }
 
+    @Impure
     public void endRelativeLocationPath() throws JaxenException
     {
         //System.err.println("endRelativeLocationPath()");
         endLocationPath();
     }
 
+    @Impure
     protected void endLocationPath() throws JaxenException
     {
         // start at the back, its the main pattern then add everything else as 
@@ -240,6 +252,7 @@ public class PatternHandler extends JaxenHandler
     }
 
     
+    @Impure
     public void startNameStep(int axis,
                               String prefix,
                               String localName)
@@ -268,6 +281,7 @@ public class PatternHandler extends JaxenHandler
         }
     }
 
+    @Impure
     public void startTextNodeStep(int axis)
     {
         //System.err.println("startTextNodeStep()");
@@ -276,6 +290,7 @@ public class PatternHandler extends JaxenHandler
         push( new NodeTypeTest( Pattern.TEXT_NODE ) );
     }
     
+    @Impure
     public void startCommentNodeStep(int axis)
     {
         //System.err.println("startCommentNodeStep()");
@@ -284,6 +299,7 @@ public class PatternHandler extends JaxenHandler
         push( new NodeTypeTest( Pattern.COMMENT_NODE ) );
     }
 
+    @Impure
     public void startAllNodeStep(int axis)
     {
         //System.err.println("startAllNodeStep()");
@@ -292,6 +308,7 @@ public class PatternHandler extends JaxenHandler
         push( AnyNodeTest.getInstance() );
     }
 
+    @Impure
     public void startProcessingInstructionNodeStep(int axis,
                                                    String name)
     {
@@ -302,6 +319,7 @@ public class PatternHandler extends JaxenHandler
         push( new NodeTypeTest( Pattern.PROCESSING_INSTRUCTION_NODE ) );
     }
     
+    @Impure
     protected void endStep()
     {
         LinkedList list = popFrame();
@@ -317,11 +335,13 @@ public class PatternHandler extends JaxenHandler
     }
     
 
+    @SideEffectFree
     public void startUnionExpr()
     {
         //System.err.println("startUnionExpr()");
     }
 
+    @Impure
     public void endUnionExpr(boolean create) throws JaxenException
     {
         //System.err.println("endUnionExpr()");
@@ -338,11 +358,13 @@ public class PatternHandler extends JaxenHandler
         }
     }
 
+    @Impure
     protected Pattern createAbsoluteLocationPath() 
     {
         return new LocationPathPattern( NodeTypeTest.DOCUMENT_TEST );
     }
 
+    @Impure
     protected Pattern createRelativeLocationPath() 
     {
         return new LocationPathPattern();

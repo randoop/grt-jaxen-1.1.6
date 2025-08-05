@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -70,6 +72,7 @@ public class DefaultUnionExpr extends DefaultBinaryExpr implements UnionExpr
      */
     private static final long serialVersionUID = 7629142718276852707L;
 
+    @Impure
     public DefaultUnionExpr(Expr lhs,
                             Expr rhs)
     {
@@ -77,16 +80,20 @@ public class DefaultUnionExpr extends DefaultBinaryExpr implements UnionExpr
                rhs );
     }
 
+    @Pure
     public String getOperator()
     {
         return "|";
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultUnionExpr): " + getLHS() + ", " + getRHS() + "]";
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         List results = new ArrayList();

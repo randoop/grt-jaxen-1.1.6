@@ -33,6 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.jaxen;
 
+import org.checkerframework.dataflow.qual.Impure;
 import java.util.Iterator;
 
 /** 
@@ -66,6 +67,7 @@ public interface NamedAccessNavigator extends Navigator {
      * @throws UnsupportedAxisException if the child axis is
      *         not supported by this object model
      */
+    @Impure
     Iterator getChildAxisIterator(
         Object contextNode, 
         String localName, String namespacePrefix, String namespaceURI)
@@ -91,6 +93,7 @@ public interface NamedAccessNavigator extends Navigator {
      * @throws UnsupportedAxisException if the attribute axis is
      *         not supported by this object model
      */
+    @Impure
     Iterator getAttributeAxisIterator(
         Object contextNode, 
         String localName, String namespacePrefix, String namespaceURI)

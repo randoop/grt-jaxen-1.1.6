@@ -34,6 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  */
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 
 /** Supporting context information for resolving
@@ -78,6 +81,7 @@ public class ContextSupport implements Serializable {
     
     /** Construct an empty <code>ContextSupport</code>.
      */
+    @SideEffectFree
     public ContextSupport()
     {
         // intentionally left blank
@@ -90,6 +94,7 @@ public class ContextSupport implements Serializable {
      *  @param variableContext the VariableContext
      *  @param navigator the model navigator
      */
+    @Impure
     public ContextSupport(NamespaceContext namespaceContext,
                           FunctionContext functionContext,
                           VariableContext variableContext,
@@ -110,6 +115,7 @@ public class ContextSupport implements Serializable {
      *
      *  @param namespaceContext the namespace context
      */
+    @Impure
     public void setNamespaceContext(NamespaceContext namespaceContext)
     {
         this.namespaceContext = namespaceContext;
@@ -119,6 +125,7 @@ public class ContextSupport implements Serializable {
      *
      *  @return the namespace context
      */
+    @Pure
     public NamespaceContext getNamespaceContext()
     {
         return this.namespaceContext;
@@ -128,6 +135,7 @@ public class ContextSupport implements Serializable {
      *
      *  @param functionContext the function context
      */
+    @Impure
     public void setFunctionContext(FunctionContext functionContext)
     {
         this.functionContext  = functionContext;
@@ -137,6 +145,7 @@ public class ContextSupport implements Serializable {
      *
      *  @return the function context
      */
+    @Pure
     public FunctionContext getFunctionContext()
     {
         return this.functionContext;
@@ -146,6 +155,7 @@ public class ContextSupport implements Serializable {
      *
      *  @param variableContext the variable context
      */
+    @Impure
     public void setVariableContext(VariableContext variableContext)
     {
         this.variableContext  = variableContext;
@@ -155,6 +165,7 @@ public class ContextSupport implements Serializable {
      *
      *  @return the variable context
      */
+    @Pure
     public VariableContext getVariableContext()
     {
         return this.variableContext;
@@ -164,6 +175,7 @@ public class ContextSupport implements Serializable {
      *
      *  @return the navigator
      */
+    @Pure
     public Navigator getNavigator()
     {
         return this.navigator;
@@ -177,6 +189,8 @@ public class ContextSupport implements Serializable {
      *
      *  @return the namespace URI mapped to the prefix
      */
+    @Pure
+    @Impure
     public String translateNamespacePrefixToUri(String prefix)
     {
         
@@ -203,6 +217,8 @@ public class ContextSupport implements Serializable {
      *
      *  @throws UnresolvableException if unable to locate a bound variable.
      */
+    @SideEffectFree
+    @Impure
     public Object getVariableValue( String namespaceURI,
                                     String prefix,
                                     String localName )
@@ -230,6 +246,8 @@ public class ContextSupport implements Serializable {
      *
      *  @throws UnresolvableException if unable to locate a bound function
      */
+    @SideEffectFree
+    @Impure
     public Function getFunction( String namespaceURI,
                                  String prefix,
                                  String localName )

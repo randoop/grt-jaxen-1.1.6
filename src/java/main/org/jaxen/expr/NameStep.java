@@ -45,6 +45,7 @@
  * $Id: NameStep.java 1236 2006-11-08 17:10:02Z elharo $
  */
 package org.jaxen.expr;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Represents an XPath name test such as <code>para</code> or 
@@ -65,6 +66,7 @@ public interface NameStep extends Step
      * 
      * @return the namespace prefix of the natched node
      */
+    @Pure
     public String getPrefix();
     
     /**
@@ -72,4 +74,5 @@ public interface NameStep extends Step
      * 
      * @return the local name of the test
      */
+    @Pure
     public String getLocalName();}

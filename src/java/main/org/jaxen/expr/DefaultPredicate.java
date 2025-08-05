@@ -49,6 +49,8 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 
@@ -60,36 +62,44 @@ class DefaultPredicate implements Predicate
     private static final long serialVersionUID = -4140068594075364971L;
     private Expr expr;
 
+    @Impure
     DefaultPredicate(Expr expr)
     {
         setExpr( expr );
     }
 
+    @Pure
     public Expr getExpr()
     {
         return this.expr;
     }
 
+    @Impure
     public void setExpr(Expr expr)
     {
         this.expr = expr;
     }
 
+    @Impure
     public String getText()
     {
         return "[" + getExpr().getText() + "]";
     }
 
+    @Pure
+    @Impure
     public String toString()
     {
         return "[(DefaultPredicate): " + getExpr() + "]";
     }
 
+    @Impure
     public void simplify()
     {
         setExpr( getExpr().simplify() );
     }
 
+    @Impure
     public Object evaluate(Context context) throws JaxenException
     {
         return getExpr().evaluate( context );

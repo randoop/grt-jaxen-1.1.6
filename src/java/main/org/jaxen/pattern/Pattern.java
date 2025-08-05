@@ -47,6 +47,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
 import org.jaxen.Context;
 import org.jaxen.JaxenException;
 
@@ -106,6 +108,7 @@ public abstract class Pattern {
      * @return true if the pattern matches the given node
      * @throws JaxenException  if ????
       */
+    @Impure
     public abstract boolean matches( Object node, Context context ) throws JaxenException;
     
     /** Returns the default resolution policy of the pattern according to the
@@ -117,6 +120,7 @@ public abstract class Pattern {
      * @see <a href="http://www.w3.org/TR/xslt#conflict" target="_top">Section 5.5 of the XSLT specification</a>
       * 
       */
+    @Impure
     public double getPriority() 
     {
         return 0.5;
@@ -130,6 +134,7 @@ public abstract class Pattern {
       * @return an array of the patterns which make up this union pattern
       * or null if this pattern is not a union pattern
       */
+    @Pure
     public Pattern[] getUnionPatterns() 
     {
         return null;
@@ -141,6 +146,7 @@ public abstract class Pattern {
      * 
      * @return <code>ANY_NODE</code> unless overridden
       */
+    @Impure
     public short getMatchType() 
     {
         return ANY_NODE;
@@ -156,12 +162,14 @@ public abstract class Pattern {
       * @return the name of the element or attribute this pattern matches
       * or null if this pattern matches any or more than one name
       */
+    @Pure
     public String getMatchesNodeName() 
     {
         return null;
     }
     
     
+    @Impure
     public Pattern simplify() 
     {
         return this;
@@ -171,6 +179,7 @@ public abstract class Pattern {
      * 
      * @return the usual string form of this XSLT pattern
      */
+    @Impure
     public abstract String getText();
 
 }

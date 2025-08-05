@@ -50,6 +50,9 @@
 
 package org.jaxen.expr;
 
+import org.checkerframework.dataflow.qual.Impure;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,6 +86,7 @@ public class PredicateSet implements Serializable
     /**
      * Create a new empty predicate set.
      */
+    @SideEffectFree
     public PredicateSet()
     {
         this.predicates = Collections.EMPTY_LIST;
@@ -93,6 +97,7 @@ public class PredicateSet implements Serializable
      * 
      * @param predicate the predicate to be inserted
      */
+    @Impure
     public void addPredicate(Predicate predicate)
     {
         if ( this.predicates == Collections.EMPTY_LIST )
@@ -109,6 +114,7 @@ public class PredicateSet implements Serializable
      * 
      * @return a live list of predicates
      */
+    @Pure
     public List getPredicates()
     {
         return this.predicates;
@@ -117,6 +123,7 @@ public class PredicateSet implements Serializable
     /**
      * Simplify each of the predicates in the list.
      */
+    @Impure
     public void simplify()
     {
         Iterator  predIter = this.predicates.iterator();
@@ -134,6 +141,7 @@ public class PredicateSet implements Serializable
      * 
      * @return the XPath string containing each of the predicates
      */
+    @Impure
     public String getText()
     {
         StringBuffer buf = new StringBuffer();
@@ -161,12 +169,14 @@ public class PredicateSet implements Serializable
      * @return true if any node in the contextNodeSet matches all the predicates
      * @throws JaxenException
      */
+    @Impure
     protected boolean evaluateAsBoolean(List contextNodeSet,
                                       ContextSupport support) throws JaxenException
     {
         return anyMatchingNode( contextNodeSet, support );
     }
 
+   @Impure
    private boolean anyMatchingNode(List contextNodeSet, ContextSupport support)
      throws JaxenException {
         // Easy way out (necessary)
@@ -229,6 +239,7 @@ public class PredicateSet implements Serializable
     * @return all the nodes that match each of the predicates
     * @throws JaxenException
     */
+   @Impure
    protected List evaluatePredicates(List contextNodeSet, ContextSupport support)
             throws JaxenException {
         // Easy way out (necessary)
@@ -248,6 +259,7 @@ public class PredicateSet implements Serializable
         return nodes2Filter;
     }
    
+    @Impure
     public List applyPredicate(Predicate predicate, List nodes2Filter, ContextSupport support)
             throws JaxenException {
         final int nodes2FilterSize = nodes2Filter.size();

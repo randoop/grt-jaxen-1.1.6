@@ -47,6 +47,8 @@
  */
 
 package org.jaxen.saxpath.base;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 
 class XPathLexer
 {
@@ -55,11 +57,13 @@ class XPathLexer
     private int    endPosition;
     private boolean expectOperator = false;
 
+    @Impure
     XPathLexer(String xpath)
     {
         setXPath( xpath );
     }
 
+    @Impure
     private void setXPath(String xpath)
     {
         this.xpath           = xpath;
@@ -67,11 +71,13 @@ class XPathLexer
         this.endPosition     = xpath.length();
     }
 
+    @Pure
     String getXPath()
     {
         return this.xpath;
     }
 
+    @Impure
     Token nextToken()
     {
         Token token = null;
@@ -327,6 +333,7 @@ class XPathLexer
          return token;
      }
 
+    @Impure
     private Token identifierOrOperatorName()
     {
         Token token = null;
@@ -338,6 +345,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token identifier()
     {
         Token token = null;
@@ -364,6 +372,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token operatorName()
     {
         Token token = null;
@@ -398,6 +407,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token mod()
     {
         Token token = null;
@@ -422,6 +432,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token div()
     {
         Token token = null;
@@ -446,6 +457,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token and()
     {
         Token token = null;
@@ -470,6 +482,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token or()
     {
         Token token = null;
@@ -491,6 +504,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token number()
     {
         int     start         = this.currentPosition;
@@ -535,6 +549,7 @@ class XPathLexer
                                this.currentPosition );
     }
     
+    @Impure
     private Token whitespace()
     {
         consume();
@@ -566,6 +581,7 @@ class XPathLexer
                           0 );
     }
     
+    @Impure
     private Token comma()
     {
         Token token = new Token( TokenTypes.COMMA,
@@ -578,6 +594,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token equals()
     {
         Token token = new Token( TokenTypes.EQUALS,
@@ -590,6 +607,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token minus()
     {
         Token token = new Token( TokenTypes.MINUS,
@@ -601,6 +619,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token plus()
     {
         Token token = new Token( TokenTypes.PLUS,
@@ -612,6 +631,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token dollar()
     {
         Token token = new Token( TokenTypes.DOLLAR,
@@ -623,6 +643,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token pipe()
     {
         Token token = new Token( TokenTypes.PIPE,
@@ -635,6 +656,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token at()
     {
         Token token = new Token( TokenTypes.AT,
@@ -647,6 +669,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token colon()
     {
         Token token = new Token( TokenTypes.COLON,
@@ -658,6 +681,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token doubleColon()
     {
         Token token = new Token( TokenTypes.DOUBLE_COLON,
@@ -671,6 +695,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token notEquals()
     {
         Token token = new Token( TokenTypes.NOT_EQUALS,
@@ -684,6 +709,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token relationalOperator()
     {
         Token token = null;
@@ -739,6 +765,7 @@ class XPathLexer
     }
     
     // ????
+    @Impure
     private Token star()
     {
         int tokenType = expectOperator ? TokenTypes.STAR_OPERATOR : TokenTypes.STAR;
@@ -752,6 +779,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token literal()
     {
         Token token = null;
@@ -779,6 +807,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token dots()
     {
         Token token = null;
@@ -809,6 +838,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token leftBracket()
     {
         Token token = new Token( TokenTypes.LEFT_BRACKET,
@@ -821,6 +851,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token rightBracket()
     {
         Token token = new Token( TokenTypes.RIGHT_BRACKET,
@@ -833,6 +864,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token leftParen()
     {
         Token token = new Token( TokenTypes.LEFT_PAREN,
@@ -845,6 +877,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token rightParen()
     {
         Token token = new Token( TokenTypes.RIGHT_PAREN,
@@ -857,6 +890,7 @@ class XPathLexer
         return token;
     }
     
+    @Impure
     private Token slashes()
     {
         Token token = null;
@@ -886,6 +920,8 @@ class XPathLexer
         return token;
     }
     
+    @Pure
+    @Impure
     private char LA(int i) 
     {
         if ( currentPosition + ( i - 1 ) >= this.endPosition )
@@ -896,11 +932,13 @@ class XPathLexer
         return getXPath().charAt( this.currentPosition + (i - 1) );
     }
     
+    @Impure
     private void consume()
     {
         ++this.currentPosition;
     }
     
+    @Pure
     private boolean hasMoreChars()
     {
         return this.currentPosition < this.endPosition;

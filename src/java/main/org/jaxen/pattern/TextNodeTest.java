@@ -47,6 +47,8 @@
 
 package org.jaxen.pattern;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.Impure;
 import org.jaxen.Context;
 
 /** <p><code>TextNodeTest</code> matches any text node.</p>
@@ -58,27 +60,33 @@ public class TextNodeTest extends NodeTest {
     
     public static final TextNodeTest SINGLETON = new TextNodeTest();
     
+    @Impure
     public TextNodeTest()   
     {
     }
         
     /** @return true if the pattern matches the given node
       */
+    @Pure
+    @Impure
     public boolean matches( Object node, Context context ) 
     {
         return context.getNavigator().isText( node );
     }
     
+    @Pure
     public double getPriority() 
     {
         return -0.5;
     }
 
+    @Pure
     public short getMatchType()
     {
         return Pattern.TEXT_NODE;
     }
 
+    @Pure
     public String getText() 
     {
         return "text()";
